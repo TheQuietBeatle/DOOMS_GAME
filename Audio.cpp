@@ -6,8 +6,10 @@ static ma_engine engine;
 static ma_sound  music;
 static bool      ready = false;       // engine started
 static bool      musicReady = false;  // theme file loaded
+static ma_sound  voice;               // [George] current voice line
+static bool      voiceReady = false;
 static float     masterVol = 1.0f;
-static float     musicVol = 0.6f;     // matches Game::musicVolPct = 60
+static float     musicVol = 0.3f;     // [George] theme starts at 30% (matches Game::musicVolPct = 30)
 
 static float clamp01(float v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
 
@@ -29,8 +31,9 @@ bool Audio::init(const char* musicPath) {
 void Audio::shutdown() {
     if (!ready) return;
     if (musicReady) ma_sound_uninit(&music);
+    if (voiceReady) ma_sound_uninit(&voice);
     ma_engine_uninit(&engine);
-    ready = musicReady = false;
+    ready = musicReady = voiceReady = false;
 }
 
 void Audio::pauseMusic() { if (musicReady) ma_sound_stop(&music); }
@@ -51,4 +54,17 @@ float Audio::getMusicVolume() { return musicVol; }
 
 void Audio::playSfx(const char* path) {
     if (ready) ma_engine_play_sound(&engine, path, NULL);
+}
+
+void Audio::playVoice(const char* path, bool force) {
+    if (!ready) return;
+    if (voiceReady) {
+        if (!force && ma_sound_is_playing(&voice)) return;   // don't stack voice lines
+        ma_sound_uninit(&voice);
+        voiceReady = false;
+    }
+    if (ma_sound_init_from_file(&engine, path, 0, NULL, NULL, &voice) == MA_SUCCESS) {
+        voiceReady = true;
+        ma_sound_start(&voice);
+    }
 }

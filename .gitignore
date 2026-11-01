@@ -1,0 +1,13 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+*.ipch
+x64/
+x86/
+Debug/
+Release/
+[Bb]in/
+[Oo]bj/

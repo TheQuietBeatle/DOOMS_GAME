@@ -6,8 +6,9 @@
         "Includes": [
             "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\ui.h",
             "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\renderer.h",
-            "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\include\\glad\\glad.h",
-            "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\include\\khr\\khrplatform.h",
+            "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\include\\glad\\gl.h",
+            "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\winapifamily.h",
+            "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\winpackagefamily.h",
             "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\glm\\glm.hpp",
             "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\glm\\detail\\_fixes.hpp",
             "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.29.30133\\include\\cmath",

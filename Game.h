@@ -20,6 +20,7 @@ struct Unit {
     float duckTimer = 0.0f;
     bool  fighting = false;   // touching an opponent -> stops moving
     bool  reachedBase = false; // enemy only: walked into the home base (no coin drop)
+    bool  exited = false;      // [George] player only: reached the lane end (not a death)
 };
 
 struct Projectile {
@@ -49,7 +50,15 @@ struct RewardPopup {
     float age = 0.0f;
 };
 
-enum class GameState { Playing, Paused, Won, Lost };
+enum class GameState { MainMenu, Settings, Playing, Paused, Won, Lost };   // [George] + Settings
+
+struct Explosion {
+    int   lane = 0;
+    float x = 0.0f;
+    float y = 0.0f;   // absolute world y at impact
+    float age = 0.0f;
+    static constexpr float DURATION = 0.30f;
+};
 
 class Game {
 public:
@@ -69,10 +78,12 @@ public:
 private:
     void spawnEnemy(int def, int lane);
     void placePlayer(int def, int lane);
+    void returnToMainMenu();
 
     void updatePlayers(float dt);
     void updateEnemies(float dt);
     void updateProjectiles(float dt);
+    void updateExplosions(float dt);
     void cleanup();
 
     Unit* blockingEnemy(const Unit& player);
@@ -86,16 +97,18 @@ private:
     std::vector<Projectile>  projectiles;
     std::vector<Collectible> collectibles;
     std::vector<RewardPopup> popups;
+    std::vector<Explosion>   explosions;
 
     int  coins = 0;
     int  armedCard = -1;      // card picked, waiting for a lane click
     int  hoveredCard = -1;
     int  hoveredLane = -1;
+    int  hoveredMenuBtn = -1; // -1=none; tracks which menu button the mouse is over
     bool selectedLanes[cfg::NUM_LANES] = {};
 
     int   baseHp = 0;
 
-    int   musicVolPct = 60;   // 0-100 in steps of 10 (must match Audio's default 0.6)
+    int   musicVolPct = 30;   // [George] 0-100 in steps of 10 (must match Audio's default 0.3)
     bool  musicMuted = false;
 
     float     clock = 0.0f;

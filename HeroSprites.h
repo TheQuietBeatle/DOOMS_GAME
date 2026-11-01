@@ -15,12 +15,16 @@ static const Palette kHeroPalette = {
     { 'Y', 0.82f, 0.51f, 0.29f },  // gold
     { 'y', 0.54f, 0.32f, 0.24f },  // dark gold
     { 'O', 0.96f, 0.74f, 0.42f },  // bright gold
-    { 'C', 0.24f, 0.79f, 0.87f },  // energy glow
+    { 'C', 0.24f, 0.79f, 0.87f },  // energy glow (coin: cyan ring segments)
     { 'c', 0.02f, 0.05f, 0.08f },  // glow shadow
-    { 'W', 0.93f, 0.97f, 0.92f },  // white glint
+    { 'W', 0.93f, 0.97f, 0.92f },  // white glint (coin: core glow)
     { 'K', 0.07f, 0.04f, 0.06f },  // outline
     { 'G', 0.55f, 0.58f, 0.62f },  // steel
     { 'g', 0.30f, 0.32f, 0.36f },  // dark steel
+    { 'P', 0.42f, 0.32f, 0.75f },  // coin: purple rim
+    { 'D', 0.05f, 0.22f, 0.45f },  // coin: dark blue ring gaps
+    { 'L', 0.55f, 0.90f, 0.95f },  // coin: light cyan
+    { 'B', 0.70f, 0.95f, 1.00f },  // coin: pale blue triangle edge
 };
 
 // =========================== MELEE (Iron Man) ===============================
@@ -307,12 +311,16 @@ static const char* kDefense[] = {
 
 // =========================== COLLECTIBLE: energy core coin ==================
 static const char* kCoin[] = {
-    "..KKKK..",
-    ".KYOOYK.",
-    "KYOCCOYK",
-    "KYCWWCYK",
-    "KYCWWCYK",
-    "KYOCCOYK",
-    ".KYOOYK.",
-    "..KKKK..",
+    "....PPPP....",
+    "..PPCCCCPP..",
+    ".PCLDCCDLCP.",
+    ".PLBBBBBBLP.",
+    "PCDBWWWWBDCP",
+    "PLCDBWWBDCLP",
+    "PCLCDBBDCLCP",
+    "PLCDCDDCDCLP",
+    ".PCLCDDCLCP.",
+    ".PDCLDDLCDP.",
+    "..PPCDDCPP..",
+    "....PPPP....",
 };
