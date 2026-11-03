@@ -125,8 +125,13 @@ void main()
         return nullptr;   // space / unknown -> blank
     }
 
-} // namespace
-
+}
+// namespace
+const char* const* fontGlyphRows(char c)
+{
+    const Glyph* g = findGlyph(c);
+    return g ? g->rows : nullptr;
+}
 // ---------------------------------------------------------------------------
 
 bool Renderer::init()

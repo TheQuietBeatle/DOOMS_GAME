@@ -8,15 +8,16 @@
 #include <cstdlib>
 #include <ctime>
 
+// Teammate's standalone test harness; build with WAVE_STANDALONE defined to run it.
+#ifdef WAVE_STANDALONE
 // Window dimensions
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 600;
 
-// Grid boundaries
-const float LEFT_X = -0.9f;
-const float RIGHT_X = 0.9f;
-const float TOP_Y = 0.7f;
-const float BOTTOM_Y = -0.7f;
+// Grid boundaries (LEFT_X, TOP_Y, BOTTOM_Y, BASE_RIGHT_X used only by the standalone renderer)
+const float LEFT_X       = -0.9f;
+const float TOP_Y        =  0.7f;
+const float BOTTOM_Y     = -0.7f;
 
 // Lane boundaries
 const float LANE_1_Y = 0.35f;
@@ -28,6 +29,10 @@ const float BASE_RIGHT_X = -0.65f;
 
 // Selected lane: -1 means no lane selected
 int selectedLane = -1;
+#endif // WAVE_STANDALONE
+
+// RIGHT_X is used by spawnEnemy(), so it must be compiled in all configurations.
+const float RIGHT_X = 0.9f;
 
 // ------------------------------------------------------------
 // Person 1: Enemy representation and entity collection
@@ -120,6 +125,8 @@ EnemyType getWaveEnemyType(int wave, int enemyIndex) {
     }
 }
 
+// Teammate's standalone test harness; build with WAVE_STANDALONE defined to run it.
+#ifdef WAVE_STANDALONE
 // Move active enemies toward the home base and detect a base breach.
 void updateEnemies(float deltaTime) {
     if (gameOver) {
@@ -142,6 +149,7 @@ void updateEnemies(float deltaTime) {
         }
     }
 }
+#endif // WAVE_STANDALONE
 
 // Spawn only the current wave's required enemies. The next wave (or victory)
 // is triggered only after spawning is finished and the field is clear.
@@ -211,6 +219,8 @@ bool areAllEnemiesDefeated() {
     return getActiveEnemyCount() == 0;
 }
 
+// Teammate's standalone test harness; build with WAVE_STANDALONE defined to run it.
+#ifdef WAVE_STANDALONE
 // Return the vertical center of a lane.
 float getLaneCenterY(int laneIndex) {
     switch (laneIndex) {
@@ -728,3 +738,4 @@ int main() {
 
     return 0;
 }
+#endif // WAVE_STANDALONE

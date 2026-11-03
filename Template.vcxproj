@@ -157,13 +157,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Sprites.cpp" />
+    <ClCompile Include="TiltView.cpp" />
     <ClCompile Include="UI.cpp" />
-    <ClCompile Include="WaveSystem.cpp">
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">  main=waveSystemStandaloneMain;</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">  main=waveSystemStandaloneMain;</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">  main=waveSystemStandaloneMain;</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">  main=waveSystemStandaloneMain;</PreprocessorDefinitions>
-    </ClCompile>
+    <ClCompile Include="WaveSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio.h" />
@@ -174,11 +170,19 @@
     <ClInclude Include="HeroSprites.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Sprites.h" />
+    <ClInclude Include="TiltView.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="WaveSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="theme.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\bg5.png" />
+    <Image Include="assets\bg4.png" />
+    <Image Include="assets\bg3.png" />
+    <Image Include="assets\bg2.png" />
+    <Image Include="assets\bg1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

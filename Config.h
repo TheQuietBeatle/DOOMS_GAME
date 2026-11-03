@@ -17,9 +17,9 @@ namespace cfg {
 
 	constexpr int   START_COINS = 150;     // = 3 melee players
 	constexpr int   COIN_DROP = 50;      // value of one collectible
-	constexpr float GRAVITY = 1500.0f;
-	constexpr float JUMP_SPEED = 560.0f;  // peak ~100 px
-	constexpr float DUCK_TIME = 0.7f;    // seconds a duck lasts
+	constexpr float GRAVITY = 850.0f;
+	constexpr float JUMP_SPEED = 420.0f;  // peak ~100 px
+	constexpr float DUCK_TIME = 1.2f;    // seconds a duck lasts
 }
 
 inline float laneBottom(int lane) { return cfg::GRID_TOP - cfg::LANE_H * (lane + 1); }

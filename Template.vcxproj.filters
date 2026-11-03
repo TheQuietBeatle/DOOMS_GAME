@@ -41,6 +41,9 @@
     <ClCompile Include="WaveSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TiltView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
@@ -73,10 +76,28 @@
     <ClInclude Include="Audio.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="TiltView.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="theme.mp3">
       <Filter>Source Files\assets</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\bg2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\bg5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\bg4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\bg1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\bg3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

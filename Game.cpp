@@ -153,7 +153,7 @@ int Game::laneAt(float wx, float wy) const
 {
     float gridBottom = laneBottom(NUM_LANES - 1);
     if (wx < GRID_LEFT || wx > GRID_RIGHT || wy < gridBottom || wy >= GRID_TOP) return -1;
-    return std::clamp((int)((GRID_TOP - wy) / LANE_H), 0, NUM_LANES - 1);
+    return std::min(std::max((int)((GRID_TOP - wy) / LANE_H), 0), NUM_LANES - 1);
 }
 
 
@@ -650,7 +650,7 @@ void Game::render(Renderer& r) const
 
     // "+100" popups at the lane end: rise and fade out
     for (const RewardPopup& pop : popups) {
-        float t = std::clamp(pop.age / POPUP_TIME, 0.0f, 1.0f);
+        float t = std::min(std::max(pop.age / POPUP_TIME, 0.0f), 1.0f);
         std::string txt = "+" + std::to_string(pop.amount);
         float tx = std::min(pop.x, GRID_RIGHT - r.textWidth(txt, 3.0f)) - r.textWidth(txt, 3.0f) * 0.5f;
         float ty = laneBottom(pop.lane) + LANE_H * 0.55f + t * 30.0f;
@@ -788,7 +788,7 @@ void Game::applyVolume()
 
 void Game::changeVolume(int deltaPct)
 {
-    musicVolPct = std::clamp(musicVolPct + deltaPct, 0, 100);
+    musicVolPct = std::min(std::max(musicVolPct + deltaPct, 0), 100);
     musicMuted = false;          // touching the volume always unmutes
     applyVolume();
 }

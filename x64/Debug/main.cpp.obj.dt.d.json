@@ -293,7 +293,9 @@
             "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\characters.h",
             "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\sprites.h",
             "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\ui.h",
-            "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.29.30133\\include\\random"
+            "c:\\program files\\microsoft visual studio\\18\\community\\vc\\tools\\msvc\\14.29.30133\\include\\random",
+            "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\tiltview.h",
+            "c:\\users\\dell\\downloads\\dmet502 - lab 2 template (other)\\template\\include\\glad\\gl.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

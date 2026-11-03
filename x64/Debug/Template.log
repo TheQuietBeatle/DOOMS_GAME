@@ -5,8 +5,9 @@ C:\Users\DELL\Downloads\DMET502 - Lab 2 Template (Other)\Template\miniaudio.h(80
   main.cpp
   Renderer.cpp
   Sprites.cpp
+  TiltView.cpp
   UI.cpp
-  Generating Code...
   WaveSystem.cpp
+  Generating Code...
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Template.vcxproj -> C:\Users\DELL\Downloads\DMET502 - Lab 2 Template (Other)\Template\x64\Debug\Template.exe

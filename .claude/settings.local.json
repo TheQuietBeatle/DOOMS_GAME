@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl -s \"https://raw.githubusercontent.com/nothings/stb/master/stb_image.h\" -o \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/Template/stb_image.h\")",
+      "Bash(mkdir -p \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/_old_not_submitted\")",
+      "Bash(mv \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/Template/Header.cpp\" \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/_old_not_submitted/Header.cpp\")",
+      "Bash(mv \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/Template/Header.h\" \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/_old_not_submitted/Header.h\")",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MSBuild.exe\" Template.vcxproj //p:Configuration=Debug //p:Platform=x64 //t:Build //v:minimal)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" Template.vcxproj //p:Configuration=Debug //p:Platform=x64 //t:Build //v:minimal)",
+      "Bash(ls \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/Template/include/\")",
+      "Bash(ls \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/Template/include/glad/\")",
+      "Bash(ls \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/Template/include/GLFW/\")",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" Template.vcxproj //p:Configuration=Debug //p:Platform=x64 //t:Rebuild //v:minimal)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" \"C:\\\\Users\\\\DELL\\\\Downloads\\\\DMET502 - Lab 2 Template \\(Other\\)\\\\Template\\\\Template.vcxproj\" //p:Configuration=Debug //p:Platform=x64 //t:Build //v:minimal)",
+      "Bash(python:*)"
+    ]
+  }
+}

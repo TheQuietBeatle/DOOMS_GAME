@@ -5,7 +5,7 @@
 // a frame on its own width, so different widths make the body jump).
 // Only included by Sprites.cpp.
 // ---------------------------------------------------------------------------
-#include "../Renderer.h"
+#include "Renderer.h"
 
 // Used by DEFENSE and the COIN
 static const Palette kHeroPalette = {

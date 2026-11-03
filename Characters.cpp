@@ -7,10 +7,10 @@
 const CharacterDef g_chars[CH_COUNT] = {
     // name       role              cost hp speed  dmg  cd    frames                         height
     { "MELEE",   Role::Melee,       50,  5, 40.0f, 1 , 0.60f, SPR_MELEE_A,  SPR_MELEE_B,  2.00f },
-    { "RANGED",  Role::Ranged,      100, 5,  0.0f, 1, 1.40f, SPR_RANGED_A, SPR_RANGED_B, 3.0f },
+    { "RANGED",  Role::Ranged,      100, 5,  20.0f, 1, 1.40f, SPR_RANGED_A, SPR_RANGED_B, 3.0f },
     { "DEFENSE", Role::Defense,     150, 7, 0.0f,  0, 0.00f, SPR_DEFENSE,  SPR_DEFENSE,  1.20f },
-    { "EASY",    Role::EnemyUpper,  0,   5, 22.0f, 1, 2.60f, SPR_EASY_A,   SPR_EASY_B,   1.4f },
-    { "MEDIUM",  Role::EnemyLower,  0,   5, 22.0f, 1, 2.60f, SPR_MEDIUM_A, SPR_MEDIUM_B, 1.20f },
+    { "EASY",    Role::EnemyUpper,  0,   5, 22.0f, 1,3.50f, SPR_EASY_A,   SPR_EASY_B,   1.4f },
+    { "MEDIUM",  Role::EnemyLower,  0,   5, 22.0f, 1, 3.50f, SPR_MEDIUM_A, SPR_MEDIUM_B, 1.20f },
     { "HARD",    Role::EnemyMelee,  0,   7, 55.0f, 2, 1.10f, SPR_HARD_A,   SPR_HARD_B,   1.40f },
 };
 

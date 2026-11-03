@@ -4,7 +4,7 @@
 // mirrors them (flipX) so they face left on screen.
 // All enemies share ONE palette (kEnemyPalette). Only included by Sprites.cpp.
 // ---------------------------------------------------------------------------
-#include "../Renderer.h"
+#include "Renderer.h"
 
 static const Palette kEnemyPalette = {
     { 'K', 0.01f, 0.01f, 0.00f },  // dark iron
