@@ -27,6 +27,9 @@ public:
     void setNames(const char* const* n, int c) { names.assign(n, n + c); }
     const char* name(int i) const { return (i >= 0 && i < (int)names.size()) ? names[i] : ""; }
 
+    // [George] Main Menu split background (left = Stark blue, right = Doom green)
+    void drawMenuSplit(int fbW, int fbH, int leftImg, int rightImg) const;
+
     int   current = 0;      // which image is shown
     float dim = 0.85f;      // < 1 darkens the image so the board and characters stand out
 
@@ -37,5 +40,6 @@ private:
     void quad(float x, float y, float w, float h, GLuint tex, float r, float g, float b,
               float u0 = 0, float v0 = 0, float uw = 1, float vh = 1) const;
     GLuint prog = 0, vao = 0, vbo = 0;
+    mutable bool tintMode = false;   // [George] next textured quad() is drawn monochrome + tinted
     GLint  uUVRect = -1, uDim = -1, uTex = -1, uRect = -1, uUseTex = -1, uColor = -1;
 };

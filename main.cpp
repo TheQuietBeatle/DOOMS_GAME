@@ -125,6 +125,11 @@ int main()
             // [George] cutscene: full screen, no background image behind it
             renderer.beginFrame(fbW, fbH);
         }
+        else if (game.state() == GameState::MainMenu) {
+            // [George] Main Menu: split Stark (bg5 Baxter city) / Doom (bg3 Latveria) background
+            g_bg.drawMenuSplit(fbW, fbH, 4, 2);
+            renderer.beginFrame(fbW, fbH, false);
+        }
         else {
             // [George] background image first, then the game drawn flat on top
             // (the board is semi-transparent, see BOARD_ALPHA in UI.cpp)

@@ -45,9 +45,11 @@ namespace {
     const Button BTN_MUTE{ 530.0f, 190.0f, 220.0f, 40.0f };
 
     // Main-menu
-    const Button BTN_PLAY{ 440.0f, 310.0f, 400.0f, 55.0f };
-    const Button BTN_SOUND{ 440.0f, 240.0f, 400.0f, 55.0f };   // [George] opens Sound Settings
-    const Button BTN_EXIT{ 440.0f, 170.0f, 400.0f, 55.0f };
+    // [George] re-laid out to match the menu reference (1600x900 scaled x0.8 to 1280x720, y flipped).
+    // These rects are used for BOTH drawing and hit testing.
+    const Button BTN_PLAY{ 450.0f, 316.0f, 380.0f, 64.0f };
+    const Button BTN_SOUND{ 470.0f, 246.0f, 340.0f, 48.0f };   // [George] opens Sound Settings
+    const Button BTN_EXIT{ 470.0f, 176.0f, 340.0f, 48.0f };
 
     // [George] Sound Settings screen (also uses BTN_VOL_DOWN / BTN_VOL_UP / BTN_MUTE)
     const Button BTN_BACK{ 440.0f, 100.0f, 400.0f, 50.0f };
@@ -69,6 +71,64 @@ namespace {
         float tx = b.x + (b.w - r.textWidth(label, 4.0f)) * 0.5f;
         float ty = b.y + (b.h - 7.0f * 4.0f) * 0.5f;
         r.drawText(label, tx, ty, 4.0f, { 0.85f, 0.92f, 1.00f });
+    }
+
+    // [George] Main Menu button: PLAY is the bright-blue primary, the others dark navy.
+    // Hovered = brighter fill + cyan glow border.
+    void drawMenuButton(Renderer& r, const Button& b, const std::string& label, bool hovered,
+                        bool primary, float px)
+    {
+        if (hovered) {   // soft glow: 3 rings fading outward
+            for (int i = 3; i >= 1; --i) {
+                float g = 3.0f * i;
+                r.drawRect(b.x - g, b.y - g, b.w + 2 * g, b.h + 2 * g, { 0.35f, 0.80f, 1.00f }, 0.10f + 0.06f * (3 - i));
+            }
+        }
+        glm::vec3 rim    = { 0.02f, 0.04f, 0.10f };
+        glm::vec3 border = hovered ? glm::vec3{ 0.75f, 0.95f, 1.00f } : glm::vec3{ 0.55f, 0.66f, 0.85f };
+        glm::vec3 fillLo = primary ? glm::vec3{ 0.12f, 0.30f, 0.62f } : glm::vec3{ 0.06f, 0.10f, 0.22f };
+        glm::vec3 fillHi = primary ? glm::vec3{ 0.25f, 0.50f, 0.85f } : glm::vec3{ 0.12f, 0.18f, 0.34f };
+        if (hovered) { fillLo *= 1.35f; fillHi = glm::min(fillHi * 1.35f, glm::vec3(1.0f)); }
+
+        r.drawRect(b.x, b.y, b.w, b.h, rim);                                     // dark outer rim
+        r.drawRect(b.x + 2, b.y + 2, b.w - 4, b.h - 4, border);                  // light border
+        r.drawRect(b.x + 5, b.y + 5, b.w - 10, b.h - 10, fillLo);                // lower fill
+        r.drawRect(b.x + 5, b.y + b.h * 0.5f, b.w - 10, b.h * 0.5f - 5, fillHi); // upper (bevel) fill
+        r.drawRect(b.x + 8, b.y + b.h - 9, b.w - 16, 2, { 1.0f, 1.0f, 1.0f }, primary ? 0.35f : 0.15f); // shine
+
+        float tw = r.textWidth(label, px) - px;   // drop the trailing 1-px gap so it centres
+        float tx = b.x + (b.w - tw) * 0.5f;
+        float ty = b.y + (b.h - 7.0f * px) * 0.5f;
+        r.drawText(label, tx + 2, ty - 2, px, { 0.01f, 0.02f, 0.06f }, 0.8f);  // shadow
+        r.drawText(label, tx, ty, px, hovered ? glm::vec3{ 1.0f, 1.0f, 1.0f } : glm::vec3{ 0.90f, 0.95f, 1.00f });
+    }
+
+    // [George] cheap deterministic 0..1 noise for menu particles / lightning
+    float hash01(float n) { float s = std::sin(n * 12.9898f) * 43758.5453f; return s - std::floor(s); }
+
+    // [George] thick line drawn as a run of small squares (Renderer only has axis-aligned rects)
+    void drawLine(Renderer& r, float x0, float y0, float x1, float y1, float thick, glm::vec3 c, float a)
+    {
+        float dx = x1 - x0, dy = y1 - y0;
+        float len = std::sqrt(dx * dx + dy * dy);
+        int steps = std::max(1, (int)(len / 2.0f));
+        for (int i = 0; i <= steps; ++i) {
+            float k = (float)i / steps;
+            r.drawRect(x0 + dx * k - thick * 0.5f, y0 + dy * k - thick * 0.5f, thick, thick, c, a);
+        }
+    }
+
+    // [George] draw a unit sprite standing at (cx, bottom) with an on-screen height of hPx.
+    // Same centring maths as Game::drawUnit (drawSprite scales pixel-unit vertices twice).
+    void drawMenuSprite(Renderer& r, SpriteId id, float cx, float bottom, float hPx, bool flip)
+    {
+        const SpriteFrame& f = g_sprites[id];
+        if (f.h <= 0.0f) return;
+        float s = hPx / (f.h * f.h);
+        float wScale = f.w * s;
+        float wReal = wScale * f.w;
+        float x = flip ? cx + wReal * 0.5f - wScale * 0.5f : cx - wReal * 0.5f + wScale * 0.5f;
+        r.drawSprite(f, x, bottom, s, s, flip);
     }
 
     // a = player, b = enemy.  signed gap prevents units from tunnelling through each other.
@@ -725,6 +785,8 @@ void Game::render(Renderer& r) const
         return;
     }
 
+    if (st == GameState::MainMenu) { drawMainMenu(r); return; }   // [George] full-scene main menu
+
     drawBattlefield(r, st == GameState::Playing ? hoveredLane : -1, selectedLanes, clock);
 
     // ghost preview of where the picked card will appear
@@ -836,16 +898,8 @@ void Game::render(Renderer& r) const
     if (st != GameState::Playing) {
         r.drawRect(0, 0, WORLD_W, WORLD_H, { 0.0f, 0.0f, 0.0f }, 0.6f);
 
-        if (st == GameState::MainMenu) {
-            drawCenteredText(r, "IRON MAN vs DR DOOM", 460, 7.0f, { 0.85f, 0.35f, 0.15f });
-            drawCenteredText(r, "TOWER DEFENSE", 400, 4.0f, { 0.90f, 0.65f, 0.25f });
-            drawButton(r, BTN_PLAY, "PLAY", hoveredMenuBtn == 0);
-            drawButton(r, BTN_SOUND, "SOUND SETTINGS", hoveredMenuBtn == 1);   // [George]
-            drawButton(r, BTN_EXIT, "EXIT", hoveredMenuBtn == 2);
-            drawCenteredText(r, "CLICK PLAY OR PRESS ENTER / SPACE", 200, 2.5f, { 0.55f, 0.65f, 0.75f });
-
-        }
-        else if (st == GameState::Settings) {   // [George]
+        // [George] MainMenu is drawn by drawMainMenu() (early return above)
+        if (st == GameState::Settings) {   // [George]
             drawCenteredText(r, "SOUND SETTINGS", 440, 7.0f, { 0.85f, 0.35f, 0.15f });
             drawButton(r, BTN_VOL_DOWN, "-");
             drawButton(r, BTN_VOL_UP, "+");
@@ -902,4 +956,160 @@ void Game::toggleMute()
 {
     musicMuted = !musicMuted;    // musicVolPct is kept, so unmuting restores it
     applyVolume();
+}
+
+// ---------------------------------------------------------------------------
+// [George] Main Menu scene (matches the menu reference image).
+// The split Stark/Doom background image is drawn first by Background::drawMenuSplit (main.cpp).
+// Only drawing lives here; buttons/hover/clicks are unchanged (BTN_*, hoveredMenuBtn).
+// ---------------------------------------------------------------------------
+void Game::drawMainMenu(Renderer& r) const
+{
+    const float t = (float)glfwGetTime();   // update() is frozen outside Playing, so use wall time
+    const float midX = WORLD_W * 0.5f;
+    const float groundTop = 124.0f;
+
+    // --- darken the sky towards the top so the title reads -----------------
+    for (int i = 0; i < 12; ++i) {
+        float y = WORLD_H - (i + 1) * 30.0f;
+        r.drawRect(0, y, WORLD_W, 30.0f, { 0.0f, 0.0f, 0.0f }, 0.40f * (1.0f - i / 12.0f));
+    }
+    // faint glow along the seam
+    r.drawRect(midX - 30, groundTop, 60, WORLD_H - groundTop, { 0.4f, 0.9f, 1.0f }, 0.05f);
+    r.drawRect(midX - 10, groundTop, 20, WORLD_H - groundTop, { 0.6f, 0.95f, 1.0f }, 0.06f);
+
+    // --- floating particles: blue (Stark) left, green (Doom) right ----------
+    for (int side = 0; side < 2; ++side) {
+        glm::vec3 col = side == 0 ? glm::vec3{ 0.45f, 0.75f, 1.00f } : glm::vec3{ 0.45f, 1.00f, 0.45f };
+        for (int i = 0; i < 45; ++i) {
+            float n = (float)(i + side * 100);
+            float x = side * midX + 8.0f + hash01(n) * (midX - 16.0f);
+            float span = WORLD_H - groundTop;
+            float y = groundTop + std::fmod(hash01(n + 7.1f) * span + t * (6.0f + hash01(n + 3.3f) * 14.0f), span);
+            x += std::sin(t * 0.8f + n) * 4.0f;
+            float sz = 2.0f + std::floor(hash01(n + 1.7f) * 3.0f);
+            float a = 0.35f + 0.55f * (0.5f + 0.5f * std::sin(t * 2.5f + n * 1.3f));
+            r.drawRect(x, y, sz, sz, col, a);
+        }
+    }
+
+    // --- lightning bolt down the centre seam (flickers slightly) ------------
+    {
+        const float baseX[] = { 8, -18, 14, -26, 20, -12, 24, -20, 10, 0 };
+        const int   N = 10;
+        int seed = (int)(t * 9.0f);
+        float flick = 0.70f + 0.30f * hash01((float)seed);
+        float bx[N], by[N];
+        for (int i = 0; i < N; ++i) {
+            by[i] = WORLD_H - i * (WORLD_H - groundTop) / (N - 1);
+            bx[i] = midX + baseX[i] + (hash01(seed * 31.0f + i) - 0.5f) * 8.0f;
+        }
+        auto bolt = [&](float x0, float y0, float x1, float y1, float scale) {
+            drawLine(r, x0, y0, x1, y1, 10.0f * scale, { 0.30f, 0.85f, 1.00f }, 0.10f * flick);
+            drawLine(r, x0, y0, x1, y1, 5.0f * scale, { 0.55f, 0.95f, 1.00f }, 0.35f * flick);
+            drawLine(r, x0, y0, x1, y1, 2.0f * scale, { 1.00f, 1.00f, 1.00f }, 0.95f * flick);
+        };
+        for (int i = 0; i + 1 < N; ++i) bolt(bx[i], by[i], bx[i + 1], by[i + 1], 1.0f);
+        // three thin side branches
+        bolt(bx[2], by[2], bx[2] - 60, by[2] - 40, 0.6f);
+        bolt(bx[4], by[4], bx[4] - 85, by[4] - 22, 0.6f);
+        bolt(bx[7], by[7], bx[7] + 55, by[7] - 35, 0.6f);
+    }
+
+    // --- ground strip: blue neon grid (left) / green stone bricks (right) ---
+    {
+        // left: dark floor (slightly lighter towards the top) with a glowing grid
+        for (int i = 0; i < 6; ++i) {
+            float hgt = groundTop / 6.0f;
+            float y = groundTop - (i + 1) * hgt;
+            r.drawRect(0, y, midX, hgt, { 0.05f - 0.006f * i, 0.10f - 0.012f * i, 0.24f - 0.025f * i });
+        }
+        glm::vec3 grid{ 0.25f, 0.60f, 1.00f };
+        const float hy[] = { 90.0f, 52.0f, 12.0f };
+        for (float y : hy) r.drawRect(0, y, midX, 2.0f, grid, 0.55f);
+        for (int i = 0; i <= 11; ++i) {   // slanted lines leaning like "/" (cheap perspective)
+            float xt = i * 58.0f + 12.0f;
+            drawLine(r, xt, groundTop, xt - 70.0f - i * 4.0f, 0.0f, 2.0f, grid, 0.50f);
+        }
+        r.drawRect(0, groundTop - 3, midX, 3, { 0.45f, 0.80f, 1.00f });        // bright edge
+        r.drawRect(0, groundTop, midX, 4, { 0.35f, 0.75f, 1.00f }, 0.25f);    // edge glow
+
+        // right: stone bricks (covers any grid line that spilled over the seam)
+        r.drawRect(midX, 0, midX, groundTop, { 0.03f, 0.07f, 0.03f });         // mortar
+        const float bh = 30.0f, bw = 76.0f, gap = 3.0f;
+        for (int row = 0; row < 5; ++row) {
+            float y = groundTop - (row + 1) * bh;
+            float off = (row % 2) ? bw * 0.5f : 0.0f;
+            for (float x = midX - off; x < WORLD_W; x += bw) {
+                float x0 = std::max(x + gap, midX), x1 = std::min(x + bw - gap, WORLD_W);
+                if (x1 <= x0) continue;
+                float y0 = std::max(y + gap, 0.0f);
+                float top = y + bh - gap;
+                float shade = 0.85f + 0.3f * hash01(row * 17.0f + x);
+                r.drawRect(x0, y0, x1 - x0, top - y0, glm::vec3{ 0.07f, 0.15f, 0.06f } * shade);
+                r.drawRect(x0, top - 3, x1 - x0, 3, glm::vec3{ 0.11f, 0.24f, 0.09f } * shade);   // lit top edge
+            }
+        }
+        r.drawRect(midX, groundTop - 3, midX, 3, { 0.35f, 0.85f, 0.30f });     // bright edge
+        r.drawRect(midX, groundTop, midX, 4, { 0.35f, 0.85f, 0.30f }, 0.25f);  // edge glow
+    }
+
+    // --- characters on the ground (real units only), gentle idle animation --
+    {
+        struct MenuUnit { int def; float cx; float h; bool enemy; float phase; };
+        const MenuUnit units[] = {
+            { CH_DEFENSE, 95.0f,   185.0f, false, 0.0f },   // players face right
+            { CH_MELEE,   262.0f,  142.0f, false, 0.4f },
+            { CH_RANGED,  395.0f,   90.0f, false, 0.8f },
+            { CH_EASY,    920.0f,  150.0f, true,  0.2f },   // enemies face left
+            { CH_HARD,    1055.0f, 170.0f, true,  0.6f },
+            { CH_MEDIUM,  1195.0f, 120.0f, true,  1.0f },
+        };
+        for (const MenuUnit& u : units) {
+            const CharacterDef& d = g_chars[u.def];
+            bool useB = std::fmod(t * 1.6f + u.phase * 2.0f, 2.0f) >= 1.0f;   // A/B swap ~every 0.6 s
+            SpriteId id = useB ? d.frameB : d.frameA;
+            float bob = std::max(0.0f, std::sin(t * 2.2f + u.phase * 3.0f)) * 3.0f;
+            const SpriteFrame& f = g_sprites[id];
+            float wReal = f.h > 0.0f ? u.h * f.w / f.h : 0.0f;
+            r.drawRect(u.cx - wReal * 0.40f, groundTop - 6.0f, wReal * 0.80f, 6.0f, { 0.0f, 0.0f, 0.0f }, 0.45f); // shadow
+            drawMenuSprite(r, id, u.cx, groundTop - 4.0f + bob, u.h, u.enemy);
+        }
+    }
+
+    // --- title ---------------------------------------------------------------
+    {
+        const float px = 14.0f;
+        const std::string a = "DOOMS ", b = "GAME";
+        float total = r.textWidth(a + b, px) - px;
+        float x0 = midX - total * 0.5f;
+        float y = 556.0f;
+        r.drawTextStyled(a, x0, y, px, { 0.60f, 0.98f, 0.42f }, { 0.13f, 0.52f, 0.12f },
+                         { 0.02f, 0.08f, 0.03f }, 4.0f, 6.0f, 6.0f);
+        r.drawTextStyled(b, x0 + r.textWidth(a, px), y, px, { 0.80f, 0.97f, 1.00f }, { 0.15f, 0.45f, 0.92f },
+                         { 0.02f, 0.04f, 0.14f }, 4.0f, 6.0f, 6.0f);
+
+        const std::string sub = "IRON MAN  VS  DR DOOM";
+        const float sp = 4.5f;
+        float sw = r.textWidth(sub, sp) - sp;
+        r.drawTextStyled(sub, midX - sw * 0.5f, 484.0f, sp, { 1.00f, 0.82f, 0.35f }, { 0.88f, 0.45f, 0.10f },
+                         { 0.10f, 0.05f, 0.01f }, 1.5f, 2.0f, 2.0f);
+    }
+
+    // --- button panel + buttons (rects = BTN_PLAY / BTN_SOUND / BTN_EXIT) -----
+    r.drawRect(440.0f, 160.0f, 400.0f, 240.0f, { 0.02f, 0.03f, 0.08f }, 0.62f);
+    r.drawRect(440.0f, 398.0f, 400.0f, 2.0f, { 0.45f, 0.60f, 0.85f }, 0.25f);
+    drawMenuButton(r, BTN_PLAY,  "PLAY",           hoveredMenuBtn == 0, true,  5.0f);
+    drawMenuButton(r, BTN_SOUND, "SOUND SETTINGS", hoveredMenuBtn == 1, false, 3.5f);
+    drawMenuButton(r, BTN_EXIT,  "EXIT",           hoveredMenuBtn == 2, false, 3.5f);
+
+    // --- bottom text ----------------------------------------------------------
+    {
+        const std::string s = "DEFEND STARK TOWER";
+        float w = r.textWidth(s, 3.0f) - 3.0f;
+        r.drawText(s, midX - w * 0.5f + 2, 24.0f, 3.0f, { 0.0f, 0.02f, 0.08f }, 0.8f);
+        r.drawText(s, midX - w * 0.5f, 26.0f, 3.0f, { 0.55f, 0.80f, 1.00f });
+        // only keys that work on this screen (onKey: ENTER / SPACE start; ESC does nothing on MainMenu)
+        r.drawText("ENTER / SPACE TO PLAY", 18.0f, 8.0f, 2.0f, { 0.62f, 0.66f, 0.72f }, 0.85f);
+    }
 }

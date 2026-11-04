@@ -51,6 +51,11 @@ public:
         bool flipX, const DrawFx& fx = DrawFx());
     void drawText(const std::string& s, float x, float y, float px, glm::vec3 color, float alpha = 1.0f);
     float textWidth(const std::string& s, float px) const;
+    // [George] big title text: vertical colour gradient (top row -> bottom row), a dark
+    // outline 'outline' px thick around every lit pixel and a drop shadow offset (dx, -dy).
+    void drawTextStyled(const std::string& s, float x, float y, float px,
+        glm::vec3 top, glm::vec3 bottom, glm::vec3 outlineColor, float outline,
+        float shadowDx, float shadowDy, float alpha = 1.0f);
 
 private:
     void draw(GLint first, GLint count, const glm::mat4& model, glm::vec4 tint, float red, float gray);

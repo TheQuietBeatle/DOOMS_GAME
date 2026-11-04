@@ -316,6 +316,41 @@ void Renderer::drawText(const std::string& s, float x, float y, float px, glm::v
     }
 }
 
+// [George] styled text for the Main Menu title (same 5x7 font as drawText)
+void Renderer::drawTextStyled(const std::string& s, float x, float y, float px,
+    glm::vec3 top, glm::vec3 bottom, glm::vec3 outlineColor, float outline,
+    float shadowDx, float shadowDy, float alpha)
+{
+    // pass 0 = drop shadow, 1 = outline, 2 = gradient fill
+    for (int pass = 0; pass < 3; ++pass) {
+        float cx = x;
+        for (char ch : s) {
+            const Glyph* g = findGlyph(ch);
+            if (g) {
+                for (int row = 0; row < 7; ++row) {
+                    for (int col = 0; col < 5; ++col) {
+                        if (g->rows[row][col] != '#') continue;
+                        float pxX = cx + col * px;
+                        float pxY = y + (6 - row) * px;
+                        if (pass == 0)
+                            drawRect(pxX - outline + shadowDx, pxY - outline - shadowDy,
+                                px + 2 * outline, px + 2 * outline, outlineColor, alpha * 0.6f);
+                        else if (pass == 1)
+                            drawRect(pxX - outline, pxY - outline, px + 2 * outline, px + 2 * outline,
+                                outlineColor, alpha);
+                        else {
+                            float t = row / 6.0f;
+                            glm::vec3 c = top + (bottom - top) * t;
+                            drawRect(pxX, pxY, px, px, c, alpha);
+                        }
+                    }
+                }
+            }
+            cx += px * 6.0f;
+        }
+    }
+}
+
 float Renderer::textWidth(const std::string& s, float px) const
 {
     return (float)s.size() * (px * 6.0f);

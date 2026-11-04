@@ -99,6 +99,7 @@ private:
     bool  isUnlocked(int card) const;
     int   laneAt(float wx, float wy) const;
     void  drawUnit(Renderer& r, const Unit& u, bool enemy, float alpha = 1.0f) const;
+    void  drawMainMenu(Renderer& r) const;   // [George] Main Menu scene (drawing only)
 
     std::vector<Unit>        players;
     std::vector<Unit>        enemies;

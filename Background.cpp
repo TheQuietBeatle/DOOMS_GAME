@@ -33,6 +33,11 @@ uniform vec3  uColor;
 out vec4 FragColor;
 void main() {
     vec3 c = (uUseTex == 1) ? texture(uTex, vUV).rgb : uColor;
+    // [George] 2 = monochrome image tinted by uColor (Main Menu split background)
+    if (uUseTex == 2) {
+        float l = dot(texture(uTex, vUV).rgb, vec3(0.299, 0.587, 0.114));
+        c = pow(l, 1.4) * uColor;
+    }
     FragColor = vec4(c * uDim, 1.0);
 }
 )";
@@ -164,7 +169,7 @@ void Background::quad(float x, float y, float w, float h, GLuint tex, float r, f
     glUniform4f(uRect, x / cfg::WORLD_W * 2.0f - 1.0f, y / cfg::WORLD_H * 2.0f - 1.0f,
                        w / cfg::WORLD_W * 2.0f,        h / cfg::WORLD_H * 2.0f);
     glUniform4f(uUVRect, u0, v0, uw, vh);
-    glUniform1i(uUseTex, tex ? 1 : 0);
+    glUniform1i(uUseTex, tex ? (tintMode ? 2 : 1) : 0);   // [George] tintMode -> monochrome tint
     glUniform3f(uColor, r, g, b);
     glUniform1i(uTex, 0);
     glActiveTexture(GL_TEXTURE0);
@@ -218,6 +223,49 @@ void Background::drawPicker(int fbW, int fbH, int hovered) const
         if (ia > ra) { uw = ra / ia; u0 = (1 - uw) * 0.5f; }
         else         { vh = ia / ra; v0 = (1 - vh) * 0.5f; }
         quad(x, y, w, h, im.id, 1, 1, 1, u0, v0, uw, vh);
+    }
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+// ---------------------------------------------------------------------------
+// [George] Main Menu: left half = Stark city (blue), right half = Latveria (green).
+// Each half shows a cover-fit crop of one image, turned monochrome and tinted.
+// Missing images fall back to flat dark colours.
+// ---------------------------------------------------------------------------
+void Background::drawMenuSplit(int fbW, int fbH, int leftImg, int rightImg) const
+{
+    glViewport(0, 0, fbW, fbH);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    if (!prog) return;
+
+    float scale = std::min(fbW / cfg::WORLD_W, fbH / cfg::WORLD_H);
+    int vw = (int)(cfg::WORLD_W * scale), vh = (int)(cfg::WORLD_H * scale);
+    glViewport((fbW - vw) / 2, (fbH - vh) / 2, vw, vh);
+    glDisable(GL_BLEND);
+    glUseProgram(prog);
+    glUniform1f(uDim, 1.0f);
+
+    const float halfW = cfg::WORLD_W * 0.5f;
+    struct Side { int img; float x; float r, g, b; float uBias; };   // uBias 0 = left crop, 1 = right crop
+    const Side sides[2] = {
+        { leftImg,  0.0f,  0.20f, 0.34f, 0.72f, 0.10f },   // Stark: towers on the left of bg5
+        { rightImg, halfW, 0.16f, 0.46f, 0.18f, 1.00f },   // Doom: castle on the right of bg3
+    };
+    for (const Side& sd : sides) {
+        if (sd.img < 0 || sd.img >= (int)imgs.size()) {
+            quad(sd.x, 0, halfW, cfg::WORLD_H, 0, sd.r * 0.35f, sd.g * 0.35f, sd.b * 0.35f);
+            continue;
+        }
+        const Img& im = imgs[sd.img];
+        float ra = halfW / cfg::WORLD_H, ia = (float)im.w / (float)im.h;
+        float u0 = 0, v0 = 0, uw = 1, vh2 = 1;
+        if (ia > ra) { uw = ra / ia; u0 = (1 - uw) * sd.uBias; }
+        else         { vh2 = ia / ra; v0 = (1 - vh2) * 0.5f; }
+        tintMode = true;
+        quad(sd.x, 0, halfW, cfg::WORLD_H, im.id, sd.r, sd.g, sd.b, u0, v0, uw, vh2);
+        tintMode = false;
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
