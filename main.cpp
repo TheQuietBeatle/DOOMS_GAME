@@ -18,14 +18,15 @@
 //             F5 back to the background chooser
 // ---------------------------------------------------------------------
 static TiltView g_tilt;
-static bool     g_picking = true;   // true while the background chooser is shown
+static bool     g_picking = false;  // show the title menu before the background chooser
+static bool     g_pickerAvailable = false;
 
 // Only tilt during actual gameplay, not menus or the cutscene.
 // If Game has something like isPlaying(), use it here:
 //     return g_tilt.enabled && game.isPlaying();
-static bool tiltNow(Game& /*game*/)
+static bool tiltNow(Game& game)
 {
-    return g_tilt.enabled;
+    return g_tilt.enabled && game.state() == GameState::Playing;
 }
 
 // window pixels (y down) -> world pixels (y up)
@@ -87,7 +88,16 @@ static void mouseButtonCallback(GLFWwindow* w, int button, int action, int /*mod
         return;
     }
     toGameWorld(w, mx, my, wx, wy);
-    gameOf(w)->onMouseButton(button, wx, wy);
+    Game* game = gameOf(w);
+    if (button == GLFW_MOUSE_BUTTON_LEFT && game->state() == GameState::MainMenu &&
+        wx >= 470.0f && wx <= 812.0f && wy >= 174.0f && wy <= 225.0f) {
+        glfwSetWindowShouldClose(w, GLFW_TRUE);
+        return;
+    }
+    bool wasMainMenu = game->state() == GameState::MainMenu;
+    game->onMouseButton(button, wx, wy);
+    if (wasMainMenu && game->state() == GameState::Playing)
+        g_picking = g_pickerAvailable;
 }
 
 static void keyCallback(GLFWwindow* w, int key, int /*scancode*/, int action, int /*mods*/)
@@ -117,7 +127,11 @@ static void keyCallback(GLFWwindow* w, int key, int /*scancode*/, int action, in
     default: break;
     }
 
-    gameOf(w)->onKey(key);
+    Game* game = gameOf(w);
+    bool wasMainMenu = game->state() == GameState::MainMenu;
+    game->onKey(key);
+    if (wasMainMenu && game->state() == GameState::Playing)
+        g_picking = g_pickerAvailable;
 }
 
 int main()
@@ -148,6 +162,7 @@ int main()
 
     Renderer renderer;
     if (!renderer.init()) return -1;
+    renderer.loadImage("assets/main page.jpeg");
     buildSprites(renderer);   // every sprite frame -> one vertex buffer
     renderer.upload();
 
@@ -156,6 +171,9 @@ int main()
         std::cerr << "TiltView failed, running without tilt\n";
         g_tilt.enabled = false;
         g_picking = false;
+    }
+    else {
+        g_pickerAvailable = true;
     }
     const char* bgFiles[] = {
         "assets/bg1.png", "assets/bg2.png", "assets/bg3.png",
@@ -202,6 +220,8 @@ int main()
             game.update(dt);
             renderer.beginFrame(fbW, fbH);
             game.render(renderer);
+            if (game.state() == GameState::MainMenu)
+                renderer.drawImage(0.0f, 0.0f, cfg::WORLD_W, cfg::WORLD_H);
         }
 
         glfwSwapBuffers(window);

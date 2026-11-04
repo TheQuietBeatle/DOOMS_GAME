@@ -45,8 +45,8 @@ namespace {
     const Button BTN_MUTE{ 530.0f, 190.0f, 220.0f, 40.0f };
 
     // Main-menu
-    const Button BTN_PLAY       { 440.0f, 310.0f, 400.0f, 55.0f };
-    const Button BTN_SOUND      { 440.0f, 240.0f, 400.0f, 55.0f };   // [George] opens Sound Settings
+    const Button BTN_PLAY       { 450.0f, 314.0f, 380.0f, 66.0f };
+    const Button BTN_SOUND      { 470.0f, 244.0f, 342.0f, 52.0f };   // opens Sound Settings
 
     // [George] Sound Settings screen (also uses BTN_VOL_DOWN / BTN_VOL_UP / BTN_MUTE)
     const Button BTN_BACK       { 440.0f, 100.0f, 400.0f, 50.0f };

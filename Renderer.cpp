@@ -1,6 +1,9 @@
 #include "Renderer.h"
 #include "Config.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -45,6 +48,22 @@ void main()
     c = mix(c, vec3(g), u_Gray);
     FragColor = vec4(c, u_Tint.a);
 }
+)";
+
+    const char* kImageVertexSrc = R"(
+#version 330 core
+layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 aUv;
+uniform mat4 u_Proj;
+out vec2 vUv;
+void main() { gl_Position = u_Proj * vec4(aPos, 0.0, 1.0); vUv = aUv; }
+)";
+    const char* kImageFragmentSrc = R"(
+#version 330 core
+in vec2 vUv;
+out vec4 FragColor;
+uniform sampler2D u_Image;
+void main() { FragColor = texture(u_Image, vUv); }
 )";
 
     GLuint compileShader(GLenum type, const char* src)
@@ -163,6 +182,39 @@ bool Renderer::init()
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
 
+    GLuint imageVs = compileShader(GL_VERTEX_SHADER, kImageVertexSrc);
+    GLuint imageFs = compileShader(GL_FRAGMENT_SHADER, kImageFragmentSrc);
+    imageProgram = glCreateProgram();
+    glAttachShader(imageProgram, imageVs);
+    glAttachShader(imageProgram, imageFs);
+    glLinkProgram(imageProgram);
+    glDeleteShader(imageVs);
+    glDeleteShader(imageFs);
+    glGetProgramiv(imageProgram, GL_LINK_STATUS, &ok);
+    if (!ok) {
+        char log[512];
+        glGetProgramInfoLog(imageProgram, 512, nullptr, log);
+        std::cerr << "Image shader link error:\n" << log << std::endl;
+        return false;
+    }
+    imageProj = glGetUniformLocation(imageProgram, "u_Proj");
+    imageSampler = glGetUniformLocation(imageProgram, "u_Image");
+
+    const float imageQuad[] = {
+        0,0,0,0, 1,0,1,0, 1,1,1,1,
+        1,1,1,1, 0,1,0,1, 0,0,0,0
+    };
+    glGenVertexArrays(1, &imageVao);
+    glGenBuffers(1, &imageVbo);
+    glBindVertexArray(imageVao);
+    glBindBuffer(GL_ARRAY_BUFFER, imageVbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(imageQuad), imageQuad, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glBindVertexArray(0);
+
     // first 6 vertices: white unit square (0,0)-(1,1) for rectangles + text
     const float q[6][2] = { { 0,0 },{ 1,0 },{ 1,1 },{ 1,1 },{ 0,1 },{ 0,0 } };
     quad.first = 0;
@@ -174,9 +226,52 @@ bool Renderer::init()
 
 void Renderer::shutdown()
 {
+    if (imageTexture) glDeleteTextures(1, &imageTexture);
+    if (imageVao) glDeleteVertexArrays(1, &imageVao);
+    if (imageVbo) glDeleteBuffers(1, &imageVbo);
+    if (imageProgram) glDeleteProgram(imageProgram);
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
     glDeleteProgram(program);
+}
+
+bool Renderer::loadImage(const char* path)
+{
+    int width = 0, height = 0, channels = 0;
+    stbi_set_flip_vertically_on_load(1);
+    unsigned char* pixels = stbi_load(path, &width, &height, &channels, 4);
+    if (!pixels) {
+        std::cerr << "Failed to load image: " << path << " (" << stbi_failure_reason() << ")\n";
+        return false;
+    }
+    if (!imageTexture) glGenTextures(1, &imageTexture);
+    glBindTexture(GL_TEXTURE_2D, imageTexture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    stbi_image_free(pixels);
+    return true;
+}
+
+void Renderer::drawImage(float x, float y, float w, float h)
+{
+    if (!imageProgram || !imageTexture) return;
+    glm::mat4 proj = glm::ortho(0.0f, cfg::WORLD_W, 0.0f, cfg::WORLD_H);
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(x, y, 0.0f));
+    model = glm::scale(model, glm::vec3(w, h, 1.0f));
+    glUseProgram(imageProgram);
+    glUniformMatrix4fv(imageProj, 1, GL_FALSE, glm::value_ptr(proj * model));
+    glUniform1i(imageSampler, 0);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, imageTexture);
+    glBindVertexArray(imageVao);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 SpriteFrame Renderer::addSprite(const char* const* rows, int numRows, const Palette& pal)

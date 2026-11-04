@@ -39,6 +39,8 @@ class Renderer {
 public:
     bool init();
     void shutdown();
+    bool loadImage(const char* path);
+    void drawImage(float x, float y, float w, float h);
 
     // --- build phase: call addSprite for every frame, then upload() once ---
     SpriteFrame addSprite(const char* const* rows, int numRows, const Palette& pal);
@@ -57,6 +59,8 @@ private:
 
     GLuint program = 0, vao = 0, vbo = 0;
     GLint  uProj = -1, uModel = -1, uTint = -1, uRed = -1, uGray = -1;
+    GLuint imageProgram = 0, imageVao = 0, imageVbo = 0, imageTexture = 0;
+    GLint imageProj = -1, imageSampler = -1;
     std::vector<float> verts;   // x, y, r, g, b per vertex
     SpriteFrame quad;           // unit square used for rectangles and text
 };
