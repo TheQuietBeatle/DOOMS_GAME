@@ -109,6 +109,7 @@ void main()
         { '!',{ "  #  ","  #  ","  #  ","  #  ","  #  ","     ","  #  " } },
         { '-',{ "     ","     ","     ","#####","     ","     ","     " } },
         { '.',{ "     ","     ","     ","     ","     "," ##  "," ##  " } },
+        { ',',{ "     ","     ","     ","     "," ##  ","  #  "," #   " } },   // [George] comma for cutscene subtitles
         { '+',{ "     ","  #  ","  #  ","#####","  #  ","  #  ","     " } },
         { '%',{ "##   ","##  #","   # ","  #  "," #   ","#  ##","   ##" } },
         { '(',{ "   # ","  #  "," #   "," #   "," #   ","  #  ","   # " } },
@@ -229,12 +230,14 @@ void Renderer::upload()
     glBindVertexArray(0);
 }
 
-void Renderer::beginFrame(int fbWidth, int fbHeight)
+void Renderer::beginFrame(int fbWidth, int fbHeight, bool clear)
 {
     // clear the WHOLE window first (black bars)
     glViewport(0, 0, fbWidth, fbHeight);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    if (clear) {   // [George] skipped when a background image was already drawn this frame
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
 
     // then draw the game in the largest 16:9 area that fits, centred
     float scale = std::min(fbWidth / cfg::WORLD_W, fbHeight / cfg::WORLD_H);

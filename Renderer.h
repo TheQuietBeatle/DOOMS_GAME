@@ -45,7 +45,7 @@ public:
     void upload();
 
     // --- per frame ---
-    void beginFrame(int fbWidth, int fbHeight);
+    void beginFrame(int fbWidth, int fbHeight, bool clear = true);   // [George] clear=false keeps a background drawn before it
     void drawRect(float x, float y, float w, float h, glm::vec3 color, float alpha = 1.0f);
     void drawSprite(const SpriteFrame& f, float x, float y, float scaleX, float scaleY,
         bool flipX, const DrawFx& fx = DrawFx());

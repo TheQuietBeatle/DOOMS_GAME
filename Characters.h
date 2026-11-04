@@ -11,6 +11,7 @@ struct CharacterDef {
     const char* name;
     Role     role;
     int      cost;            // coins to place (heroes only)
+    int      unlockCost;      // coins held to unlock the card (re-evaluated every frame)
     int      maxHp;
     float    speed;           // world px / second (0 = stationary)
     int      damage;          // per attack

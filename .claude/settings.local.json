@@ -15,7 +15,9 @@
       "Bash(find:*)",
       "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" Template.vcxproj //p:Configuration=Debug //p:Platform=x64 //t:Rebuild //v:minimal)",
       "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" \"C:\\\\Users\\\\DELL\\\\Downloads\\\\DMET502 - Lab 2 Template \\(Other\\)\\\\Template\\\\Template.vcxproj\" //p:Configuration=Debug //p:Platform=x64 //t:Build //v:minimal)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MSBuild.exe\" \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/Template/Template.vcxproj\" //p:Configuration=Debug //p:Platform=x64 //t:Build //v:minimal)",
+      "Bash(\"/c/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/MSBuild.exe\" \"C:/Users/DELL/Downloads/DMET502 - Lab 2 Template \\(Other\\)/Template/Template.vcxproj\" //p:Configuration=Debug //p:Platform=x64 //t:Build //v:minimal)"
     ]
   }
 }

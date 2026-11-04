@@ -153,11 +153,12 @@
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Characters.cpp" />
+    <ClCompile Include="Cutscene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Sprites.cpp" />
-    <ClCompile Include="TiltView.cpp" />
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="WaveSystem.cpp" />
   </ItemGroup>
@@ -165,12 +166,13 @@
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Characters.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="Cutscene.h" />
     <ClInclude Include="EnemySprites.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HeroSprites.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Sprites.h" />
-    <ClInclude Include="TiltView.h" />
+    <ClInclude Include="Background.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="WaveSystem.h" />
   </ItemGroup>

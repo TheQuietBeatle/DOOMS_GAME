@@ -134,7 +134,7 @@ void updateEnemies(float deltaTime) {
     }
 
     for (Enemy& enemy : enemies) {
-        if (!enemy.active) {
+        if (!enemy.active) {+
             continue;
         }
 

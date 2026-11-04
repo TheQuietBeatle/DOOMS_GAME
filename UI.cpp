@@ -61,7 +61,7 @@ void CardBar::draw(Renderer& r, int coins, int armedCard, int hoveredCard) const
         float x, y;
         cardRect(i, x, y);
         const CharacterDef& d = g_chars[i];
-        bool unlocked = coins >= d.cost;
+        bool unlocked = coins >= d.unlockCost;
 
         // border + background
         glm::vec3 border = { 0.30f, 0.34f, 0.40f };
@@ -544,13 +544,18 @@ void drawBattlefield(Renderer& r, int hoveredLane, const bool* selectedLanes, fl
     const float cellW = gridW / GRID_COLS;
     const float pulse = 0.65f + 0.35f * std::sin(time * 3.0f);
 
+    // [George] see-through board: the background image (drawn in main.cpp) shows through.
+    // 0 = invisible board, 1 = fully solid. Raise it if the lanes get hard to read.
+    const float BOARD_ALPHA = 0.45f;
+
     // background + top bar
-    r.drawRect(0, 0, WORLD_W, WORLD_H, { 0.05f, 0.07f, 0.11f });
+    // [George] full-screen dark fill removed so the background image is visible:
+    // r.drawRect(0, 0, WORLD_W, WORLD_H, { 0.05f, 0.07f, 0.11f });
     r.drawRect(0, 606, WORLD_W, WORLD_H - 606, { 0.07f, 0.11f, 0.19f });
     r.drawRect(0, 604, WORLD_W, 3, { 0.20f, 0.55f, 0.75f });
 
     // grid frame
-    r.drawRect(GRID_LEFT - 4, gridBottom - 4, gridW + 8, GRID_TOP - gridBottom + 8, { 0.02f, 0.03f, 0.05f });
+    r.drawRect(GRID_LEFT - 4, gridBottom - 4, gridW + 8, GRID_TOP - gridBottom + 8, { 0.02f, 0.03f, 0.05f }, BOARD_ALPHA * 0.5f);   // [George] + alpha
 
     // tiles: tech floor on the hero side, mossy stone on the enemy side
     for (int lane = 0; lane < NUM_LANES; ++lane) {
@@ -562,16 +567,16 @@ void drawBattlefield(Renderer& r, int hoveredLane, const bool* selectedLanes, fl
             glm::vec3 col = tech
                 ? (alt ? glm::vec3(0.10f, 0.30f, 0.45f) : glm::vec3(0.12f, 0.35f, 0.52f))
                 : (alt ? glm::vec3(0.18f, 0.24f, 0.15f) : glm::vec3(0.21f, 0.28f, 0.17f));
-            r.drawRect(x + 1, y + 1, cellW - 2, LANE_H - 2, col);
+            r.drawRect(x + 1, y + 1, cellW - 2, LANE_H - 2, col, BOARD_ALPHA);   // [George] + alpha
             // small detail per tile: rivets on tech tiles, cracks on stone
             glm::vec3 detail = col * 0.7f;
             if (tech) {
-                r.drawRect(x + 6, y + 6, 4, 4, detail);
-                r.drawRect(x + cellW - 10, y + LANE_H - 10, 4, 4, detail);
+                r.drawRect(x + 6, y + 6, 4, 4, detail, BOARD_ALPHA);                       // [George] + alpha
+                r.drawRect(x + cellW - 10, y + LANE_H - 10, 4, 4, detail, BOARD_ALPHA);
             }
             else {
-                r.drawRect(x + 20, y + 30, 18, 3, detail);
-                r.drawRect(x + 36, y + 26, 3, 8, detail);
+                r.drawRect(x + 20, y + 30, 18, 3, detail, BOARD_ALPHA);                    // [George] + alpha
+                r.drawRect(x + 36, y + 26, 3, 8, detail, BOARD_ALPHA);
             }
         }
     }

@@ -3,6 +3,8 @@
 #include "Characters.h"
 #include "Config.h"
 #include "UI.h"
+#include "Cutscene.h"   // [George] intro cutscene
+#include "Background.h" // [George] background chooser
 
 #include <random>
 #include <vector>
@@ -50,7 +52,7 @@ struct RewardPopup {
     float age = 0.0f;
 };
 
-enum class GameState { MainMenu, Settings, Playing, Paused, Won, Lost };   // [George] + Settings
+enum class GameState { MainMenu, Settings, BgSelect, Cutscene, Playing, Paused, Won, Lost };   // [George] + Settings, BgSelect, Cutscene
 
 struct Explosion {
     int   lane = 0;
@@ -74,11 +76,17 @@ public:
     void onKey(int key);
 
     GameState state() const { return st; }
+    bool wantsExit() const { return exitRequested; }
+
+    // [George] background chooser (Main Menu -> PLAY -> choose background -> cutscene -> game)
+    void setBackground(Background* b) { bg = b; }
+    int  hoveredThumb() const { return st == GameState::BgSelect ? hoveredMenuBtn : -1; }
 
 private:
     void spawnEnemy(int def, int lane);
     void placePlayer(int def, int lane);
     void returnToMainMenu();
+    void chooseBackground(int i);   // [George] pick a background, then play the cutscene
 
     void updatePlayers(float dt);
     void updateEnemies(float dt);
@@ -115,6 +123,10 @@ private:
     GameState st = GameState::Playing;
     std::mt19937 rng;
     CardBar   cards;
+    Cutscene  cutscene;       // [George] intro cutscene
+    Background* bg = nullptr; // [George] owned by main.cpp
+    float     introFade = 0.0f; // [George] 1 = black, fades to 0 after the cutscene (lights come up)
+    bool      exitRequested = false;
 
     void applyVolume();
     void changeVolume(int deltaPct);
