@@ -1,0 +1,70 @@
+[
+  {
+    "order": 1,
+    "title": "Project Overview",
+    "description": "README.md is the best first stop for any newcomer: it names the game (Iron Man vs Doctor Doom Tower Defense), lists the tech stack (C++17, OpenGL 3.3, GLFW, GLAD, miniaudio, stb_image), and sketches the state machine flow from MainMenu through the cutscene to the Playing and Win/Loss states. Reading it first gives you the vocabulary — lanes, waves, Doombots, coin economy — that all subsequent source files assume you already know.",
+    "nodeIds": ["document:README.md"]
+  },
+  {
+    "order": 2,
+    "title": "Entry Point & Build Setup",
+    "description": "main.cpp is where execution starts: it calls GLFW to open a window, loads OpenGL function pointers via GLAD, constructs the Game object, and drives the per-frame loop that calls update and draw. Template.vcxproj declares every source file that Visual Studio compiles — checking it shows which .cpp files are in the build, what include paths are set, and that the project targets C++17 on x64. Together these two files answer 'how does the program start and how is it compiled?'",
+    "nodeIds": ["file:main.cpp", "config:Template.vcxproj"],
+    "languageLesson": "C++ does not auto-discover source files. Template.vcxproj must list every .cpp file explicitly under <ClCompile> elements; a file you add to the folder but forget to add here will be silently ignored by MSBuild."
+  },
+  {
+    "order": 3,
+    "title": "Game Constants & Shared Types",
+    "description": "Config.h places all magic numbers in the cfg namespace — NUM_LANES=4, board bounds, COIN_VALUE, attack timings — so tuning the game means editing one file, not hunting through logic code. Characters.h defines the CharacterDef struct and the EnemyType/CharType enums that name all six unit types (three Iron Man heroes, three Doombot variants). These two headers are the vocabulary layer: every other module speaks in cfg:: constants and CharType values.",
+    "nodeIds": ["file:Config.h", "file:Characters.h", "file:Characters.cpp"],
+    "languageLesson": "C++ namespaces like cfg:: prevent name collisions and make constant origins self-documenting at the call site. Using 'constexpr' instead of '#define' gives the constant a type, scope, and debugger visibility."
+  },
+  {
+    "order": 4,
+    "title": "Central Game Header",
+    "description": "Game.h is the most-imported file in the codebase (fan-in 3): WaveSystem.cpp, UI.cpp, and main.cpp all include it. It declares the GameState enum (MainMenu, BgSelect, Cutscene, Playing, Won, Lost), and the core data structs — Unit, Projectile, Collectible, Explosion — that represent everything alive on the battlefield. Understanding these structs is essential before reading either Game.cpp or WaveSystem.cpp, because all combat and spawning logic operates by creating and mutating these objects.",
+    "nodeIds": ["file:Game.h"],
+    "languageLesson": "In C++, declaring structs and classes in a header and defining member functions in a .cpp separates interface from implementation. Any .cpp that includes Game.h gets the type layout without recompiling the method bodies."
+  },
+  {
+    "order": 5,
+    "title": "OpenGL Rendering Engine",
+    "description": "Renderer.h declares the Renderer class, which owns the single VAO and VBO that back every sprite drawn in the game, plus a 5x7 bitmap pixel font for HUD text. Renderer.cpp compiles a minimal GLSL vertex/fragment shader pair at startup, then every draw call batches textured quads into that one buffer and flushes with a single glDrawArrays call per frame. The letterboxed viewport logic ensures the game keeps its aspect ratio at any window size — a common technique in 2D games without an engine.",
+    "nodeIds": ["file:Renderer.h", "file:Renderer.cpp"],
+    "languageLesson": "Batched rendering collects all geometry for a frame into one CPU-side buffer, then uploads and draws it with a single GPU call. This avoids the per-draw overhead of binding different buffers or shaders and is why even simple 2D games outperform naive one-quad-per-draw approaches."
+  },
+  {
+    "order": 6,
+    "title": "Sprite Pipeline",
+    "description": "HeroSprites.h and EnemySprites.h store all character art as ASCII grid arrays paired with color palettes — each character is a compact, hand-authored pixel image. Sprites.h declares the buildSprites function and integer index constants (e.g. CH_MELEE, CH_EASY) that the rest of the code uses to reference a sprite by ID. Sprites.cpp implements buildSprites, which iterates those ASCII grids, converts each colored cell to two triangles, and uploads the geometry directly into the Renderer's VAO so sprites are ready to draw without any per-frame upload.",
+    "nodeIds": ["file:HeroSprites.h", "file:EnemySprites.h", "file:Sprites.h", "file:Sprites.cpp"],
+    "languageLesson": "Encoding artwork as ASCII character grids in C++ header files keeps the entire project self-contained with no external asset files. Each character maps to a palette color, so changing a palette entry recolors the whole sprite without touching the shape data."
+  },
+  {
+    "order": 7,
+    "title": "Core Game Logic",
+    "description": "Game.cpp is the largest file in the project and implements the full state machine: it handles mouse clicks on the card bar to place heroes, runs the per-frame update loop that moves projectiles using swept-segment collision detection, awards coins when enemies die, and transitions between states (Playing → Won when all waves are cleared, Playing → Lost when enemies cross the left edge). The coin economy — spending coins to place heroes, earning them from kills — is the core feedback loop that makes the game strategic.",
+    "nodeIds": ["file:Game.cpp"],
+    "languageLesson": "Swept-segment (or continuous) collision detection tests whether a moving object's path over one frame intersects a target, rather than checking its position only at the end of the frame. This prevents fast projectiles from tunneling through thin enemies."
+  },
+  {
+    "order": 8,
+    "title": "Wave Spawning Engine",
+    "description": "WaveSystem.h declares the global wave state and the three functions Game.cpp calls: updateWaveSystem(time) to tick the schedule, spawnEnemy(def, lane) to create a new Unit from a wave definition, and resetWaves() to restart on a new game. WaveSystem.cpp implements a three-wave schedule (3, 5, then 10 Doombots) with random lane assignment, escalating difficulty as the game progresses. The wave system is intentionally decoupled from Game.cpp: it owns the spawning schedule and writes new enemies into the shared enemies list, while Game.cpp owns their combat behavior.",
+    "nodeIds": ["file:WaveSystem.h", "file:WaveSystem.cpp"],
+    "languageLesson": "Keeping spawning logic in its own translation unit (WaveSystem.cpp) is a separation-of-concerns pattern. Game.cpp does not need to know the wave timing algorithm, and WaveSystem.cpp does not need to know how combat works — they communicate only through the shared Enemy list and the spawnEnemy/resetWaves interface."
+  },
+  {
+    "order": 9,
+    "title": "User Interface & Menus",
+    "description": "UI.h declares the CardBar struct (the bottom HUD showing placeable heroes and their coin costs) and all the drawing function prototypes for game screens. UI.cpp implements every player-facing screen: the animated battlefield grid, the card bar with locked/unlocked card rendering, and the full menu stack (main menu, settings, pause, win screen, loss screen). Because UI.cpp imports Game.h, it reads live game state each frame to reflect current health bars, coin totals, and unit positions.",
+    "nodeIds": ["file:UI.h", "file:UI.cpp"]
+  },
+  {
+    "order": 10,
+    "title": "Visual Polish & Audio",
+    "description": "Background.h and Background.cpp add five switchable PNG backgrounds (selected before the game starts) using stb_image to load textures and a cover-fit shader to fill the viewport. Cutscene.h and Cutscene.cpp deliver an 18-second time-scripted intro that plays panel animations and fires audio cues before the first wave. Audio.h and Audio.cpp wrap the miniaudio library to provide looping background music, fire-and-forget sound effects, and voice lines — all three systems share the Audio namespace so any module can play a sound with a single function call.",
+    "nodeIds": ["file:Background.h", "file:Background.cpp", "file:Cutscene.h", "file:Audio.h", "file:Audio.cpp"],
+    "languageLesson": "miniaudio is a header-only, single-file C audio library. Fire-and-forget SFX (triggering a sound and not tracking it) works by allocating a temporary sound object, starting it, and registering a callback that frees it on completion — no manual lifetime management needed in the caller."
+  }
+]

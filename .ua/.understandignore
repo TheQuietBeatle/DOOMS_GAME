@@ -1,0 +1,38 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+
+# Build output
+x64/
+x86/
+Debug/
+Release/
+[Bb]in/
+[Oo]bj/
+*.obj
+
+# VS metadata
+.vs/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+*.ipch
+
+# Large vendored single-header libraries (not project source)
+miniaudio.h
+stb_image.h
+
+# Vendored GLM math library (header-only, 3rd party)
+glm/
+
+# Binary/compiled assets
+*.lib
+*.dll
+*.exe
+glfwtest.obj
+
+# Docs screenshots (images not useful for code analysis)
+docs/
+
+# Claude metadata
+.claude/
+.ua/

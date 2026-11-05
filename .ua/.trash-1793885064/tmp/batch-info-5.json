@@ -1,0 +1,108 @@
+{
+  "batchIndex": 5,
+  "totalBatches": 5,
+  "files": [
+    {
+      "path": "External/include/GLFW/glfw3.h",
+      "language": "c",
+      "sizeLines": 6577,
+      "fileCategory": "code"
+    },
+    {
+      "path": "External/include/GLFW/glfw3native.h",
+      "language": "c",
+      "sizeLines": 709,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Game.cpp",
+      "language": "cpp",
+      "sizeLines": 1115,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Template.vcxproj",
+      "language": "vcxproj",
+      "sizeLines": 191,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Template.vcxproj.filters",
+      "language": "filters",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "WaveSystem.h",
+      "language": "c",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "include/KHR/khrplatform.h",
+      "language": "c",
+      "sizeLines": 311,
+      "fileCategory": "code"
+    },
+    {
+      "path": "include/glad/glad.h",
+      "language": "c",
+      "sizeLines": 3717,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/glad.c",
+      "language": "c",
+      "sizeLines": 1833,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "External/include/GLFW/glfw3.h": [],
+    "External/include/GLFW/glfw3native.h": [],
+    "Game.cpp": [
+      "Audio.h",
+      "Game.h",
+      "WaveSystem.h"
+    ],
+    "Template.vcxproj": [],
+    "Template.vcxproj.filters": [],
+    "WaveSystem.h": [],
+    "include/KHR/khrplatform.h": [],
+    "include/glad/glad.h": [],
+    "src/glad.c": [
+      "include/glad/glad.h"
+    ]
+  },
+  "neighborMap": {
+    "Game.cpp": [
+      {
+        "path": "Audio.h",
+        "batchIndex": 1,
+        "symbols": []
+      },
+      {
+        "path": "Game.h",
+        "batchIndex": 2,
+        "symbols": [
+          "Unit",
+          "Projectile",
+          "Collectible",
+          "RewardPopup",
+          "Explosion",
+          "reset",
+          "update",
+          "render",
+          "onMouseMove",
+          "onMouseButton",
+          "onKey",
+          "state",
+          "wantsExit",
+          "setBackground",
+          "hoveredThumb",
+          "Game"
+        ]
+      }
+    ]
+  }
+}

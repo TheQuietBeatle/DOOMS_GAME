@@ -1,0 +1,2715 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 7,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 7,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "Characters.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "unitScale",
+          "startLine": 20,
+          "endLine": 24,
+          "params": [
+            "def"
+          ]
+        },
+        {
+          "name": "unitHeight",
+          "startLine": 26,
+          "endLine": 29,
+          "params": [
+            "def"
+          ]
+        },
+        {
+          "name": "unitHalfWidth",
+          "startLine": 31,
+          "endLine": 40,
+          "params": [
+            "def"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "unitScale",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "unitHeight",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "unitHalfWidth",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "unitHalfWidth",
+          "callee": "unitScale",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Characters.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 23,
+      "classes": [
+        {
+          "name": "CharacterDef",
+          "startLine": 10,
+          "endLine": 22,
+          "methods": [],
+          "properties": [
+            "name",
+            "role",
+            "cost",
+            "unlockCost",
+            "maxHp",
+            "speed",
+            "damage",
+            "attackCooldown",
+            "frameA",
+            "drawHeight",
+            "hp"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CharacterDef",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Config.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "laneBottom",
+          "startLine": 25,
+          "endLine": 25,
+          "params": [
+            "lane"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "laneBottom",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Game.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 135,
+      "nonEmptyLines": 114,
+      "functions": [
+        {
+          "name": "state",
+          "startLine": 78,
+          "endLine": 78,
+          "params": []
+        },
+        {
+          "name": "wantsExit",
+          "startLine": 79,
+          "endLine": 79,
+          "params": []
+        },
+        {
+          "name": "setBackground",
+          "startLine": 82,
+          "endLine": 82,
+          "params": [
+            "b"
+          ]
+        },
+        {
+          "name": "hoveredThumb",
+          "startLine": 83,
+          "endLine": 83,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Unit",
+          "startLine": 13,
+          "endLine": 26,
+          "methods": [],
+          "properties": [
+            "def",
+            "lane",
+            "x",
+            "hp",
+            "attackTimer",
+            "swingTime",
+            "animTime",
+            "jumpY",
+            "duckTimer",
+            "fighting",
+            "reachedBase",
+            "exited"
+          ]
+        },
+        {
+          "name": "Projectile",
+          "startLine": 28,
+          "endLine": 38,
+          "methods": [],
+          "properties": [
+            "lane",
+            "x",
+            "prevX",
+            "yOff",
+            "vx",
+            "fromEnemy",
+            "high",
+            "damage",
+            "alive"
+          ]
+        },
+        {
+          "name": "Collectible",
+          "startLine": 40,
+          "endLine": 45,
+          "methods": [],
+          "properties": [
+            "lane",
+            "x",
+            "age",
+            "alive"
+          ]
+        },
+        {
+          "name": "RewardPopup",
+          "startLine": 48,
+          "endLine": 53,
+          "methods": [],
+          "properties": [
+            "lane",
+            "x",
+            "amount",
+            "age"
+          ]
+        },
+        {
+          "name": "Explosion",
+          "startLine": 57,
+          "endLine": 63,
+          "methods": [],
+          "properties": [
+            "lane",
+            "x",
+            "y",
+            "age",
+            "DURATION"
+          ]
+        },
+        {
+          "name": "Game",
+          "startLine": 65,
+          "endLine": 135,
+          "methods": [
+            "reset",
+            "update",
+            "render",
+            "onMouseMove",
+            "onMouseButton",
+            "onKey",
+            "state",
+            "wantsExit",
+            "setBackground",
+            "hoveredThumb",
+            "spawnEnemy",
+            "placePlayer",
+            "returnToMainMenu",
+            "chooseBackground",
+            "updatePlayers",
+            "updateEnemies",
+            "updateProjectiles",
+            "updateExplosions",
+            "cleanup",
+            "isUnlocked",
+            "laneAt",
+            "drawUnit",
+            "drawMainMenu",
+            "applyVolume",
+            "changeVolume",
+            "toggleMute"
+          ],
+          "properties": [
+            "blockingEnemy",
+            "blockingPlayer",
+            "players",
+            "enemies",
+            "projectiles",
+            "collectibles",
+            "popups",
+            "explosions",
+            "coins",
+            "armedCard",
+            "hoveredCard",
+            "hoveredLane",
+            "hoveredMenuBtn",
+            "selectedLanes",
+            "baseHp",
+            "musicVolPct",
+            "musicMuted",
+            "clock",
+            "st",
+            "rng",
+            "cards",
+            "cutscene",
+            "bg",
+            "introFade",
+            "exitRequested"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Unit",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "Projectile",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "Collectible",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "RewardPopup",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "Explosion",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "reset",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "update",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "render",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "onMouseMove",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "onMouseButton",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "onKey",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "state",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "wantsExit",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "setBackground",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "hoveredThumb",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "Game",
+          "line": 65,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 16,
+        "functionCount": 4,
+        "classCount": 6
+      }
+    },
+    {
+      "path": "Renderer.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 357,
+      "nonEmptyLines": 316,
+      "functions": [
+        {
+          "name": "compileShader",
+          "startLine": 50,
+          "endLine": 63,
+          "params": [
+            "type",
+            "src"
+          ]
+        },
+        {
+          "name": "init",
+          "startLine": 138,
+          "endLine": 174,
+          "params": []
+        },
+        {
+          "name": "shutdown",
+          "startLine": 176,
+          "endLine": 181,
+          "params": []
+        },
+        {
+          "name": "addSprite",
+          "startLine": 183,
+          "endLine": 216,
+          "params": [
+            "rows",
+            "numRows",
+            "pal"
+          ]
+        },
+        {
+          "name": "upload",
+          "startLine": 218,
+          "endLine": 231,
+          "params": []
+        },
+        {
+          "name": "beginFrame",
+          "startLine": 233,
+          "endLine": 257,
+          "params": [
+            "fbWidth",
+            "fbHeight",
+            "clear"
+          ]
+        },
+        {
+          "name": "draw",
+          "startLine": 259,
+          "endLine": 270,
+          "params": [
+            "first",
+            "count",
+            "model",
+            "tint",
+            "red",
+            "gray"
+          ]
+        },
+        {
+          "name": "drawRect",
+          "startLine": 272,
+          "endLine": 277,
+          "params": [
+            "x",
+            "y",
+            "w",
+            "h",
+            "color",
+            "alpha"
+          ]
+        },
+        {
+          "name": "drawSprite",
+          "startLine": 279,
+          "endLine": 295,
+          "params": [
+            "f",
+            "x",
+            "y",
+            "scaleX",
+            "scaleY",
+            "flipX",
+            "fx"
+          ]
+        },
+        {
+          "name": "drawText",
+          "startLine": 297,
+          "endLine": 317,
+          "params": [
+            "s",
+            "x",
+            "y",
+            "px",
+            "color",
+            "alpha"
+          ]
+        },
+        {
+          "name": "drawTextStyled",
+          "startLine": 320,
+          "endLine": 352,
+          "params": [
+            "s",
+            "x",
+            "y",
+            "px",
+            "top",
+            "bottom",
+            "outlineColor",
+            "outline",
+            "shadowDx",
+            "shadowDy",
+            "alpha"
+          ]
+        },
+        {
+          "name": "textWidth",
+          "startLine": 354,
+          "endLine": 357,
+          "params": [
+            "s",
+            "px"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Glyph",
+          "startLine": 68,
+          "endLine": 68,
+          "methods": [],
+          "properties": [
+            "c",
+            "rows"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "compileShader",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "Glyph",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 138,
+          "isDefault": false
+        },
+        {
+          "name": "shutdown",
+          "line": 176,
+          "isDefault": false
+        },
+        {
+          "name": "addSprite",
+          "line": 183,
+          "isDefault": false
+        },
+        {
+          "name": "upload",
+          "line": 218,
+          "isDefault": false
+        },
+        {
+          "name": "beginFrame",
+          "line": 233,
+          "isDefault": false
+        },
+        {
+          "name": "draw",
+          "line": 259,
+          "isDefault": false
+        },
+        {
+          "name": "drawRect",
+          "line": 272,
+          "isDefault": false
+        },
+        {
+          "name": "drawSprite",
+          "line": 279,
+          "isDefault": false
+        },
+        {
+          "name": "drawText",
+          "line": 297,
+          "isDefault": false
+        },
+        {
+          "name": "drawTextStyled",
+          "line": 320,
+          "isDefault": false
+        },
+        {
+          "name": "textWidth",
+          "line": 354,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "compileShader",
+          "callee": "glCreateShader",
+          "lineNumber": 52
+        },
+        {
+          "caller": "compileShader",
+          "callee": "glShaderSource",
+          "lineNumber": 53
+        },
+        {
+          "caller": "compileShader",
+          "callee": "glCompileShader",
+          "lineNumber": 54
+        },
+        {
+          "caller": "compileShader",
+          "callee": "glGetShaderiv",
+          "lineNumber": 56
+        },
+        {
+          "caller": "compileShader",
+          "callee": "glGetShaderInfoLog",
+          "lineNumber": 59
+        },
+        {
+          "caller": "init",
+          "callee": "compileShader",
+          "lineNumber": 140
+        },
+        {
+          "caller": "init",
+          "callee": "compileShader",
+          "lineNumber": 141
+        },
+        {
+          "caller": "init",
+          "callee": "glCreateProgram",
+          "lineNumber": 142
+        },
+        {
+          "caller": "init",
+          "callee": "glAttachShader",
+          "lineNumber": 143
+        },
+        {
+          "caller": "init",
+          "callee": "glAttachShader",
+          "lineNumber": 144
+        },
+        {
+          "caller": "init",
+          "callee": "glLinkProgram",
+          "lineNumber": 145
+        },
+        {
+          "caller": "init",
+          "callee": "glDeleteShader",
+          "lineNumber": 146
+        },
+        {
+          "caller": "init",
+          "callee": "glDeleteShader",
+          "lineNumber": 147
+        },
+        {
+          "caller": "init",
+          "callee": "glGetProgramiv",
+          "lineNumber": 150
+        },
+        {
+          "caller": "init",
+          "callee": "glGetProgramInfoLog",
+          "lineNumber": 153
+        },
+        {
+          "caller": "init",
+          "callee": "glGetUniformLocation",
+          "lineNumber": 158
+        },
+        {
+          "caller": "init",
+          "callee": "glGetUniformLocation",
+          "lineNumber": 159
+        },
+        {
+          "caller": "init",
+          "callee": "glGetUniformLocation",
+          "lineNumber": 160
+        },
+        {
+          "caller": "init",
+          "callee": "glGetUniformLocation",
+          "lineNumber": 161
+        },
+        {
+          "caller": "init",
+          "callee": "glGetUniformLocation",
+          "lineNumber": 162
+        },
+        {
+          "caller": "init",
+          "callee": "glGenVertexArrays",
+          "lineNumber": 164
+        },
+        {
+          "caller": "init",
+          "callee": "glGenBuffers",
+          "lineNumber": 165
+        },
+        {
+          "caller": "init",
+          "callee": "insert",
+          "lineNumber": 170
+        },
+        {
+          "caller": "init",
+          "callee": "end",
+          "lineNumber": 170
+        },
+        {
+          "caller": "shutdown",
+          "callee": "glDeleteVertexArrays",
+          "lineNumber": 178
+        },
+        {
+          "caller": "shutdown",
+          "callee": "glDeleteBuffers",
+          "lineNumber": 179
+        },
+        {
+          "caller": "shutdown",
+          "callee": "glDeleteProgram",
+          "lineNumber": 180
+        },
+        {
+          "caller": "addSprite",
+          "callee": "(GLint)",
+          "lineNumber": 186
+        },
+        {
+          "caller": "addSprite",
+          "callee": "size",
+          "lineNumber": 186
+        },
+        {
+          "caller": "addSprite",
+          "callee": "std::max",
+          "lineNumber": 190
+        },
+        {
+          "caller": "addSprite",
+          "callee": "std::strlen",
+          "lineNumber": 190
+        },
+        {
+          "caller": "addSprite",
+          "callee": "std::strlen",
+          "lineNumber": 196
+        },
+        {
+          "caller": "addSprite",
+          "callee": "insert",
+          "lineNumber": 205
+        },
+        {
+          "caller": "addSprite",
+          "callee": "end",
+          "lineNumber": 205
+        },
+        {
+          "caller": "addSprite",
+          "callee": "insert",
+          "lineNumber": 206
+        },
+        {
+          "caller": "addSprite",
+          "callee": "end",
+          "lineNumber": 206
+        },
+        {
+          "caller": "addSprite",
+          "callee": "insert",
+          "lineNumber": 207
+        },
+        {
+          "caller": "addSprite",
+          "callee": "end",
+          "lineNumber": 207
+        },
+        {
+          "caller": "addSprite",
+          "callee": "insert",
+          "lineNumber": 208
+        },
+        {
+          "caller": "addSprite",
+          "callee": "end",
+          "lineNumber": 208
+        },
+        {
+          "caller": "addSprite",
+          "callee": "insert",
+          "lineNumber": 209
+        },
+        {
+          "caller": "addSprite",
+          "callee": "end",
+          "lineNumber": 209
+        },
+        {
+          "caller": "addSprite",
+          "callee": "insert",
+          "lineNumber": 210
+        },
+        {
+          "caller": "addSprite",
+          "callee": "end",
+          "lineNumber": 210
+        },
+        {
+          "caller": "addSprite",
+          "callee": "(GLint)",
+          "lineNumber": 214
+        },
+        {
+          "caller": "addSprite",
+          "callee": "size",
+          "lineNumber": 214
+        },
+        {
+          "caller": "upload",
+          "callee": "glBindVertexArray",
+          "lineNumber": 220
+        },
+        {
+          "caller": "upload",
+          "callee": "glBindBuffer",
+          "lineNumber": 221
+        },
+        {
+          "caller": "upload",
+          "callee": "glBufferData",
+          "lineNumber": 222
+        },
+        {
+          "caller": "upload",
+          "callee": "size",
+          "lineNumber": 222
+        },
+        {
+          "caller": "upload",
+          "callee": "data",
+          "lineNumber": 222
+        },
+        {
+          "caller": "upload",
+          "callee": "glEnableVertexAttribArray",
+          "lineNumber": 225
+        },
+        {
+          "caller": "upload",
+          "callee": "glVertexAttribPointer",
+          "lineNumber": 226
+        },
+        {
+          "caller": "upload",
+          "callee": "glEnableVertexAttribArray",
+          "lineNumber": 227
+        },
+        {
+          "caller": "upload",
+          "callee": "glVertexAttribPointer",
+          "lineNumber": 228
+        },
+        {
+          "caller": "upload",
+          "callee": "glBindVertexArray",
+          "lineNumber": 230
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glViewport",
+          "lineNumber": 236
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glClearColor",
+          "lineNumber": 238
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glClear",
+          "lineNumber": 239
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "std::min",
+          "lineNumber": 243
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glViewport",
+          "lineNumber": 246
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glEnable",
+          "lineNumber": 248
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glBlendFunc",
+          "lineNumber": 249
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glUseProgram",
+          "lineNumber": 251
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glm::ortho",
+          "lineNumber": 254
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glUniformMatrix4fv",
+          "lineNumber": 255
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glm::value_ptr",
+          "lineNumber": 255
+        },
+        {
+          "caller": "beginFrame",
+          "callee": "glBindVertexArray",
+          "lineNumber": 256
+        },
+        {
+          "caller": "draw",
+          "callee": "glUseProgram",
+          "lineNumber": 261
+        },
+        {
+          "caller": "draw",
+          "callee": "glUniformMatrix4fv",
+          "lineNumber": 262
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::value_ptr",
+          "lineNumber": 262
+        },
+        {
+          "caller": "draw",
+          "callee": "glUniform4fv",
+          "lineNumber": 263
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::value_ptr",
+          "lineNumber": 263
+        },
+        {
+          "caller": "draw",
+          "callee": "glUniform1f",
+          "lineNumber": 264
+        },
+        {
+          "caller": "draw",
+          "callee": "glUniform1f",
+          "lineNumber": 265
+        },
+        {
+          "caller": "draw",
+          "callee": "glBindVertexArray",
+          "lineNumber": 267
+        },
+        {
+          "caller": "draw",
+          "callee": "glDrawArrays",
+          "lineNumber": 268
+        },
+        {
+          "caller": "draw",
+          "callee": "glBindVertexArray",
+          "lineNumber": 269
+        },
+        {
+          "caller": "drawRect",
+          "callee": "glm::translate",
+          "lineNumber": 274
+        },
+        {
+          "caller": "drawRect",
+          "callee": "glm::mat4",
+          "lineNumber": 274
+        },
+        {
+          "caller": "drawRect",
+          "callee": "glm::vec3",
+          "lineNumber": 274
+        },
+        {
+          "caller": "drawRect",
+          "callee": "glm::scale",
+          "lineNumber": 275
+        },
+        {
+          "caller": "drawRect",
+          "callee": "glm::vec3",
+          "lineNumber": 275
+        },
+        {
+          "caller": "drawRect",
+          "callee": "draw",
+          "lineNumber": 276
+        },
+        {
+          "caller": "drawRect",
+          "callee": "glm::vec4",
+          "lineNumber": 276
+        },
+        {
+          "caller": "drawSprite",
+          "callee": "glm::translate",
+          "lineNumber": 289
+        },
+        {
+          "caller": "drawSprite",
+          "callee": "glm::mat4",
+          "lineNumber": 289
+        },
+        {
+          "caller": "drawSprite",
+          "callee": "glm::vec3",
+          "lineNumber": 289
+        },
+        {
+          "caller": "drawSprite",
+          "callee": "glm::scale",
+          "lineNumber": 290
+        },
+        {
+          "caller": "drawSprite",
+          "callee": "glm::vec3",
+          "lineNumber": 290
+        },
+        {
+          "caller": "drawSprite",
+          "callee": "draw",
+          "lineNumber": 294
+        },
+        {
+          "caller": "drawText",
+          "callee": "findGlyph",
+          "lineNumber": 302
+        },
+        {
+          "caller": "drawText",
+          "callee": "drawRect",
+          "lineNumber": 311
+        },
+        {
+          "caller": "drawTextStyled",
+          "callee": "findGlyph",
+          "lineNumber": 328
+        },
+        {
+          "caller": "drawTextStyled",
+          "callee": "drawRect",
+          "lineNumber": 336
+        },
+        {
+          "caller": "drawTextStyled",
+          "callee": "drawRect",
+          "lineNumber": 339
+        },
+        {
+          "caller": "drawTextStyled",
+          "callee": "drawRect",
+          "lineNumber": 344
+        },
+        {
+          "caller": "textWidth",
+          "callee": "size",
+          "lineNumber": 356
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 13,
+        "functionCount": 12,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "UI.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 800,
+      "nonEmptyLines": 729,
+      "functions": [
+        {
+          "name": "cardRect",
+          "startLine": 14,
+          "endLine": 18,
+          "params": [
+            "i",
+            "x",
+            "y"
+          ]
+        },
+        {
+          "name": "hitTest",
+          "startLine": 20,
+          "endLine": 28,
+          "params": [
+            "wx",
+            "wy"
+          ]
+        },
+        {
+          "name": "drawSpritePx",
+          "startLine": 35,
+          "endLine": 39,
+          "params": [
+            "r",
+            "f",
+            "cx",
+            "bottomY",
+            "px"
+          ]
+        },
+        {
+          "name": "drawSpriteFit",
+          "startLine": 42,
+          "endLine": 49,
+          "params": [
+            "r",
+            "f",
+            "bx",
+            "by",
+            "bw",
+            "bh"
+          ]
+        },
+        {
+          "name": "draw",
+          "startLine": 58,
+          "endLine": 96,
+          "params": [
+            "r",
+            "coins",
+            "armedCard",
+            "hoveredCard"
+          ]
+        },
+        {
+          "name": "drawEnvironmentFloor",
+          "startLine": 105,
+          "endLine": 253,
+          "params": [
+            "r",
+            "time"
+          ]
+        },
+        {
+          "name": "drawEnvironmentEdges",
+          "startLine": 259,
+          "endLine": 535,
+          "params": [
+            "r",
+            "time"
+          ]
+        },
+        {
+          "name": "drawBattlefield",
+          "startLine": 540,
+          "endLine": 760,
+          "params": [
+            "r",
+            "hoveredLane",
+            "selectedLanes",
+            "time"
+          ]
+        },
+        {
+          "name": "drawCoinPanel",
+          "startLine": 765,
+          "endLine": 784,
+          "params": [
+            "r",
+            "coins"
+          ]
+        },
+        {
+          "name": "drawHealthBar",
+          "startLine": 785,
+          "endLine": 795,
+          "params": [
+            "r",
+            "cx",
+            "y",
+            "width",
+            "hp",
+            "maxHp",
+            "isEnemy"
+          ]
+        },
+        {
+          "name": "drawCenteredText",
+          "startLine": 797,
+          "endLine": 800,
+          "params": [
+            "r",
+            "s",
+            "y",
+            "px",
+            "color"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "cardRect",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "hitTest",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "draw",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "drawBattlefield",
+          "line": 540,
+          "isDefault": false
+        },
+        {
+          "name": "drawCoinPanel",
+          "line": 765,
+          "isDefault": false
+        },
+        {
+          "name": "drawHealthBar",
+          "line": 785,
+          "isDefault": false
+        },
+        {
+          "name": "drawCenteredText",
+          "line": 797,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "hitTest",
+          "callee": "cardRect",
+          "lineNumber": 24
+        },
+        {
+          "caller": "drawSpritePx",
+          "callee": "DrawFx",
+          "lineNumber": 36
+        },
+        {
+          "caller": "drawSpritePx",
+          "callee": "drawSprite",
+          "lineNumber": 38
+        },
+        {
+          "caller": "drawSpriteFit",
+          "callee": "DrawFx",
+          "lineNumber": 43
+        },
+        {
+          "caller": "drawSpriteFit",
+          "callee": "std::min",
+          "lineNumber": 45
+        },
+        {
+          "caller": "drawSpriteFit",
+          "callee": "drawSpritePx",
+          "lineNumber": 48
+        },
+        {
+          "caller": "draw",
+          "callee": "cardRect",
+          "lineNumber": 62
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 70
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 71
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 71
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 71
+        },
+        {
+          "caller": "draw",
+          "callee": "std::min",
+          "lineNumber": 78
+        },
+        {
+          "caller": "draw",
+          "callee": "drawSpritePx",
+          "lineNumber": 81
+        },
+        {
+          "caller": "draw",
+          "callee": "std::to_string",
+          "lineNumber": 86
+        },
+        {
+          "caller": "draw",
+          "callee": "textWidth",
+          "lineNumber": 87
+        },
+        {
+          "caller": "draw",
+          "callee": "drawSpritePx",
+          "lineNumber": 92
+        },
+        {
+          "caller": "draw",
+          "callee": "drawText",
+          "lineNumber": 93
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 94
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 94
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "laneBottom",
+          "lineNumber": 107
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "laneBottom",
+          "lineNumber": 116
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 121
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 122
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 123
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 124
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 125
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "std::sin",
+          "lineNumber": 126
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 127
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "laneBottom",
+          "lineNumber": 134
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 137
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 138
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "std::sin",
+          "lineNumber": 141
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 142
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 143
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "std::fmod",
+          "lineNumber": 148
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 149
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "laneBottom",
+          "lineNumber": 154
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "std::max",
+          "lineNumber": 157
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "std::sin",
+          "lineNumber": 158
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 159
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 160
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 161
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "laneBottom",
+          "lineNumber": 181
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 184
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 185
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 186
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 187
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 188
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 191
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 192
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 193
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 194
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 195
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 196
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 197
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 198
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "std::max",
+          "lineNumber": 199
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "std::sin",
+          "lineNumber": 199
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 200
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 204
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 205
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 206
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 207
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 208
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 209
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 210
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 225
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 226
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "glm::vec3",
+          "lineNumber": 227
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "glm::vec3",
+          "lineNumber": 228
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 229
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 231
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 232
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "std::sin",
+          "lineNumber": 241
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 242
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 248
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 249
+        },
+        {
+          "caller": "drawEnvironmentFloor",
+          "callee": "drawRect",
+          "lineNumber": 250
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "laneBottom",
+          "lineNumber": 261
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 277
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 294
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 295
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 296
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 301
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 302
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 319
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 320
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 321
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 326
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 327
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "laneBottom",
+          "lineNumber": 332
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 337
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 343
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 344
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 350
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 351
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 355
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 356
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 365
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 366
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 367
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "laneBottom",
+          "lineNumber": 373
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 375
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 377
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 378
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 380
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 381
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 383
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 384
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 386
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 388
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 390
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 401
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 402
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 405
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 406
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 407
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 408
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 411
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 412
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 417
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 418
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 419
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 420
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 421
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 422
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 426
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 428
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 437
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 439
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 440
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 441
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 443
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 444
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 446
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 447
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 449
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 450
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 451
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 452
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::max",
+          "lineNumber": 454
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 454
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::max",
+          "lineNumber": 455
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 455
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::max",
+          "lineNumber": 456
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "std::sin",
+          "lineNumber": 456
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 457
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 458
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 459
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 467
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 468
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 480
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 481
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 482
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 483
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 484
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 489
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 494
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 497
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 498
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 500
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 502
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 515
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 516
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 518
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 519
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 521
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 522
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 524
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 525
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 526
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 529
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 530
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 531
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 532
+        },
+        {
+          "caller": "drawEnvironmentEdges",
+          "callee": "drawRect",
+          "lineNumber": 533
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "laneBottom",
+          "lineNumber": 542
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "std::sin",
+          "lineNumber": 545
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 554
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 555
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 558
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "laneBottom",
+          "lineNumber": 562
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "glm::vec3",
+          "lineNumber": 568
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "glm::vec3",
+          "lineNumber": 568
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "glm::vec3",
+          "lineNumber": 569
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "glm::vec3",
+          "lineNumber": 569
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 570
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 574
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 575
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 578
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 579
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawEnvironmentFloor",
+          "lineNumber": 584
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "laneBottom",
+          "lineNumber": 588
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 590
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 591
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 594
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "std::fmod",
+          "lineNumber": 617
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "std::sin",
+          "lineNumber": 618
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "std::sin",
+          "lineNumber": 619
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 622
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 625
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 626
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 627
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 631
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 636
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 638
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 639
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 641
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 642
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 644
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 645
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 649
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 650
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 653
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 654
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 660
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 661
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 663
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 664
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 671
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 672
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 674
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 686
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 689
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 690
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 691
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 693
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 696
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 700
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 701
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 702
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 703
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "laneBottom",
+          "lineNumber": 707
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 710
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 711
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 712
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 715
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 716
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 717
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 718
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 720
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 721
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 726
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 727
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 728
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 732
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 733
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 734
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 738
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 739
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 740
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 745
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 746
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 748
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 750
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 752
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawRect",
+          "lineNumber": 757
+        },
+        {
+          "caller": "drawBattlefield",
+          "callee": "drawEnvironmentEdges",
+          "lineNumber": 759
+        },
+        {
+          "caller": "drawCoinPanel",
+          "callee": "drawRect",
+          "lineNumber": 768
+        },
+        {
+          "caller": "drawCoinPanel",
+          "callee": "drawRect",
+          "lineNumber": 769
+        },
+        {
+          "caller": "drawCoinPanel",
+          "callee": "drawSpritePx",
+          "lineNumber": 776
+        },
+        {
+          "caller": "drawCoinPanel",
+          "callee": "std::to_string",
+          "lineNumber": 779
+        },
+        {
+          "caller": "drawCoinPanel",
+          "callee": "textWidth",
+          "lineNumber": 780
+        },
+        {
+          "caller": "drawCoinPanel",
+          "callee": "drawText",
+          "lineNumber": 783
+        },
+        {
+          "caller": "drawHealthBar",
+          "callee": "std::min",
+          "lineNumber": 787
+        },
+        {
+          "caller": "drawHealthBar",
+          "callee": "std::max",
+          "lineNumber": 787
+        },
+        {
+          "caller": "drawHealthBar",
+          "callee": "drawRect",
+          "lineNumber": 789
+        },
+        {
+          "caller": "drawHealthBar",
+          "callee": "drawRect",
+          "lineNumber": 790
+        },
+        {
+          "caller": "drawHealthBar",
+          "callee": "glm::vec3",
+          "lineNumber": 791
+        },
+        {
+          "caller": "drawHealthBar",
+          "callee": "glm::vec3",
+          "lineNumber": 791
+        },
+        {
+          "caller": "drawHealthBar",
+          "callee": "drawRect",
+          "lineNumber": 794
+        },
+        {
+          "caller": "drawCenteredText",
+          "callee": "drawText",
+          "lineNumber": 799
+        },
+        {
+          "caller": "drawCenteredText",
+          "callee": "textWidth",
+          "lineNumber": 799
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 7,
+        "functionCount": 11,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "UI.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 16,
+      "classes": [
+        {
+          "name": "CardBar",
+          "startLine": 6,
+          "endLine": 14,
+          "methods": [
+            "cardRect",
+            "hitTest",
+            "draw"
+          ],
+          "properties": [
+            "x0",
+            "y0",
+            "w"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "cardRect",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "hitTest",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "draw",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "CardBar",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 4,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

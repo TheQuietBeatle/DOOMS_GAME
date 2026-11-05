@@ -1,0 +1,1063 @@
+{
+  "nodes": [
+    {
+      "id": "file:Characters.cpp",
+      "type": "file",
+      "name": "Characters.cpp",
+      "filePath": "Characters.cpp",
+      "summary": "Implements geometry helper functions for character units — computing display scale, draw height, and half-width from a CharacterDef, with unitHalfWidth delegating to unitScale for consistent sizing.",
+      "tags": ["utility", "data-model", "character-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Characters.h",
+      "type": "file",
+      "name": "Characters.h",
+      "filePath": "Characters.h",
+      "summary": "Declares the CharacterDef struct and EnemyType/CharType enums that define all six unit types (three heroes and three enemies) with their cost, HP, speed, damage, and animation frame data.",
+      "tags": ["data-model", "type-definition", "character-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Config.h",
+      "type": "file",
+      "name": "Config.h",
+      "filePath": "Config.h",
+      "summary": "Centralizes shared game constants in the cfg namespace — lane count, board pixel dimensions, coin value, physics/timing constants — plus an inline laneBottom helper for Y-coordinate lookup.",
+      "tags": ["configuration", "constants", "game-config"],
+      "complexity": "simple",
+      "languageNotes": "Uses a C++ namespace (cfg) to scope constants, avoiding global pollution while keeping definitions header-only."
+    },
+    {
+      "id": "file:Game.h",
+      "type": "file",
+      "name": "Game.h",
+      "filePath": "Game.h",
+      "summary": "Central game header declaring all runtime entity structs (Unit, Projectile, Collectible, RewardPopup, Explosion) and the Game class that owns every subsystem, state machine, and per-frame update/render loop.",
+      "tags": ["data-model", "game-loop", "entry-point", "service"],
+      "complexity": "complex",
+      "languageNotes": "Acts as the monolithic aggregation header; all subsystem headers are pulled in here, so translation units that include Game.h get the full game API."
+    },
+    {
+      "id": "file:Renderer.cpp",
+      "type": "file",
+      "name": "Renderer.cpp",
+      "filePath": "Renderer.cpp",
+      "summary": "Implements the OpenGL 3.3 batched sprite renderer: shader compilation, single VAO/VBO sprite atlas upload, letterboxed viewport management, and all draw primitives (rect, sprite, pixel-font text with shadows/outlines).",
+      "tags": ["rendering", "opengl", "service", "utility"],
+      "complexity": "complex",
+      "languageNotes": "Embeds a 5×7 bitmap font as a baked glyph table and uses GLM for matrix math; all draw calls go through a single VAO for minimal GL state changes."
+    },
+    {
+      "id": "file:UI.cpp",
+      "type": "file",
+      "name": "UI.cpp",
+      "filePath": "UI.cpp",
+      "summary": "Implements all visual elements: the hero card-bar HUD, animated battlefield grid with per-background environment art (floor and edge layers), coin panel, health bars, and text helpers used by Game screens.",
+      "tags": ["ui", "rendering", "battlefield", "component"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:UI.h",
+      "type": "file",
+      "name": "UI.h",
+      "filePath": "UI.h",
+      "summary": "Declares the CardBar struct and free-function prototypes for the battlefield drawing API (drawBattlefield, drawCoinPanel, drawHealthBar, drawCenteredText) used by Game::render.",
+      "tags": ["ui", "type-definition", "api-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Characters.cpp:unitScale",
+      "type": "function",
+      "name": "unitScale",
+      "filePath": "Characters.cpp",
+      "lineRange": [20, 24],
+      "summary": "Returns a float scale factor for a character unit based on its CharacterDef role, used to map logical grid units to pixel size.",
+      "tags": ["utility", "character-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Characters.cpp:unitHeight",
+      "type": "function",
+      "name": "unitHeight",
+      "filePath": "Characters.cpp",
+      "lineRange": [26, 29],
+      "summary": "Returns the pixel draw height for a unit from its CharacterDef, used by the renderer to place sprites at the correct lane baseline.",
+      "tags": ["utility", "character-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Characters.cpp:unitHalfWidth",
+      "type": "function",
+      "name": "unitHalfWidth",
+      "filePath": "Characters.cpp",
+      "lineRange": [31, 40],
+      "summary": "Returns the half-width of a unit's sprite in pixels, computed from sprite columns multiplied by unitScale, used for collision and centering.",
+      "tags": ["utility", "character-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Characters.h:CharacterDef",
+      "type": "class",
+      "name": "CharacterDef",
+      "filePath": "Characters.h",
+      "lineRange": [10, 22],
+      "summary": "Plain data struct describing a character type's tuning values: display name, role, unlock/battle cost, max HP, movement speed, damage, attack cooldown, sprite frame offset, and draw height.",
+      "tags": ["data-model", "type-definition", "character-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Config.h:laneBottom",
+      "type": "function",
+      "name": "laneBottom",
+      "filePath": "Config.h",
+      "lineRange": [25, 25],
+      "summary": "Inline helper returning the pixel Y coordinate of a lane's bottom edge, computed from board geometry constants in the cfg namespace.",
+      "tags": ["utility", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Game.h:Unit",
+      "type": "class",
+      "name": "Unit",
+      "filePath": "Game.h",
+      "lineRange": [13, 26],
+      "summary": "Runtime state struct for a live game unit (hero or enemy): holds a CharacterDef pointer, lane index, x position, current HP, attack/animation timers, jump offset, and flags for fighting/reachedBase/exited.",
+      "tags": ["data-model", "game-loop", "character-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Game.h:Projectile",
+      "type": "class",
+      "name": "Projectile",
+      "filePath": "Game.h",
+      "lineRange": [28, 38],
+      "summary": "Represents a projectile in flight: lane, current and previous X, vertical offset, velocity, owner flag (fromEnemy), trajectory type (high), damage, and alive status.",
+      "tags": ["data-model", "game-loop"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Game.h:Collectible",
+      "type": "class",
+      "name": "Collectible",
+      "filePath": "Game.h",
+      "lineRange": [40, 45],
+      "summary": "Represents a coin drop collectible on the battlefield: lane, x position, lifetime age, and alive flag.",
+      "tags": ["data-model", "game-loop"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Game.h:RewardPopup",
+      "type": "class",
+      "name": "RewardPopup",
+      "filePath": "Game.h",
+      "lineRange": [48, 53],
+      "summary": "Floating coin-reward popup for visual feedback: lane, x, coin amount, and age used to fade/rise the number over time.",
+      "tags": ["data-model", "ui"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Game.h:Explosion",
+      "type": "class",
+      "name": "Explosion",
+      "filePath": "Game.h",
+      "lineRange": [57, 63],
+      "summary": "Timed explosion effect struct: lane, x/y position, age, and DURATION constant used to animate blast frames.",
+      "tags": ["data-model", "game-loop"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Game.h:Game",
+      "type": "class",
+      "name": "Game",
+      "filePath": "Game.h",
+      "lineRange": [65, 135],
+      "summary": "Central game controller owning all entity collections (units, projectiles, collectibles, explosions), the state machine, Renderer, UI, Cutscene, and Audio references, plus all per-frame update/render methods and input handlers.",
+      "tags": ["game-loop", "service", "singleton", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Renderer.cpp:compileShader",
+      "type": "function",
+      "name": "compileShader",
+      "filePath": "Renderer.cpp",
+      "lineRange": [50, 63],
+      "summary": "Compiles a GLSL vertex or fragment shader from source, checks compilation status, and prints info-log on failure, returning the shader handle.",
+      "tags": ["rendering", "opengl", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Renderer.cpp:init",
+      "type": "function",
+      "name": "init",
+      "filePath": "Renderer.cpp",
+      "lineRange": [138, 174],
+      "summary": "Initializes the renderer: compiles and links the sprite shader program, queries uniform locations, creates the shared VAO/VBO, and builds the glyph table from the embedded 5×7 bitmap font.",
+      "tags": ["rendering", "opengl", "initialization"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Renderer.cpp:shutdown",
+      "type": "function",
+      "name": "shutdown",
+      "filePath": "Renderer.cpp",
+      "lineRange": [176, 181],
+      "summary": "Releases all OpenGL resources (VAO, VBO, shader program) created during init.",
+      "tags": ["rendering", "opengl"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Renderer.cpp:addSprite",
+      "type": "function",
+      "name": "addSprite",
+      "filePath": "Renderer.cpp",
+      "lineRange": [183, 216],
+      "summary": "Builds GPU vertex data for a multi-row pixel-art sprite sheet, appending quad vertices and UV coordinates into the shared vertex buffer for later upload.",
+      "tags": ["rendering", "opengl", "sprite"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Renderer.cpp:upload",
+      "type": "function",
+      "name": "upload",
+      "filePath": "Renderer.cpp",
+      "lineRange": [218, 231],
+      "summary": "Uploads the accumulated vertex data to the GPU VBO and configures vertex attribute pointers for position and UV, completing renderer initialization after all sprites are added.",
+      "tags": ["rendering", "opengl"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Renderer.cpp:beginFrame",
+      "type": "function",
+      "name": "beginFrame",
+      "filePath": "Renderer.cpp",
+      "lineRange": [233, 257],
+      "summary": "Sets up each frame: clears the framebuffer, computes the letterboxed viewport to maintain aspect ratio, enables alpha blending, binds the shader, and sets the orthographic projection matrix.",
+      "tags": ["rendering", "opengl", "game-loop"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Renderer.cpp:draw",
+      "type": "function",
+      "name": "draw",
+      "filePath": "Renderer.cpp",
+      "lineRange": [259, 270],
+      "summary": "Core draw call: sets the model matrix, tint color, and red/gray uniforms, then issues a glDrawArrays call for the given sprite frame range.",
+      "tags": ["rendering", "opengl"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Renderer.cpp:drawRect",
+      "type": "function",
+      "name": "drawRect",
+      "filePath": "Renderer.cpp",
+      "lineRange": [272, 277],
+      "summary": "Draws a solid-color rectangle by constructing a scale+translate model matrix and calling draw with the white-rect sprite and given color/alpha.",
+      "tags": ["rendering", "opengl", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Renderer.cpp:drawSprite",
+      "type": "function",
+      "name": "drawSprite",
+      "filePath": "Renderer.cpp",
+      "lineRange": [279, 295],
+      "summary": "Draws a sprite frame at world coordinates with optional X-flip and draw-effect flags, composing the model matrix from position and scale.",
+      "tags": ["rendering", "opengl", "sprite"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Renderer.cpp:drawText",
+      "type": "function",
+      "name": "drawText",
+      "filePath": "Renderer.cpp",
+      "lineRange": [297, 317],
+      "summary": "Renders a string using the 5×7 bitmap glyph table, drawing each character as a series of filled pixel rects at the requested pixel size and color.",
+      "tags": ["rendering", "ui", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Renderer.cpp:drawTextStyled",
+      "type": "function",
+      "name": "drawTextStyled",
+      "filePath": "Renderer.cpp",
+      "lineRange": [320, 352],
+      "summary": "Extends drawText with per-glyph gradient (top/bottom colors), drop shadow at a configurable offset, and optional outline, used for styled title and HUD text.",
+      "tags": ["rendering", "ui", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Renderer.cpp:textWidth",
+      "type": "function",
+      "name": "textWidth",
+      "filePath": "Renderer.cpp",
+      "lineRange": [354, 357],
+      "summary": "Returns the pixel width of a string rendered at the given pixel size, used for horizontal centering calculations.",
+      "tags": ["rendering", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Renderer.cpp:Glyph",
+      "type": "class",
+      "name": "Glyph",
+      "filePath": "Renderer.cpp",
+      "lineRange": [68, 68],
+      "summary": "Internal struct mapping an ASCII character to its 5×7 bitmap row data, used to build the font atlas for drawText.",
+      "tags": ["rendering", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:UI.cpp:cardRect",
+      "type": "function",
+      "name": "cardRect",
+      "filePath": "UI.cpp",
+      "lineRange": [14, 18],
+      "summary": "Returns the screen-space bounding rectangle for a card slot at index i in the CardBar, given the bar's origin.",
+      "tags": ["ui", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:UI.cpp:hitTest",
+      "type": "function",
+      "name": "hitTest",
+      "filePath": "UI.cpp",
+      "lineRange": [20, 28],
+      "summary": "Returns the card slot index (0-based) for a world-space mouse position, or -1 if no card was hit, used for hover and click handling in the card bar.",
+      "tags": ["ui", "event-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:UI.cpp:draw",
+      "type": "function",
+      "name": "draw",
+      "filePath": "UI.cpp",
+      "lineRange": [58, 96],
+      "summary": "Renders the full card-bar HUD: draws card backgrounds and selection highlights, card portrait sprites, cost labels, and lock overlays for each of the available hero cards.",
+      "tags": ["ui", "rendering", "component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:UI.cpp:drawEnvironmentFloor",
+      "type": "function",
+      "name": "drawEnvironmentFloor",
+      "filePath": "UI.cpp",
+      "lineRange": [105, 253],
+      "summary": "Renders the themed floor layer for each battlefield lane using time-animated sinusoidal effects, with per-background visual variants (city, lab, arctic, etc.) drawn via drawRect primitives.",
+      "tags": ["ui", "rendering", "battlefield"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:UI.cpp:drawEnvironmentEdges",
+      "type": "function",
+      "name": "drawEnvironmentEdges",
+      "filePath": "UI.cpp",
+      "lineRange": [259, 535],
+      "summary": "Renders the foreground and background edge decoration layers for each battlefield lane (buildings, pillars, tech panels) with per-background variants and time-based animation.",
+      "tags": ["ui", "rendering", "battlefield"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:UI.cpp:drawBattlefield",
+      "type": "function",
+      "name": "drawBattlefield",
+      "filePath": "UI.cpp",
+      "lineRange": [540, 760],
+      "summary": "Orchestrates the complete battlefield render: lane highlight overlays, base HP indicators, the environment floor and edge layers, lane selection overlays, and the base structure sprites at each end.",
+      "tags": ["ui", "rendering", "battlefield", "game-loop"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:UI.cpp:drawCoinPanel",
+      "type": "function",
+      "name": "drawCoinPanel",
+      "filePath": "UI.cpp",
+      "lineRange": [765, 784],
+      "summary": "Renders the coin counter HUD panel with coin icon sprite and right-aligned coin count text.",
+      "tags": ["ui", "rendering"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:UI.cpp:drawHealthBar",
+      "type": "function",
+      "name": "drawHealthBar",
+      "filePath": "UI.cpp",
+      "lineRange": [785, 795],
+      "summary": "Draws a health bar with background, filled portion in a colour interpolated from green to red, and a border, used for both player and enemy units.",
+      "tags": ["ui", "rendering"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:UI.cpp:drawCenteredText",
+      "type": "function",
+      "name": "drawCenteredText",
+      "filePath": "UI.cpp",
+      "lineRange": [797, 800],
+      "summary": "Convenience wrapper that horizontally centers a string on the screen at a given Y position using drawText and textWidth.",
+      "tags": ["ui", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:UI.h:CardBar",
+      "type": "class",
+      "name": "CardBar",
+      "filePath": "UI.h",
+      "lineRange": [6, 14],
+      "summary": "Struct representing the hero-purchase card bar HUD element, storing its screen origin and width, with methods for card hit-testing and rendering.",
+      "tags": ["ui", "data-model", "component"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Characters.cpp",
+      "target": "file:Characters.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Characters.h",
+      "target": "file:Config.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.h",
+      "target": "file:Background.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.h",
+      "target": "file:Characters.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.h",
+      "target": "file:Config.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.h",
+      "target": "file:Cutscene.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.h",
+      "target": "file:Renderer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.h",
+      "target": "file:UI.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "file:Renderer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "file:include/glad/gl.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "file:UI.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "file:Game.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "file:Characters.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:UI.h",
+      "target": "file:Renderer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:UI.h",
+      "target": "file:Characters.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:UI.h",
+      "target": "file:Config.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Characters.cpp",
+      "target": "function:Characters.cpp:unitScale",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Characters.cpp",
+      "target": "function:Characters.cpp:unitHeight",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Characters.cpp",
+      "target": "function:Characters.cpp:unitHalfWidth",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Characters.h",
+      "target": "class:Characters.h:CharacterDef",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Config.h",
+      "target": "function:Config.h:laneBottom",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Unit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Projectile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Collectible",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:RewardPopup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Explosion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Game",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:compileShader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:init",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:shutdown",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:addSprite",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:upload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:beginFrame",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:draw",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:drawRect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:drawSprite",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:drawText",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:drawTextStyled",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:textWidth",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "class:Renderer.cpp:Glyph",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:cardRect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:hitTest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:draw",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawEnvironmentFloor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawEnvironmentEdges",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawBattlefield",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawCoinPanel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawHealthBar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawCenteredText",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:UI.h",
+      "target": "class:UI.h:CardBar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Characters.cpp",
+      "target": "function:Characters.cpp:unitScale",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Characters.cpp",
+      "target": "function:Characters.cpp:unitHeight",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Characters.cpp",
+      "target": "function:Characters.cpp:unitHalfWidth",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Characters.h",
+      "target": "class:Characters.h:CharacterDef",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Config.h",
+      "target": "function:Config.h:laneBottom",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Unit",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Projectile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Collectible",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:RewardPopup",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Explosion",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Game.h",
+      "target": "class:Game.h:Game",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:compileShader",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:init",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:shutdown",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:addSprite",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:upload",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:beginFrame",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:draw",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:drawRect",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:drawSprite",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:drawText",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:drawTextStyled",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.cpp",
+      "target": "function:Renderer.cpp:textWidth",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:cardRect",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:hitTest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:draw",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawBattlefield",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawCoinPanel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawHealthBar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:UI.cpp",
+      "target": "function:UI.cpp:drawCenteredText",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:UI.h",
+      "target": "class:UI.h:CardBar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Characters.cpp:unitHalfWidth",
+      "target": "function:Characters.cpp:unitScale",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Renderer.cpp:init",
+      "target": "function:Renderer.cpp:compileShader",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Renderer.cpp:drawRect",
+      "target": "function:Renderer.cpp:draw",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Renderer.cpp:drawSprite",
+      "target": "function:Renderer.cpp:draw",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Renderer.cpp:drawText",
+      "target": "function:Renderer.cpp:drawRect",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Renderer.cpp:drawTextStyled",
+      "target": "function:Renderer.cpp:drawRect",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:UI.cpp:hitTest",
+      "target": "function:UI.cpp:cardRect",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:UI.cpp:drawBattlefield",
+      "target": "function:UI.cpp:drawEnvironmentFloor",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:UI.cpp:drawBattlefield",
+      "target": "function:UI.cpp:drawEnvironmentEdges",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:UI.cpp:drawEnvironmentFloor",
+      "target": "function:Config.h:laneBottom",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:UI.cpp:drawEnvironmentEdges",
+      "target": "function:Config.h:laneBottom",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:UI.cpp:drawBattlefield",
+      "target": "function:Config.h:laneBottom",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

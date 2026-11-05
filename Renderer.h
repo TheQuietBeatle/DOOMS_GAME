@@ -1,3 +1,7 @@
+// Renderer.h - OpenGL 3.3 Core sprite/rect/text renderer.
+// All geometry is baked into one shared VAO/VBO at startup; every draw call
+// re-uses that buffer with a different model matrix and tint uniform.
+// Sprites are pixel-art bitmaps converted to 2-triangle-per-pixel vertex data.
 #pragma once
 #include <glad/gl.h>
 #include <glm/glm.hpp>
@@ -45,14 +49,17 @@ public:
     void upload();
 
     // --- per frame ---
-    void beginFrame(int fbWidth, int fbHeight, bool clear = true);   // [George] clear=false keeps a background drawn before it
+    // Sets the OpenGL viewport and projection matrix for this frame.
+    // clear=false keeps a background already drawn by Background::draw() visible.
+    void beginFrame(int fbWidth, int fbHeight, bool clear = true);
     void drawRect(float x, float y, float w, float h, glm::vec3 color, float alpha = 1.0f);
     void drawSprite(const SpriteFrame& f, float x, float y, float scaleX, float scaleY,
         bool flipX, const DrawFx& fx = DrawFx());
     void drawText(const std::string& s, float x, float y, float px, glm::vec3 color, float alpha = 1.0f);
     float textWidth(const std::string& s, float px) const;
-    // [George] big title text: vertical colour gradient (top row -> bottom row), a dark
-    // outline 'outline' px thick around every lit pixel and a drop shadow offset (dx, -dy).
+    // Big title text with a vertical colour gradient (top -> bottom colour), a dark
+    // outline 'outline' px thick around every lit pixel, and a drop shadow offset (dx, -dy).
+    // Used for the DMET502 spec requirement: styled game title on the main menu.
     void drawTextStyled(const std::string& s, float x, float y, float px,
         glm::vec3 top, glm::vec3 bottom, glm::vec3 outlineColor, float outline,
         float shadowDx, float shadowDy, float alpha = 1.0f);

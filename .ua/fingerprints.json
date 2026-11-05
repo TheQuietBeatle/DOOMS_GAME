@@ -1,0 +1,3499 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "c1d11df195880ec9220a3119110df486862cfe14",
+  "generatedAt": "2026-11-05T13:24:18.396Z",
+  "files": {
+    "AUDIT_REPORT.md": {
+      "filePath": "AUDIT_REPORT.md",
+      "contentHash": "8e4b0bc414bd0be25f214bd34c5b45f2356d698cd62363dc9c98b4a9f1eccd27",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 271,
+      "hasStructuralAnalysis": false
+    },
+    "Audio.cpp": {
+      "filePath": "Audio.cpp",
+      "contentHash": "fc89378e60f4275c12ec8033f6af683755542fc42d2be289b92763aa4a73ee2c",
+      "functions": [
+        {
+          "name": "clamp01",
+          "owner": "",
+          "params": [
+            "v"
+          ],
+          "returnType": "float",
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "init",
+          "owner": "Audio",
+          "params": [
+            "musicPath"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "shutdown",
+          "owner": "Audio",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "pauseMusic",
+          "owner": "Audio",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "resumeMusic",
+          "owner": "Audio",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "restartMusic",
+          "owner": "Audio",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setMasterVolume",
+          "owner": "Audio",
+          "params": [
+            "v"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "getMasterVolume",
+          "owner": "Audio",
+          "params": [],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setMusicVolume",
+          "owner": "Audio",
+          "params": [
+            "v"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "getMusicVolume",
+          "owner": "Audio",
+          "params": [],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "playSfx",
+          "owner": "Audio",
+          "params": [
+            "path"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "playVoice",
+          "owner": "Audio",
+          "params": [
+            "path",
+            "force"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "miniaudio.h",
+          "specifiers": [
+            "miniaudio.h"
+          ]
+        },
+        {
+          "source": "Audio.h",
+          "specifiers": [
+            "Audio.h"
+          ]
+        }
+      ],
+      "exports": [
+        "init",
+        "shutdown",
+        "pauseMusic",
+        "resumeMusic",
+        "restartMusic",
+        "setMasterVolume",
+        "getMasterVolume",
+        "setMusicVolume",
+        "getMusicVolume",
+        "playSfx",
+        "playVoice"
+      ],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "Audio.h": {
+      "filePath": "Audio.h",
+      "contentHash": "3ea92cd5a97f3b40c87cc5f40555d2f790ad95951c162bccc31e4234c4b5e759",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "Background.cpp": {
+      "filePath": "Background.cpp",
+      "contentHash": "9fc1557e7effbf8d93e7ef94d75d910ddbf8fe34443b4e9c006ff2612cf962fa",
+      "functions": [
+        {
+          "name": "compileShader",
+          "owner": "",
+          "params": [
+            "type",
+            "src"
+          ],
+          "returnType": "GLuint",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "init",
+          "owner": "Background",
+          "params": [
+            "paths",
+            "count"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 62
+        },
+        {
+          "name": "shutdown",
+          "owner": "Background",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "draw",
+          "owner": "Background",
+          "params": [
+            "fbW",
+            "fbH",
+            "dimOverride"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "quad",
+          "owner": "Background",
+          "params": [
+            "x",
+            "y",
+            "w",
+            "h",
+            "tex",
+            "r",
+            "g",
+            "b",
+            "u0",
+            "v0",
+            "uw",
+            "vh"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "thumbRect",
+          "owner": "Background",
+          "params": [
+            "i",
+            "x",
+            "y",
+            "w",
+            "h"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "thumbAt",
+          "owner": "Background",
+          "params": [
+            "wx",
+            "wy"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "drawPicker",
+          "owner": "Background",
+          "params": [
+            "fbW",
+            "fbH",
+            "hovered"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "drawMenuSplit",
+          "owner": "Background",
+          "params": [
+            "fbW",
+            "fbH",
+            "leftImg",
+            "rightImg"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 37
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Background.h",
+          "specifiers": [
+            "Background.h"
+          ]
+        },
+        {
+          "source": "Config.h",
+          "specifiers": [
+            "Config.h"
+          ]
+        },
+        {
+          "source": "stb_image.h",
+          "specifiers": [
+            "stb_image.h"
+          ]
+        },
+        {
+          "source": "algorithm",
+          "specifiers": [
+            "algorithm"
+          ]
+        },
+        {
+          "source": "cstdio",
+          "specifiers": [
+            "cstdio"
+          ]
+        }
+      ],
+      "exports": [
+        "compileShader",
+        "init",
+        "shutdown",
+        "draw",
+        "quad",
+        "thumbRect",
+        "thumbAt",
+        "drawPicker",
+        "drawMenuSplit"
+      ],
+      "totalLines": 273,
+      "hasStructuralAnalysis": true
+    },
+    "Background.h": {
+      "filePath": "Background.h",
+      "contentHash": "0407cbb081f4a5cb7cf4637ce706e5f7665581822463436ebed98ad63d4a9706",
+      "functions": [
+        {
+          "name": "next",
+          "owner": "Background",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "count",
+          "owner": "Background",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setNames",
+          "owner": "Background",
+          "params": [
+            "n",
+            "c"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "Background",
+          "methods": [
+            "init",
+            "shutdown",
+            "draw",
+            "next",
+            "drawPicker",
+            "thumbAt",
+            "thumbRect",
+            "count",
+            "setNames",
+            "drawMenuSplit",
+            "quad"
+          ],
+          "properties": [
+            "current",
+            "dim",
+            "imgs",
+            "names",
+            "prog",
+            "tintMode",
+            "uUVRect"
+          ],
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "imports": [
+        {
+          "source": "glad/gl.h",
+          "specifiers": [
+            "glad/gl.h"
+          ]
+        },
+        {
+          "source": "vector",
+          "specifiers": [
+            "vector"
+          ]
+        }
+      ],
+      "exports": [
+        "init",
+        "shutdown",
+        "draw",
+        "next",
+        "drawPicker",
+        "thumbAt",
+        "thumbRect",
+        "count",
+        "setNames",
+        "drawMenuSplit",
+        "Background"
+      ],
+      "totalLines": 46,
+      "hasStructuralAnalysis": true
+    },
+    "Characters.cpp": {
+      "filePath": "Characters.cpp",
+      "contentHash": "7b91b4d44e4158f2c027b826a35830de79f5bad2c91176c6c52de663eda3a248",
+      "functions": [
+        {
+          "name": "unitScale",
+          "owner": "",
+          "params": [
+            "def"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "unitHeight",
+          "owner": "",
+          "params": [
+            "def"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "unitHalfWidth",
+          "owner": "",
+          "params": [
+            "def"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Characters.h",
+          "specifiers": [
+            "Characters.h"
+          ]
+        }
+      ],
+      "exports": [
+        "unitScale",
+        "unitHeight",
+        "unitHalfWidth"
+      ],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "Characters.h": {
+      "filePath": "Characters.h",
+      "contentHash": "0dea21a06bf908f0aa4c8930d7d019b60d55eeaabf883762e60ee914f5e20843",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CharacterDef",
+          "methods": [],
+          "properties": [
+            "name",
+            "role",
+            "cost",
+            "unlockCost",
+            "maxHp",
+            "speed",
+            "damage",
+            "attackCooldown",
+            "frameA",
+            "drawHeight",
+            "hp"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "imports": [
+        {
+          "source": "Sprites.h",
+          "specifiers": [
+            "Sprites.h"
+          ]
+        }
+      ],
+      "exports": [
+        "CharacterDef"
+      ],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "Config.h": {
+      "filePath": "Config.h",
+      "contentHash": "8081e965194eb5f6534cd22dbfe289d706e60fac41c61c38dd19cd9b43ca3aa4",
+      "functions": [
+        {
+          "name": "laneBottom",
+          "owner": "",
+          "params": [
+            "lane"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "laneBottom"
+      ],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "Cutscene.cpp": {
+      "filePath": "Cutscene.cpp",
+      "contentHash": "e914a8113375412f4a2a5c1c0dad9aab7ab1ce6f8a79dae04adae471a29229cf",
+      "functions": [
+        {
+          "name": "clamp01",
+          "owner": "",
+          "params": [
+            "v"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "lerpf",
+          "owner": "",
+          "params": [
+            "a",
+            "b",
+            "k"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "prog",
+          "owner": "",
+          "params": [
+            "t",
+            "t0",
+            "t1"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "mix3",
+          "owner": "",
+          "params": [
+            "a",
+            "b",
+            "k"
+          ],
+          "returnType": "glm::vec3",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "drawDisc",
+          "owner": "",
+          "params": [
+            "r",
+            "cx",
+            "cy",
+            "rad",
+            "c",
+            "a"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "drawLine",
+          "owner": "",
+          "params": [
+            "r",
+            "x0",
+            "y0",
+            "x1",
+            "y1",
+            "thick",
+            "c",
+            "a"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "drawUnit",
+          "owner": "",
+          "params": [
+            "r",
+            "id",
+            "x",
+            "y",
+            "height",
+            "flipX"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "unitBox",
+          "owner": "",
+          "params": [
+            "id",
+            "x",
+            "y",
+            "height",
+            "flipX",
+            "left",
+            "right",
+            "top"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "start",
+          "owner": "Cutscene",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "update",
+          "owner": "Cutscene",
+          "params": [
+            "dt"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "skip",
+          "owner": "Cutscene",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "draw",
+          "owner": "Cutscene",
+          "params": [
+            "r"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 310
+        }
+      ],
+      "classes": [
+        {
+          "name": "Line",
+          "methods": [],
+          "properties": [
+            "t0",
+            "speaker",
+            "color",
+            "text"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "Cutscene.h",
+          "specifiers": [
+            "Cutscene.h"
+          ]
+        },
+        {
+          "source": "Config.h",
+          "specifiers": [
+            "Config.h"
+          ]
+        },
+        {
+          "source": "Sprites.h",
+          "specifiers": [
+            "Sprites.h"
+          ]
+        },
+        {
+          "source": "cmath",
+          "specifiers": [
+            "cmath"
+          ]
+        },
+        {
+          "source": "string",
+          "specifiers": [
+            "string"
+          ]
+        }
+      ],
+      "exports": [
+        "clamp01",
+        "lerpf",
+        "prog",
+        "mix3",
+        "drawDisc",
+        "drawLine",
+        "drawUnit",
+        "unitBox",
+        "Line",
+        "start",
+        "update",
+        "skip",
+        "draw"
+      ],
+      "totalLines": 436,
+      "hasStructuralAnalysis": true
+    },
+    "Cutscene.h": {
+      "filePath": "Cutscene.h",
+      "contentHash": "12024d2ec3b1bbe991303825ed22a658ad56a40222f1583fd608ff0dc911945e",
+      "functions": [
+        {
+          "name": "finished",
+          "owner": "Cutscene",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "Cutscene",
+          "methods": [
+            "start",
+            "update",
+            "draw",
+            "skip",
+            "finished"
+          ],
+          "properties": [
+            "DURATION",
+            "t",
+            "done"
+          ],
+          "exported": true,
+          "lineCount": 14
+        }
+      ],
+      "imports": [
+        {
+          "source": "Renderer.h",
+          "specifiers": [
+            "Renderer.h"
+          ]
+        }
+      ],
+      "exports": [
+        "start",
+        "update",
+        "draw",
+        "skip",
+        "finished",
+        "Cutscene"
+      ],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "EnemySprites.h": {
+      "filePath": "EnemySprites.h",
+      "contentHash": "2f4f9f1f7515a21c7758193f8e68a718cd9ee85801ff81b14b50b9fa42e4bfab",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Renderer.h",
+          "specifiers": [
+            "Renderer.h"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 470,
+      "hasStructuralAnalysis": true
+    },
+    "External/include/GLFW/glfw3.h": {
+      "filePath": "External/include/GLFW/glfw3.h",
+      "contentHash": "95ecc16e4875bca18cff863232d5dbb623f3457b05f07efd26fe8bc8a06345b6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6578,
+      "hasStructuralAnalysis": true
+    },
+    "External/include/GLFW/glfw3native.h": {
+      "filePath": "External/include/GLFW/glfw3native.h",
+      "contentHash": "d301085c2a998345c0f80127d8e67d4394f1c7b12ca9c2cf3b73b7fa15c804ae",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 710,
+      "hasStructuralAnalysis": true
+    },
+    "Game.cpp": {
+      "filePath": "Game.cpp",
+      "contentHash": "aa7851346f7b997d871e624749e8883700e2b33b556209402a7bdab02b239bd0",
+      "functions": [
+        {
+          "name": "resetWaves",
+          "owner": "",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "hit",
+          "owner": "Button",
+          "params": [
+            "px",
+            "py"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "drawButton",
+          "owner": "",
+          "params": [
+            "r",
+            "b",
+            "label"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "drawMenuButton",
+          "owner": "",
+          "params": [
+            "r",
+            "b",
+            "label",
+            "hovered",
+            "primary",
+            "px"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "hash01",
+          "owner": "",
+          "params": [
+            "n"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "drawLine",
+          "owner": "",
+          "params": [
+            "r",
+            "x0",
+            "y0",
+            "x1",
+            "y1",
+            "thick",
+            "c",
+            "a"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "drawMenuSprite",
+          "owner": "",
+          "params": [
+            "r",
+            "id",
+            "cx",
+            "bottom",
+            "hPx",
+            "flip"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "touching",
+          "owner": "",
+          "params": [
+            "a",
+            "b"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "Game",
+          "owner": "Game",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "reset",
+          "owner": "Game",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "returnToMainMenu",
+          "owner": "Game",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "chooseBackground",
+          "owner": "Game",
+          "params": [
+            "i"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "spawnEnemy",
+          "owner": "Game",
+          "params": [
+            "def",
+            "lane"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "placePlayer",
+          "owner": "Game",
+          "params": [
+            "def",
+            "lane"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "isUnlocked",
+          "owner": "Game",
+          "params": [
+            "card"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "laneAt",
+          "owner": "Game",
+          "params": [
+            "wx",
+            "wy"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "update",
+          "owner": "Game",
+          "params": [
+            "dt"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "updatePlayers",
+          "owner": "Game",
+          "params": [
+            "dt"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 88
+        },
+        {
+          "name": "updateEnemies",
+          "owner": "Game",
+          "params": [
+            "dt"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 47
+        },
+        {
+          "name": "updateProjectiles",
+          "owner": "Game",
+          "params": [
+            "dt"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 59
+        },
+        {
+          "name": "updateExplosions",
+          "owner": "Game",
+          "params": [
+            "dt"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "cleanup",
+          "owner": "Game",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 47
+        },
+        {
+          "name": "onMouseMove",
+          "owner": "Game",
+          "params": [
+            "wx",
+            "wy"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "onMouseButton",
+          "owner": "Game",
+          "params": [
+            "button",
+            "wx",
+            "wy"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 77
+        },
+        {
+          "name": "onKey",
+          "owner": "Game",
+          "params": [
+            "key"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 57
+        },
+        {
+          "name": "drawUnit",
+          "owner": "Game",
+          "params": [
+            "r",
+            "u",
+            "enemy",
+            "alpha"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 35
+        },
+        {
+          "name": "render",
+          "owner": "Game",
+          "params": [
+            "r"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 181
+        },
+        {
+          "name": "applyVolume",
+          "owner": "Game",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "changeVolume",
+          "owner": "Game",
+          "params": [
+            "deltaPct"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "toggleMute",
+          "owner": "Game",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "drawMainMenu",
+          "owner": "Game",
+          "params": [
+            "r"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 150
+        }
+      ],
+      "classes": [
+        {
+          "name": "Button",
+          "methods": [
+            "hit"
+          ],
+          "properties": [
+            "x"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "imports": [
+        {
+          "source": "Game.h",
+          "specifiers": [
+            "Game.h"
+          ]
+        },
+        {
+          "source": "WaveSystem.h",
+          "specifiers": [
+            "WaveSystem.h"
+          ]
+        },
+        {
+          "source": "Audio.h",
+          "specifiers": [
+            "Audio.h"
+          ]
+        },
+        {
+          "source": "GLFW/glfw3.h",
+          "specifiers": [
+            "GLFW/glfw3.h"
+          ]
+        },
+        {
+          "source": "algorithm",
+          "specifiers": [
+            "algorithm"
+          ]
+        },
+        {
+          "source": "cmath",
+          "specifiers": [
+            "cmath"
+          ]
+        },
+        {
+          "source": "ctime",
+          "specifiers": [
+            "ctime"
+          ]
+        },
+        {
+          "source": "string",
+          "specifiers": [
+            "string"
+          ]
+        }
+      ],
+      "exports": [
+        "resetWaves",
+        "hit",
+        "Button",
+        "drawButton",
+        "drawMenuButton",
+        "hash01",
+        "drawLine",
+        "drawMenuSprite",
+        "touching",
+        "Game",
+        "reset",
+        "returnToMainMenu",
+        "chooseBackground",
+        "spawnEnemy",
+        "placePlayer",
+        "isUnlocked",
+        "laneAt",
+        "update",
+        "updatePlayers",
+        "updateEnemies",
+        "updateProjectiles",
+        "updateExplosions",
+        "cleanup",
+        "onMouseMove",
+        "onMouseButton",
+        "onKey",
+        "drawUnit",
+        "render",
+        "applyVolume",
+        "changeVolume",
+        "toggleMute",
+        "drawMainMenu"
+      ],
+      "totalLines": 1116,
+      "hasStructuralAnalysis": true
+    },
+    "Game.h": {
+      "filePath": "Game.h",
+      "contentHash": "8f22f3ec2bdcb101ff6fa7686e6d2dc00dd3dd9cc0b6be78802329ef480e1cdf",
+      "functions": [
+        {
+          "name": "state",
+          "owner": "Game",
+          "params": [],
+          "returnType": "GameState",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "wantsExit",
+          "owner": "Game",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setBackground",
+          "owner": "Game",
+          "params": [
+            "b"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "hoveredThumb",
+          "owner": "Game",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "Unit",
+          "methods": [],
+          "properties": [
+            "def",
+            "lane",
+            "x",
+            "hp",
+            "attackTimer",
+            "swingTime",
+            "animTime",
+            "jumpY",
+            "duckTimer",
+            "fighting",
+            "reachedBase",
+            "exited"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "Projectile",
+          "methods": [],
+          "properties": [
+            "lane",
+            "x",
+            "prevX",
+            "yOff",
+            "vx",
+            "fromEnemy",
+            "high",
+            "damage",
+            "alive"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "Collectible",
+          "methods": [],
+          "properties": [
+            "lane",
+            "x",
+            "age",
+            "alive"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "RewardPopup",
+          "methods": [],
+          "properties": [
+            "lane",
+            "x",
+            "amount",
+            "age"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "Explosion",
+          "methods": [],
+          "properties": [
+            "lane",
+            "x",
+            "y",
+            "age",
+            "DURATION"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "Game",
+          "methods": [
+            "reset",
+            "update",
+            "render",
+            "onMouseMove",
+            "onMouseButton",
+            "onKey",
+            "state",
+            "wantsExit",
+            "setBackground",
+            "hoveredThumb",
+            "spawnEnemy",
+            "placePlayer",
+            "returnToMainMenu",
+            "chooseBackground",
+            "updatePlayers",
+            "updateEnemies",
+            "updateProjectiles",
+            "updateExplosions",
+            "cleanup",
+            "isUnlocked",
+            "laneAt",
+            "drawUnit",
+            "drawMainMenu",
+            "applyVolume",
+            "changeVolume",
+            "toggleMute"
+          ],
+          "properties": [
+            "blockingEnemy",
+            "blockingPlayer",
+            "players",
+            "enemies",
+            "projectiles",
+            "collectibles",
+            "popups",
+            "explosions",
+            "coins",
+            "armedCard",
+            "hoveredCard",
+            "hoveredLane",
+            "hoveredMenuBtn",
+            "selectedLanes",
+            "baseHp",
+            "musicVolPct",
+            "musicMuted",
+            "clock",
+            "st",
+            "rng",
+            "cards",
+            "cutscene",
+            "bg",
+            "introFade",
+            "exitRequested"
+          ],
+          "exported": true,
+          "lineCount": 71
+        }
+      ],
+      "imports": [
+        {
+          "source": "Renderer.h",
+          "specifiers": [
+            "Renderer.h"
+          ]
+        },
+        {
+          "source": "Characters.h",
+          "specifiers": [
+            "Characters.h"
+          ]
+        },
+        {
+          "source": "Config.h",
+          "specifiers": [
+            "Config.h"
+          ]
+        },
+        {
+          "source": "UI.h",
+          "specifiers": [
+            "UI.h"
+          ]
+        },
+        {
+          "source": "Cutscene.h",
+          "specifiers": [
+            "Cutscene.h"
+          ]
+        },
+        {
+          "source": "Background.h",
+          "specifiers": [
+            "Background.h"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "vector",
+          "specifiers": [
+            "vector"
+          ]
+        }
+      ],
+      "exports": [
+        "Unit",
+        "Projectile",
+        "Collectible",
+        "RewardPopup",
+        "Explosion",
+        "reset",
+        "update",
+        "render",
+        "onMouseMove",
+        "onMouseButton",
+        "onKey",
+        "state",
+        "wantsExit",
+        "setBackground",
+        "hoveredThumb",
+        "Game"
+      ],
+      "totalLines": 136,
+      "hasStructuralAnalysis": true
+    },
+    "HeroSprites.h": {
+      "filePath": "HeroSprites.h",
+      "contentHash": "a8c494dc80f04d332bfa10ac985341f29b81d679de0a04e19d41b801419cc5e8",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Renderer.h",
+          "specifiers": [
+            "Renderer.h"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 327,
+      "hasStructuralAnalysis": true
+    },
+    "LINKEDIN_NOTES.md": {
+      "filePath": "LINKEDIN_NOTES.md",
+      "contentHash": "090ad8d95078d63b62c9b4c62475884f5372ddb16a95ace92363a0daeb59fa9e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 56,
+      "hasStructuralAnalysis": false
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "f5e8eeaa1bd72327baaf536176810e0878817d29f63c71c9ff0687b9c8494920",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 171,
+      "hasStructuralAnalysis": false
+    },
+    "Renderer.cpp": {
+      "filePath": "Renderer.cpp",
+      "contentHash": "6915ebacbb1dd6c75b42ac81814e3d7107e84de806f5f35e2cf99f4d63cded99",
+      "functions": [
+        {
+          "name": "compileShader",
+          "owner": "",
+          "params": [
+            "type",
+            "src"
+          ],
+          "returnType": "GLuint",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "init",
+          "owner": "Renderer",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 37
+        },
+        {
+          "name": "shutdown",
+          "owner": "Renderer",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "addSprite",
+          "owner": "Renderer",
+          "params": [
+            "rows",
+            "numRows",
+            "pal"
+          ],
+          "returnType": "SpriteFrame",
+          "exported": true,
+          "lineCount": 34
+        },
+        {
+          "name": "upload",
+          "owner": "Renderer",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "beginFrame",
+          "owner": "Renderer",
+          "params": [
+            "fbWidth",
+            "fbHeight",
+            "clear"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "draw",
+          "owner": "Renderer",
+          "params": [
+            "first",
+            "count",
+            "model",
+            "tint",
+            "red",
+            "gray"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "drawRect",
+          "owner": "Renderer",
+          "params": [
+            "x",
+            "y",
+            "w",
+            "h",
+            "color",
+            "alpha"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "drawSprite",
+          "owner": "Renderer",
+          "params": [
+            "f",
+            "x",
+            "y",
+            "scaleX",
+            "scaleY",
+            "flipX",
+            "fx"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "drawText",
+          "owner": "Renderer",
+          "params": [
+            "s",
+            "x",
+            "y",
+            "px",
+            "color",
+            "alpha"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "drawTextStyled",
+          "owner": "Renderer",
+          "params": [
+            "s",
+            "x",
+            "y",
+            "px",
+            "top",
+            "bottom",
+            "outlineColor",
+            "outline",
+            "shadowDx",
+            "shadowDy",
+            "alpha"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "textWidth",
+          "owner": "Renderer",
+          "params": [
+            "s",
+            "px"
+          ],
+          "returnType": "float",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "Glyph",
+          "methods": [],
+          "properties": [
+            "c",
+            "rows"
+          ],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "imports": [
+        {
+          "source": "Renderer.h",
+          "specifiers": [
+            "Renderer.h"
+          ]
+        },
+        {
+          "source": "Config.h",
+          "specifiers": [
+            "Config.h"
+          ]
+        },
+        {
+          "source": "glm/gtc/matrix_transform.hpp",
+          "specifiers": [
+            "glm/gtc/matrix_transform.hpp"
+          ]
+        },
+        {
+          "source": "glm/gtc/type_ptr.hpp",
+          "specifiers": [
+            "glm/gtc/type_ptr.hpp"
+          ]
+        },
+        {
+          "source": "algorithm",
+          "specifiers": [
+            "algorithm"
+          ]
+        },
+        {
+          "source": "cctype",
+          "specifiers": [
+            "cctype"
+          ]
+        },
+        {
+          "source": "cstring",
+          "specifiers": [
+            "cstring"
+          ]
+        },
+        {
+          "source": "iostream",
+          "specifiers": [
+            "iostream"
+          ]
+        }
+      ],
+      "exports": [
+        "compileShader",
+        "Glyph",
+        "init",
+        "shutdown",
+        "addSprite",
+        "upload",
+        "beginFrame",
+        "draw",
+        "drawRect",
+        "drawSprite",
+        "drawText",
+        "drawTextStyled",
+        "textWidth"
+      ],
+      "totalLines": 357,
+      "hasStructuralAnalysis": true
+    },
+    "Renderer.h": {
+      "filePath": "Renderer.h",
+      "contentHash": "179ce6f1beef6c69ca44080208e8e5d6a3d3aa91a1a059a2f53428e57d726a5c",
+      "functions": [
+        {
+          "name": "Palette",
+          "owner": "Palette",
+          "params": [
+            "entries"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "PaletteEntry",
+          "methods": [],
+          "properties": [
+            "ch",
+            "r"
+          ],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "Palette",
+          "methods": [
+            "Palette"
+          ],
+          "properties": [
+            "color",
+            "used"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "SpriteFrame",
+          "methods": [],
+          "properties": [
+            "first",
+            "count",
+            "w",
+            "h"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "DrawFx",
+          "methods": [],
+          "properties": [
+            "red",
+            "gray",
+            "alpha"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "Renderer",
+          "methods": [
+            "init",
+            "shutdown",
+            "addSprite",
+            "upload",
+            "beginFrame",
+            "drawRect",
+            "drawSprite",
+            "drawText",
+            "textWidth",
+            "drawTextStyled",
+            "draw"
+          ],
+          "properties": [
+            "program",
+            "uProj",
+            "verts",
+            "quad"
+          ],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "imports": [
+        {
+          "source": "glad/gl.h",
+          "specifiers": [
+            "glad/gl.h"
+          ]
+        },
+        {
+          "source": "glm/glm.hpp",
+          "specifiers": [
+            "glm/glm.hpp"
+          ]
+        },
+        {
+          "source": "initializer_list",
+          "specifiers": [
+            "initializer_list"
+          ]
+        },
+        {
+          "source": "string",
+          "specifiers": [
+            "string"
+          ]
+        },
+        {
+          "source": "vector",
+          "specifiers": [
+            "vector"
+          ]
+        }
+      ],
+      "exports": [
+        "PaletteEntry",
+        "Palette",
+        "Palette",
+        "SpriteFrame",
+        "DrawFx",
+        "init",
+        "shutdown",
+        "addSprite",
+        "upload",
+        "beginFrame",
+        "drawRect",
+        "drawSprite",
+        "drawText",
+        "textWidth",
+        "drawTextStyled",
+        "Renderer"
+      ],
+      "totalLines": 67,
+      "hasStructuralAnalysis": true
+    },
+    "Sprites.cpp": {
+      "filePath": "Sprites.cpp",
+      "contentHash": "eb0e30edfa6540a280e40deb5741275af417f8bce525a45da576823da64fab99",
+      "functions": [
+        {
+          "name": "buildSprites",
+          "owner": "",
+          "params": [
+            "r"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Sprites.h",
+          "specifiers": [
+            "Sprites.h"
+          ]
+        },
+        {
+          "source": "HeroSprites.h",
+          "specifiers": [
+            "HeroSprites.h"
+          ]
+        },
+        {
+          "source": "EnemySprites.h",
+          "specifiers": [
+            "EnemySprites.h"
+          ]
+        }
+      ],
+      "exports": [
+        "buildSprites"
+      ],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "Sprites.h": {
+      "filePath": "Sprites.h",
+      "contentHash": "6344594baa8f4a195f9ff05f478aed214bc2350b61d909e3b4eb5f31fa30b0a5",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Renderer.h",
+          "specifiers": [
+            "Renderer.h"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "Template.sln": {
+      "filePath": "Template.sln",
+      "contentHash": "e661110fe123cbe883aba90ea4687281bb210980898d898ece2f798ada0ef3fb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": false
+    },
+    "Template.vcxproj": {
+      "filePath": "Template.vcxproj",
+      "contentHash": "c5536211a3f170380d20c77554cc3f2943380446f3c1fcdf3e99da9818480b04",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 192,
+      "hasStructuralAnalysis": false
+    },
+    "Template.vcxproj.filters": {
+      "filePath": "Template.vcxproj.filters",
+      "contentHash": "875c88b935d01e0e78633600a95dd76469d455b3a90f453d85632ffb0024a53a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 107,
+      "hasStructuralAnalysis": false
+    },
+    "UI.cpp": {
+      "filePath": "UI.cpp",
+      "contentHash": "cb5f8c5105e1c7124df48cad5b01e9bd0d967b784dc4af0fb1ae715fec92a972",
+      "functions": [
+        {
+          "name": "cardRect",
+          "owner": "CardBar",
+          "params": [
+            "i",
+            "x",
+            "y"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "hitTest",
+          "owner": "CardBar",
+          "params": [
+            "wx",
+            "wy"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "drawSpritePx",
+          "owner": "",
+          "params": [
+            "r",
+            "f",
+            "cx",
+            "bottomY",
+            "px"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "drawSpriteFit",
+          "owner": "",
+          "params": [
+            "r",
+            "f",
+            "bx",
+            "by",
+            "bw",
+            "bh"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "draw",
+          "owner": "CardBar",
+          "params": [
+            "r",
+            "coins",
+            "armedCard",
+            "hoveredCard"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 39
+        },
+        {
+          "name": "drawEnvironmentFloor",
+          "owner": "",
+          "params": [
+            "r",
+            "time"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 149
+        },
+        {
+          "name": "drawEnvironmentEdges",
+          "owner": "",
+          "params": [
+            "r",
+            "time"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 277
+        },
+        {
+          "name": "drawBattlefield",
+          "owner": "",
+          "params": [
+            "r",
+            "hoveredLane",
+            "selectedLanes",
+            "time"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 221
+        },
+        {
+          "name": "drawCoinPanel",
+          "owner": "",
+          "params": [
+            "r",
+            "coins"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "drawHealthBar",
+          "owner": "",
+          "params": [
+            "r",
+            "cx",
+            "y",
+            "width",
+            "hp",
+            "maxHp",
+            "isEnemy"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "drawCenteredText",
+          "owner": "",
+          "params": [
+            "r",
+            "s",
+            "y",
+            "px",
+            "color"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "UI.h",
+          "specifiers": [
+            "UI.h"
+          ]
+        },
+        {
+          "source": "Characters.h",
+          "specifiers": [
+            "Characters.h"
+          ]
+        },
+        {
+          "source": "Config.h",
+          "specifiers": [
+            "Config.h"
+          ]
+        },
+        {
+          "source": "algorithm",
+          "specifiers": [
+            "algorithm"
+          ]
+        },
+        {
+          "source": "cmath",
+          "specifiers": [
+            "cmath"
+          ]
+        },
+        {
+          "source": "cstdio",
+          "specifiers": [
+            "cstdio"
+          ]
+        }
+      ],
+      "exports": [
+        "cardRect",
+        "hitTest",
+        "draw",
+        "drawBattlefield",
+        "drawCoinPanel",
+        "drawHealthBar",
+        "drawCenteredText"
+      ],
+      "totalLines": 800,
+      "hasStructuralAnalysis": true
+    },
+    "UI.h": {
+      "filePath": "UI.h",
+      "contentHash": "291e264211107cf00a57b33bbda4d7ffb3f74861fdd16012a92cee61ea1f013b",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CardBar",
+          "methods": [
+            "cardRect",
+            "hitTest",
+            "draw"
+          ],
+          "properties": [
+            "x0",
+            "y0",
+            "w"
+          ],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "imports": [
+        {
+          "source": "Renderer.h",
+          "specifiers": [
+            "Renderer.h"
+          ]
+        },
+        {
+          "source": "string",
+          "specifiers": [
+            "string"
+          ]
+        }
+      ],
+      "exports": [
+        "cardRect",
+        "hitTest",
+        "draw",
+        "CardBar"
+      ],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "WaveSystem.cpp": {
+      "filePath": "WaveSystem.cpp",
+      "contentHash": "f4bca1d6fa122889154ac0b656aea5bbc3ac6deb8e59abb408448c1d647a3a8c",
+      "functions": [
+        {
+          "name": "addEnemy",
+          "owner": "",
+          "params": [
+            "type",
+            "laneIndex",
+            "x"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "randomLane",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "spawnEnemy",
+          "owner": "",
+          "params": [
+            "type"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "getWaveEnemyType",
+          "owner": "",
+          "params": [
+            "wave",
+            "enemyIndex"
+          ],
+          "returnType": "EnemyType",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "updateWaveSystem",
+          "owner": "",
+          "params": [
+            "currentTime"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 37
+        },
+        {
+          "name": "getActiveEnemyCount",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "removeDefeatedEnemies",
+          "owner": "",
+          "params": [],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "areAllEnemiesDefeated",
+          "owner": "",
+          "params": [],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "Enemy",
+          "methods": [],
+          "properties": [
+            "type",
+            "laneIndex",
+            "x",
+            "active"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "glad/gl.h",
+          "specifiers": [
+            "glad/gl.h"
+          ]
+        },
+        {
+          "source": "GLFW/glfw3.h",
+          "specifiers": [
+            "GLFW/glfw3.h"
+          ]
+        },
+        {
+          "source": "iostream",
+          "specifiers": [
+            "iostream"
+          ]
+        },
+        {
+          "source": "vector",
+          "specifiers": [
+            "vector"
+          ]
+        },
+        {
+          "source": "algorithm",
+          "specifiers": [
+            "algorithm"
+          ]
+        },
+        {
+          "source": "cstdlib",
+          "specifiers": [
+            "cstdlib"
+          ]
+        },
+        {
+          "source": "ctime",
+          "specifiers": [
+            "ctime"
+          ]
+        }
+      ],
+      "exports": [
+        "Enemy",
+        "addEnemy",
+        "randomLane",
+        "spawnEnemy",
+        "getWaveEnemyType",
+        "updateWaveSystem",
+        "getActiveEnemyCount",
+        "removeDefeatedEnemies",
+        "areAllEnemiesDefeated"
+      ],
+      "totalLines": 742,
+      "hasStructuralAnalysis": true
+    },
+    "WaveSystem.h": {
+      "filePath": "WaveSystem.h",
+      "contentHash": "92c4ad465550a94c6d2f1c1a212f7ba291abc68d52fc180686c30190546d7f81",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Enemy",
+          "methods": [],
+          "properties": [
+            "type",
+            "laneIndex",
+            "x",
+            "active"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "vector",
+          "specifiers": [
+            "vector"
+          ]
+        }
+      ],
+      "exports": [
+        "Enemy"
+      ],
+      "totalLines": 34,
+      "hasStructuralAnalysis": true
+    },
+    "include/KHR/khrplatform.h": {
+      "filePath": "include/KHR/khrplatform.h",
+      "contentHash": "7b1e01aaa7ad8f6fc34b5c7bdf79ebf5189bb09e2c4d2e79fc5d350623d11e83",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 312,
+      "hasStructuralAnalysis": true
+    },
+    "include/glad/gl.h": {
+      "filePath": "include/glad/gl.h",
+      "contentHash": "a5a54e1c28feccf2dae3933aadbd1003617ad99459dfae5e951742c6b5c5aa09",
+      "functions": [
+        {
+          "name": "glad_gl_load_GL_VERSION_1_0",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 51
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_1",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_2",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_3",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_4",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_5",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_2_0",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 96
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_2_1",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_3_0",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 87
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_3_1",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_3_2",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_3_3",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 31
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_4_0",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 49
+        },
+        {
+          "name": "glad_gl_free_extensions",
+          "owner": "",
+          "params": [
+            "exts_i"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "glad_gl_get_extensions",
+          "owner": "",
+          "params": [
+            "out_exts",
+            "out_exts_i"
+          ],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 40
+        },
+        {
+          "name": "glad_gl_has_extension",
+          "owner": "",
+          "params": [
+            "exts",
+            "exts_i",
+            "ext"
+          ],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 32
+        },
+        {
+          "name": "glad_gl_get_proc_from_userptr",
+          "owner": "",
+          "params": [
+            "userptr",
+            "name"
+          ],
+          "returnType": "GLADapiproc",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "glad_gl_find_extensions_gl",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "glad_gl_find_core_gl",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 40
+        },
+        {
+          "name": "gladLoadGLUserPtr",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "gladLoadGL",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "_cl_context",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "_cl_event",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "imports": [
+        {
+          "source": "stdio.h",
+          "specifiers": [
+            "stdio.h"
+          ]
+        },
+        {
+          "source": "stdlib.h",
+          "specifiers": [
+            "stdlib.h"
+          ]
+        },
+        {
+          "source": "string.h",
+          "specifiers": [
+            "string.h"
+          ]
+        }
+      ],
+      "exports": [
+        "_cl_context",
+        "_cl_event",
+        "gladLoadGLUserPtr",
+        "gladLoadGL"
+      ],
+      "totalLines": 3719,
+      "hasStructuralAnalysis": true
+    },
+    "include/glad/glad.h": {
+      "filePath": "include/glad/glad.h",
+      "contentHash": "8f3778b78bc03cbe3625747f07d0b3dce52ebfcfce5dac6b00b9938b7074c7c3",
+      "functions": [
+        {
+          "name": "glad_gl_load_GL_VERSION_1_0",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 51
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_1",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_2",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_3",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_4",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_1_5",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_2_0",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 96
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_2_1",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_3_0",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 87
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_3_1",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_3_2",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_3_3",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 31
+        },
+        {
+          "name": "glad_gl_load_GL_VERSION_4_0",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 49
+        },
+        {
+          "name": "glad_gl_free_extensions",
+          "owner": "",
+          "params": [
+            "exts_i"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "glad_gl_get_extensions",
+          "owner": "",
+          "params": [
+            "out_exts",
+            "out_exts_i"
+          ],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 40
+        },
+        {
+          "name": "glad_gl_has_extension",
+          "owner": "",
+          "params": [
+            "exts",
+            "exts_i",
+            "ext"
+          ],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 33
+        },
+        {
+          "name": "glad_gl_get_proc_from_userptr",
+          "owner": "",
+          "params": [
+            "userptr",
+            "name"
+          ],
+          "returnType": "GLADapiproc",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "glad_gl_find_extensions_gl",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "glad_gl_find_core_gl",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 40
+        },
+        {
+          "name": "gladLoadGLUserPtr",
+          "owner": "",
+          "params": [
+            "load",
+            "userptr"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "gladLoadGL",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "_cl_context",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "_cl_event",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "imports": [
+        {
+          "source": "stdio.h",
+          "specifiers": [
+            "stdio.h"
+          ]
+        },
+        {
+          "source": "stdlib.h",
+          "specifiers": [
+            "stdlib.h"
+          ]
+        },
+        {
+          "source": "string.h",
+          "specifiers": [
+            "string.h"
+          ]
+        }
+      ],
+      "exports": [
+        "_cl_context",
+        "_cl_event",
+        "gladLoadGLUserPtr",
+        "gladLoadGL"
+      ],
+      "totalLines": 3718,
+      "hasStructuralAnalysis": true
+    },
+    "main.cpp": {
+      "filePath": "main.cpp",
+      "contentHash": "cb6f16a0e8bfd803d93dab467fc7041945b2c3bc0785d399f7891d7719fa392a",
+      "functions": [
+        {
+          "name": "glfwErrorCallback",
+          "owner": "",
+          "params": [
+            "code",
+            "desc"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "toWorld",
+          "owner": "",
+          "params": [
+            "w",
+            "mx",
+            "my",
+            "wx",
+            "wy"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "cursorCallback",
+          "owner": "",
+          "params": [
+            "w",
+            "mx",
+            "my"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "mouseButtonCallback",
+          "owner": "",
+          "params": [
+            "w",
+            "button",
+            "action"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "keyCallback",
+          "owner": "",
+          "params": [
+            "w",
+            "key",
+            "action"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "main",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 124
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "glad/gl.h",
+          "specifiers": [
+            "glad/gl.h"
+          ]
+        },
+        {
+          "source": "GLFW/glfw3.h",
+          "specifiers": [
+            "GLFW/glfw3.h"
+          ]
+        },
+        {
+          "source": "algorithm",
+          "specifiers": [
+            "algorithm"
+          ]
+        },
+        {
+          "source": "iostream",
+          "specifiers": [
+            "iostream"
+          ]
+        },
+        {
+          "source": "iterator",
+          "specifiers": [
+            "iterator"
+          ]
+        },
+        {
+          "source": "Audio.h",
+          "specifiers": [
+            "Audio.h"
+          ]
+        },
+        {
+          "source": "Config.h",
+          "specifiers": [
+            "Config.h"
+          ]
+        },
+        {
+          "source": "Game.h",
+          "specifiers": [
+            "Game.h"
+          ]
+        },
+        {
+          "source": "Renderer.h",
+          "specifiers": [
+            "Renderer.h"
+          ]
+        },
+        {
+          "source": "Sprites.h",
+          "specifiers": [
+            "Sprites.h"
+          ]
+        },
+        {
+          "source": "Background.h",
+          "specifiers": [
+            "Background.h"
+          ]
+        }
+      ],
+      "exports": [
+        "main"
+      ],
+      "totalLines": 207,
+      "hasStructuralAnalysis": true
+    },
+    "progress.md": {
+      "filePath": "progress.md",
+      "contentHash": "1efa8b3def98e3fb6d884033714ffa24901339716b81b9459330ade964c51fc6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": false
+    },
+    "src/glad.c": {
+      "filePath": "src/glad.c",
+      "contentHash": "51c51a4fcc08ecfce1f7beb4b5ee4a36efc633e2967007d9ce06eb9650100b9d",
+      "functions": [
+        {
+          "name": "open_gl",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "close_gl",
+          "owner": "",
+          "params": [],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "open_gl",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 30
+        },
+        {
+          "name": "close_gl",
+          "owner": "",
+          "params": [],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "gladLoadGL",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "get_exts",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 33
+        },
+        {
+          "name": "free_exts",
+          "owner": "",
+          "params": [],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "has_ext",
+          "owner": "",
+          "params": [
+            "ext"
+          ],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 41
+        },
+        {
+          "name": "load_GL_VERSION_1_0",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 51
+        },
+        {
+          "name": "load_GL_VERSION_1_1",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "load_GL_VERSION_1_2",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "load_GL_VERSION_1_3",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "load_GL_VERSION_1_4",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "load_GL_VERSION_1_5",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "load_GL_VERSION_2_0",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 96
+        },
+        {
+          "name": "load_GL_VERSION_2_1",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "load_GL_VERSION_3_0",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 87
+        },
+        {
+          "name": "load_GL_VERSION_3_1",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "load_GL_VERSION_3_2",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "load_GL_VERSION_3_3",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 61
+        },
+        {
+          "name": "load_GL_VERSION_4_0",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 49
+        },
+        {
+          "name": "load_GL_VERSION_4_1",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 92
+        },
+        {
+          "name": "load_GL_VERSION_4_2",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "load_GL_VERSION_4_3",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 47
+        },
+        {
+          "name": "load_GL_VERSION_4_4",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "load_GL_VERSION_4_5",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 125
+        },
+        {
+          "name": "load_GL_VERSION_4_6",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "find_extensionsGL",
+          "owner": "",
+          "params": [],
+          "returnType": "int",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "find_coreGL",
+          "owner": "",
+          "params": [],
+          "returnType": "void",
+          "exported": false,
+          "lineCount": 60
+        },
+        {
+          "name": "gladLoadGLLoader",
+          "owner": "",
+          "params": [
+            "load"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [
+        {
+          "name": "gladGLversionStruct",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "imports": [
+        {
+          "source": "stdio.h",
+          "specifiers": [
+            "stdio.h"
+          ]
+        },
+        {
+          "source": "stdlib.h",
+          "specifiers": [
+            "stdlib.h"
+          ]
+        },
+        {
+          "source": "string.h",
+          "specifiers": [
+            "string.h"
+          ]
+        },
+        {
+          "source": "glad/glad.h",
+          "specifiers": [
+            "glad/glad.h"
+          ]
+        },
+        {
+          "source": "dlfcn.h",
+          "specifiers": [
+            "dlfcn.h"
+          ]
+        }
+      ],
+      "exports": [
+        "gladLoadGL",
+        "gladGLversionStruct",
+        "gladLoadGLLoader"
+      ],
+      "totalLines": 1834,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

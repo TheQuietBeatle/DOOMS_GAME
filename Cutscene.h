@@ -1,5 +1,7 @@
+// Cutscene.h - "The Reactor Heist" intro cutscene (~18 s, 6 shots).
+// Rendered entirely with Renderer primitives and g_sprites[]; no extra assets.
+// Game.cpp drives update()/draw() while GameState == Cutscene; skip() on Space/Enter.
 #pragma once
-// ---------------------------------------------------------------------------
 // Intro cutscene: "The Reactor Heist"  (~18 seconds)
 //
 //  Shot 1  0-3s    New York at peace, Stark Tower + pulsing Arc Reactor
@@ -11,7 +13,6 @@
 //
 // Uses only Renderer::drawRect / drawSprite / drawText and the existing
 // sprites in g_sprites[], so the characters match the gameplay models.
-// ---------------------------------------------------------------------------
 #include "Renderer.h"
 
 class Cutscene {

@@ -1,0 +1,1490 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 7,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 7,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 7,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "Cutscene.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 436,
+      "nonEmptyLines": 394,
+      "functions": [
+        {
+          "name": "clamp01",
+          "startLine": 15,
+          "endLine": 15,
+          "params": [
+            "v"
+          ]
+        },
+        {
+          "name": "lerpf",
+          "startLine": 16,
+          "endLine": 16,
+          "params": [
+            "a",
+            "b",
+            "k"
+          ]
+        },
+        {
+          "name": "prog",
+          "startLine": 19,
+          "endLine": 23,
+          "params": [
+            "t",
+            "t0",
+            "t1"
+          ]
+        },
+        {
+          "name": "mix3",
+          "startLine": 25,
+          "endLine": 28,
+          "params": [
+            "a",
+            "b",
+            "k"
+          ]
+        },
+        {
+          "name": "drawDisc",
+          "startLine": 31,
+          "endLine": 41,
+          "params": [
+            "r",
+            "cx",
+            "cy",
+            "rad",
+            "c",
+            "a"
+          ]
+        },
+        {
+          "name": "drawLine",
+          "startLine": 44,
+          "endLine": 54,
+          "params": [
+            "r",
+            "x0",
+            "y0",
+            "x1",
+            "y1",
+            "thick",
+            "c",
+            "a"
+          ]
+        },
+        {
+          "name": "drawUnit",
+          "startLine": 57,
+          "endLine": 66,
+          "params": [
+            "r",
+            "id",
+            "x",
+            "y",
+            "height",
+            "flipX"
+          ]
+        },
+        {
+          "name": "unitBox",
+          "startLine": 71,
+          "endLine": 80,
+          "params": [
+            "id",
+            "x",
+            "y",
+            "height",
+            "flipX",
+            "left",
+            "right",
+            "top"
+          ]
+        },
+        {
+          "name": "start",
+          "startLine": 113,
+          "endLine": 113,
+          "params": []
+        },
+        {
+          "name": "update",
+          "startLine": 115,
+          "endLine": 120,
+          "params": [
+            "dt"
+          ]
+        },
+        {
+          "name": "skip",
+          "startLine": 122,
+          "endLine": 122,
+          "params": []
+        },
+        {
+          "name": "draw",
+          "startLine": 127,
+          "endLine": 436,
+          "params": [
+            "r"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Line",
+          "startLine": 88,
+          "endLine": 93,
+          "methods": [],
+          "properties": [
+            "t0",
+            "speaker",
+            "color",
+            "text"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "clamp01",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "lerpf",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "prog",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "mix3",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "drawDisc",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "drawLine",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "drawUnit",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "unitBox",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "Line",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "start",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "update",
+          "line": 115,
+          "isDefault": false
+        },
+        {
+          "name": "skip",
+          "line": 122,
+          "isDefault": false
+        },
+        {
+          "name": "draw",
+          "line": 127,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "prog",
+          "callee": "clamp01",
+          "lineNumber": 21
+        },
+        {
+          "caller": "mix3",
+          "callee": "glm::vec3",
+          "lineNumber": 27
+        },
+        {
+          "caller": "mix3",
+          "callee": "lerpf",
+          "lineNumber": 27
+        },
+        {
+          "caller": "mix3",
+          "callee": "lerpf",
+          "lineNumber": 27
+        },
+        {
+          "caller": "mix3",
+          "callee": "lerpf",
+          "lineNumber": 27
+        },
+        {
+          "caller": "drawDisc",
+          "callee": "std::sqrt",
+          "lineNumber": 38
+        },
+        {
+          "caller": "drawDisc",
+          "callee": "std::fmax",
+          "lineNumber": 38
+        },
+        {
+          "caller": "drawDisc",
+          "callee": "drawRect",
+          "lineNumber": 39
+        },
+        {
+          "caller": "drawLine",
+          "callee": "std::sqrt",
+          "lineNumber": 48
+        },
+        {
+          "caller": "drawLine",
+          "callee": "drawRect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "drawUnit",
+          "callee": "drawSprite",
+          "lineNumber": 65
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 135
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 136
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 137
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 138
+        },
+        {
+          "caller": "draw",
+          "callee": "clamp01",
+          "lineNumber": 139
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 140
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 141
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 142
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 143
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 144
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 150
+        },
+        {
+          "caller": "draw",
+          "callee": "std::cos",
+          "lineNumber": 151
+        },
+        {
+          "caller": "draw",
+          "callee": "mix3",
+          "lineNumber": 165
+        },
+        {
+          "caller": "draw",
+          "callee": "mix3",
+          "lineNumber": 166
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 169
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 170
+        },
+        {
+          "caller": "draw",
+          "callee": "mix3",
+          "lineNumber": 170
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 175
+        },
+        {
+          "caller": "draw",
+          "callee": "mix3",
+          "lineNumber": 176
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 189
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 189
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 190
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 191
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 191
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 193
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 193
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 197
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 198
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 198
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 210
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 212
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 217
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 220
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 222
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 223
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 224
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 225
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 226
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 227
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 228
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 230
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 233
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 234
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 234
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 235
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 235
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 236
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 236
+        },
+        {
+          "caller": "draw",
+          "callee": "drawLine",
+          "lineNumber": 252
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 252
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 255
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 255
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 261
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 261
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 262
+        },
+        {
+          "caller": "draw",
+          "callee": "mix3",
+          "lineNumber": 263
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 263
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 263
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 265
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 265
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 270
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 271
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 278
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 278
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 279
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 279
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 281
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 281
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 282
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 282
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 283
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 283
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 286
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 288
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 288
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 289
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 289
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 290
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 290
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 291
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 291
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 297
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 298
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 298
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 299
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 299
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 300
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 300
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 317
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 320
+        },
+        {
+          "caller": "draw",
+          "callee": "drawUnit",
+          "lineNumber": 323
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 329
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 330
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 334
+        },
+        {
+          "caller": "draw",
+          "callee": "drawUnit",
+          "lineNumber": 335
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 344
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 346
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 348
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 349
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 349
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 355
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 355
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 360
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 361
+        },
+        {
+          "caller": "draw",
+          "callee": "drawUnit",
+          "lineNumber": 364
+        },
+        {
+          "caller": "draw",
+          "callee": "unitBox",
+          "lineNumber": 375
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 376
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 376
+        },
+        {
+          "caller": "draw",
+          "callee": "unitBox",
+          "lineNumber": 377
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 378
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 378
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 379
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 381
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 382
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 383
+        },
+        {
+          "caller": "draw",
+          "callee": "drawLine",
+          "lineNumber": 385
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 385
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 385
+        },
+        {
+          "caller": "draw",
+          "callee": "drawLine",
+          "lineNumber": 386
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 386
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 386
+        },
+        {
+          "caller": "draw",
+          "callee": "drawLine",
+          "lineNumber": 388
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 388
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 388
+        },
+        {
+          "caller": "draw",
+          "callee": "drawLine",
+          "lineNumber": 389
+        },
+        {
+          "caller": "draw",
+          "callee": "lerpf",
+          "lineNumber": 389
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 389
+        },
+        {
+          "caller": "draw",
+          "callee": "std::sin",
+          "lineNumber": 392
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 393
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 393
+        },
+        {
+          "caller": "draw",
+          "callee": "drawDisc",
+          "lineNumber": 394
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 394
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 397
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 397
+        },
+        {
+          "caller": "draw",
+          "callee": "std::fmin",
+          "lineNumber": 405
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 405
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 405
+        },
+        {
+          "caller": "draw",
+          "callee": "textWidth",
+          "lineNumber": 409
+        },
+        {
+          "caller": "draw",
+          "callee": "empty",
+          "lineNumber": 410
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 411
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 411
+        },
+        {
+          "caller": "draw",
+          "callee": "drawText",
+          "lineNumber": 413
+        },
+        {
+          "caller": "draw",
+          "callee": "textWidth",
+          "lineNumber": 413
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 413
+        },
+        {
+          "caller": "draw",
+          "callee": "empty",
+          "lineNumber": 414
+        },
+        {
+          "caller": "draw",
+          "callee": "drawText",
+          "lineNumber": 415
+        },
+        {
+          "caller": "draw",
+          "callee": "textWidth",
+          "lineNumber": 415
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 419
+        },
+        {
+          "caller": "draw",
+          "callee": "textWidth",
+          "lineNumber": 422
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 423
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 423
+        },
+        {
+          "caller": "draw",
+          "callee": "drawText",
+          "lineNumber": 424
+        },
+        {
+          "caller": "draw",
+          "callee": "textWidth",
+          "lineNumber": 424
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 424
+        },
+        {
+          "caller": "draw",
+          "callee": "drawText",
+          "lineNumber": 429
+        },
+        {
+          "caller": "draw",
+          "callee": "textWidth",
+          "lineNumber": 429
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 429
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 432
+        },
+        {
+          "caller": "draw",
+          "callee": "prog",
+          "lineNumber": 433
+        },
+        {
+          "caller": "draw",
+          "callee": "std::fmax",
+          "lineNumber": 434
+        },
+        {
+          "caller": "draw",
+          "callee": "drawRect",
+          "lineNumber": 435
+        },
+        {
+          "caller": "draw",
+          "callee": "glm::vec3",
+          "lineNumber": 435
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 13,
+        "functionCount": 12,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Cutscene.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "finished",
+          "startLine": 25,
+          "endLine": 25,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Cutscene",
+          "startLine": 17,
+          "endLine": 30,
+          "methods": [
+            "start",
+            "update",
+            "draw",
+            "skip",
+            "finished"
+          ],
+          "properties": [
+            "DURATION",
+            "t",
+            "done"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "start",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "update",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "draw",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "skip",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "finished",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "Cutscene",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 6,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "EnemySprites.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 470,
+      "nonEmptyLines": 463,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "HeroSprites.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 326,
+      "nonEmptyLines": 318,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Renderer.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 58,
+      "functions": [
+        {
+          "name": "Palette",
+          "startLine": 14,
+          "endLine": 19,
+          "params": [
+            "entries"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PaletteEntry",
+          "startLine": 9,
+          "endLine": 9,
+          "methods": [],
+          "properties": [
+            "ch",
+            "r"
+          ]
+        },
+        {
+          "name": "Palette",
+          "startLine": 11,
+          "endLine": 20,
+          "methods": [
+            "Palette"
+          ],
+          "properties": [
+            "color",
+            "used"
+          ]
+        },
+        {
+          "name": "SpriteFrame",
+          "startLine": 24,
+          "endLine": 29,
+          "methods": [],
+          "properties": [
+            "first",
+            "count",
+            "w",
+            "h"
+          ]
+        },
+        {
+          "name": "DrawFx",
+          "startLine": 32,
+          "endLine": 36,
+          "methods": [],
+          "properties": [
+            "red",
+            "gray",
+            "alpha"
+          ]
+        },
+        {
+          "name": "Renderer",
+          "startLine": 38,
+          "endLine": 67,
+          "methods": [
+            "init",
+            "shutdown",
+            "addSprite",
+            "upload",
+            "beginFrame",
+            "drawRect",
+            "drawSprite",
+            "drawText",
+            "textWidth",
+            "drawTextStyled",
+            "draw"
+          ],
+          "properties": [
+            "program",
+            "uProj",
+            "verts",
+            "quad"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PaletteEntry",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "Palette",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "Palette",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "SpriteFrame",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "DrawFx",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "shutdown",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "addSprite",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "upload",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "beginFrame",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "drawRect",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "drawSprite",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "drawText",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "textWidth",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "drawTextStyled",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "Renderer",
+          "line": 38,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Palette",
+          "callee": "glm::vec3",
+          "lineNumber": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 16,
+        "functionCount": 1,
+        "classCount": 5
+      }
+    },
+    {
+      "path": "Sprites.cpp",
+      "language": "cpp",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 25,
+      "functions": [
+        {
+          "name": "buildSprites",
+          "startLine": 11,
+          "endLine": 28,
+          "params": [
+            "r"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildSprites",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 14
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 15
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 16
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 17
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 18
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 19
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 22
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 23
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 24
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 25
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 26
+        },
+        {
+          "caller": "buildSprites",
+          "callee": "ADD_SPRITE",
+          "lineNumber": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Sprites.h",
+      "language": "c",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

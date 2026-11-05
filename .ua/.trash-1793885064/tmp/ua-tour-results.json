@@ -1,0 +1,533 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    {
+      "id": "file:main.cpp",
+      "score": 6,
+      "name": "main.cpp",
+      "summary": "Application entry point: GLFW init, GLAD load, bootstraps Game object, runs frame loop"
+    },
+    {
+      "id": "document:README.md",
+      "score": 5,
+      "name": "README.md",
+      "summary": "Main project documentation: features, architecture, tech stack, build instructions"
+    },
+    {
+      "id": "file:Game.cpp",
+      "score": 3,
+      "name": "Game.cpp",
+      "summary": "Core game logic: state machine, unit placement, swept-segment projectile combat, coin economy, win/loss"
+    },
+    {
+      "id": "file:WaveSystem.cpp",
+      "score": 3,
+      "name": "WaveSystem.cpp",
+      "summary": "Wave spawning engine: 3-wave schedule (3, 5, 10 enemies), random lane assignment, timing"
+    },
+    {
+      "id": "file:Sprites.cpp",
+      "score": 3,
+      "name": "Sprites.cpp",
+      "summary": "Implements buildSprites: converts ASCII art grids to triangles uploaded to Renderer VAO"
+    }
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:Game.h",
+      "fanIn": 3,
+      "name": "Game.h"
+    },
+    {
+      "id": "file:WaveSystem.h",
+      "fanIn": 2,
+      "name": "WaveSystem.h"
+    },
+    {
+      "id": "file:Renderer.h",
+      "fanIn": 2,
+      "name": "Renderer.h"
+    },
+    {
+      "id": "file:Audio.h",
+      "fanIn": 2,
+      "name": "Audio.h"
+    },
+    {
+      "id": "file:Config.h",
+      "fanIn": 1,
+      "name": "Config.h"
+    },
+    {
+      "id": "file:HeroSprites.h",
+      "fanIn": 1,
+      "name": "HeroSprites.h"
+    },
+    {
+      "id": "file:EnemySprites.h",
+      "fanIn": 1,
+      "name": "EnemySprites.h"
+    },
+    {
+      "id": "file:Sprites.h",
+      "fanIn": 1,
+      "name": "Sprites.h"
+    },
+    {
+      "id": "file:UI.h",
+      "fanIn": 1,
+      "name": "UI.h"
+    },
+    {
+      "id": "file:Background.h",
+      "fanIn": 1,
+      "name": "Background.h"
+    },
+    {
+      "id": "file:Cutscene.h",
+      "fanIn": 1,
+      "name": "Cutscene.h"
+    },
+    {
+      "id": "file:main.cpp",
+      "fanIn": 0,
+      "name": "main.cpp"
+    },
+    {
+      "id": "file:Characters.h",
+      "fanIn": 0,
+      "name": "Characters.h"
+    },
+    {
+      "id": "file:Characters.cpp",
+      "fanIn": 0,
+      "name": "Characters.cpp"
+    },
+    {
+      "id": "file:Game.cpp",
+      "fanIn": 0,
+      "name": "Game.cpp"
+    },
+    {
+      "id": "file:WaveSystem.cpp",
+      "fanIn": 0,
+      "name": "WaveSystem.cpp"
+    },
+    {
+      "id": "file:Renderer.cpp",
+      "fanIn": 0,
+      "name": "Renderer.cpp"
+    },
+    {
+      "id": "file:Sprites.cpp",
+      "fanIn": 0,
+      "name": "Sprites.cpp"
+    },
+    {
+      "id": "file:UI.cpp",
+      "fanIn": 0,
+      "name": "UI.cpp"
+    },
+    {
+      "id": "file:Background.cpp",
+      "fanIn": 0,
+      "name": "Background.cpp"
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "file:main.cpp",
+      "fanOut": 5,
+      "name": "main.cpp"
+    },
+    {
+      "id": "file:Game.cpp",
+      "fanOut": 3,
+      "name": "Game.cpp"
+    },
+    {
+      "id": "file:WaveSystem.cpp",
+      "fanOut": 2,
+      "name": "WaveSystem.cpp"
+    },
+    {
+      "id": "file:Sprites.cpp",
+      "fanOut": 2,
+      "name": "Sprites.cpp"
+    },
+    {
+      "id": "file:UI.cpp",
+      "fanOut": 2,
+      "name": "UI.cpp"
+    },
+    {
+      "id": "file:Renderer.cpp",
+      "fanOut": 1,
+      "name": "Renderer.cpp"
+    },
+    {
+      "id": "file:Cutscene.cpp",
+      "fanOut": 1,
+      "name": "Cutscene.cpp"
+    },
+    {
+      "id": "file:Config.h",
+      "fanOut": 0,
+      "name": "Config.h"
+    },
+    {
+      "id": "file:Characters.h",
+      "fanOut": 0,
+      "name": "Characters.h"
+    },
+    {
+      "id": "file:Characters.cpp",
+      "fanOut": 0,
+      "name": "Characters.cpp"
+    },
+    {
+      "id": "file:Game.h",
+      "fanOut": 0,
+      "name": "Game.h"
+    },
+    {
+      "id": "file:WaveSystem.h",
+      "fanOut": 0,
+      "name": "WaveSystem.h"
+    },
+    {
+      "id": "file:Renderer.h",
+      "fanOut": 0,
+      "name": "Renderer.h"
+    },
+    {
+      "id": "file:HeroSprites.h",
+      "fanOut": 0,
+      "name": "HeroSprites.h"
+    },
+    {
+      "id": "file:EnemySprites.h",
+      "fanOut": 0,
+      "name": "EnemySprites.h"
+    },
+    {
+      "id": "file:Sprites.h",
+      "fanOut": 0,
+      "name": "Sprites.h"
+    },
+    {
+      "id": "file:UI.h",
+      "fanOut": 0,
+      "name": "UI.h"
+    },
+    {
+      "id": "file:Background.h",
+      "fanOut": 0,
+      "name": "Background.h"
+    },
+    {
+      "id": "file:Background.cpp",
+      "fanOut": 0,
+      "name": "Background.cpp"
+    },
+    {
+      "id": "file:Cutscene.h",
+      "fanOut": 0,
+      "name": "Cutscene.h"
+    }
+  ],
+  "bfsTraversal": {
+    "startNode": "file:main.cpp",
+    "order": [
+      "file:main.cpp",
+      "file:Game.h",
+      "file:Audio.h",
+      "file:Background.h",
+      "file:Cutscene.h",
+      "file:Config.h"
+    ],
+    "depthMap": {
+      "file:main.cpp": 0,
+      "file:Game.h": 1,
+      "file:Audio.h": 1,
+      "file:Background.h": 1,
+      "file:Cutscene.h": 1,
+      "file:Config.h": 1
+    },
+    "byDepth": {
+      "0": [
+        "file:main.cpp"
+      ],
+      "1": [
+        "file:Game.h",
+        "file:Audio.h",
+        "file:Background.h",
+        "file:Cutscene.h",
+        "file:Config.h"
+      ]
+    }
+  },
+  "nonCodeFiles": {
+    "documentation": [
+      {
+        "id": "document:README.md",
+        "name": "README.md",
+        "summary": "Main project documentation: features, architecture, tech stack, build instructions"
+      },
+      {
+        "id": "document:AUDIT_REPORT.md",
+        "name": "AUDIT_REPORT.md",
+        "summary": "Code audit report and requirements checklist for the tower defense game"
+      },
+      {
+        "id": "document:progress.md",
+        "name": "progress.md",
+        "summary": "Developer progress-tracking notes and TODO list"
+      },
+      {
+        "id": "document:LINKEDIN_NOTES.md",
+        "name": "LINKEDIN_NOTES.md",
+        "summary": "Notes for LinkedIn post about DoomsGame"
+      }
+    ],
+    "infrastructure": [],
+    "data": [],
+    "config": [
+      {
+        "id": "config:Template.vcxproj",
+        "name": "Template.vcxproj",
+        "summary": "Visual Studio C++ project file: C++17, x64, Debug/Release configs"
+      },
+      {
+        "id": "config:Template.sln",
+        "name": "Template.sln",
+        "summary": "Visual Studio solution file"
+      },
+      {
+        "id": "config:Template.vcxproj.filters",
+        "name": "Template.vcxproj.filters",
+        "summary": "VS file organization filters"
+      }
+    ]
+  },
+  "clusters": [],
+  "layers": {
+    "count": 7,
+    "list": [
+      {
+        "id": "layer:entry-and-loop",
+        "name": "Entry & Loop",
+        "description": "Application bootstrap and main game loop"
+      },
+      {
+        "id": "layer:game-logic",
+        "name": "Game Logic",
+        "description": "Core state machine, combat simulation, economy, and wave management"
+      },
+      {
+        "id": "layer:ui-and-presentation",
+        "name": "UI & Presentation",
+        "description": "Player-facing UI, menus, cutscene, and background visuals"
+      },
+      {
+        "id": "layer:rendering-engine",
+        "name": "Rendering Engine",
+        "description": "OpenGL batched renderer, sprite system, and pixel art data"
+      },
+      {
+        "id": "layer:data-and-config",
+        "name": "Data & Config",
+        "description": "Unit tuning tables, game constants, and shared types"
+      },
+      {
+        "id": "layer:external-libraries",
+        "name": "External Libraries",
+        "description": "Vendored third-party headers and sources (GLFW, GLAD)"
+      },
+      {
+        "id": "layer:build-and-docs",
+        "name": "Build & Docs",
+        "description": "VS project/solution files and project documentation"
+      }
+    ]
+  },
+  "nodeSummaryIndex": {
+    "file:main.cpp": {
+      "name": "main.cpp",
+      "type": "file",
+      "summary": "Application entry point: GLFW init, GLAD load, bootstraps Game object, runs frame loop"
+    },
+    "file:Config.h": {
+      "name": "Config.h",
+      "type": "file",
+      "summary": "Shared constants in cfg namespace: NUM_LANES=4, board bounds, COIN_VALUE, physics timings"
+    },
+    "file:Characters.h": {
+      "name": "Characters.h",
+      "type": "file",
+      "summary": "CharacterDef struct and EnemyType/CharType enums for all 6 unit types (3 heroes, 3 enemies)"
+    },
+    "file:Characters.cpp": {
+      "name": "Characters.cpp",
+      "type": "file",
+      "summary": "Geometry helper functions for character units (scale, height, width)"
+    },
+    "file:Game.h": {
+      "name": "Game.h",
+      "type": "file",
+      "summary": "Central header: GameState enum, Unit/Projectile/Collectible/Explosion structs, Game class declaration"
+    },
+    "file:Game.cpp": {
+      "name": "Game.cpp",
+      "type": "file",
+      "summary": "Core game logic: state machine, unit placement, swept-segment projectile combat, coin economy, win/loss"
+    },
+    "file:WaveSystem.h": {
+      "name": "WaveSystem.h",
+      "type": "file",
+      "summary": "Declares wave system: Enemy struct, global wave state, updateWaveSystem/spawnEnemy/resetWaves"
+    },
+    "file:WaveSystem.cpp": {
+      "name": "WaveSystem.cpp",
+      "type": "file",
+      "summary": "Wave spawning engine: 3-wave schedule (3, 5, 10 enemies), random lane assignment, timing"
+    },
+    "file:Renderer.h": {
+      "name": "Renderer.h",
+      "type": "file",
+      "summary": "Declares Renderer class: OpenGL batched quad drawing, pixel font (5x7 bitmap), viewport management"
+    },
+    "file:Renderer.cpp": {
+      "name": "Renderer.cpp",
+      "type": "file",
+      "summary": "OpenGL 3.3 batched renderer: shader compile, single VAO/VBO for all sprites, letterboxed viewport"
+    },
+    "file:HeroSprites.h": {
+      "name": "HeroSprites.h",
+      "type": "file",
+      "summary": "ASCII art pixel arrays and palettes for Iron Man hero units (Melee, Ranged, Defense)"
+    },
+    "file:EnemySprites.h": {
+      "name": "EnemySprites.h",
+      "type": "file",
+      "summary": "ASCII art pixel arrays and palettes for Doombot enemy types (Easy, Medium, Hard)"
+    },
+    "file:Sprites.h": {
+      "name": "Sprites.h",
+      "type": "file",
+      "summary": "Declares buildSprites function and sprite-index constants for the game"
+    },
+    "file:Sprites.cpp": {
+      "name": "Sprites.cpp",
+      "type": "file",
+      "summary": "Implements buildSprites: converts ASCII art grids to triangles uploaded to Renderer VAO"
+    },
+    "file:UI.h": {
+      "name": "UI.h",
+      "type": "file",
+      "summary": "Declares CardBar struct and battlefield/menu drawing function prototypes"
+    },
+    "file:UI.cpp": {
+      "name": "UI.cpp",
+      "type": "file",
+      "summary": "Hero card-bar HUD, animated battlefield grid, all menu screens (main, settings, pause, win/loss)"
+    },
+    "file:Background.h": {
+      "name": "Background.h",
+      "type": "file",
+      "summary": "Declares Background class: texture loading, rendering, thumbnail picker for 5 switchable backgrounds"
+    },
+    "file:Background.cpp": {
+      "name": "Background.cpp",
+      "type": "file",
+      "summary": "OpenGL background renderer: loads PNG textures, draws cover-fit backgrounds, thumbnail selector"
+    },
+    "file:Cutscene.h": {
+      "name": "Cutscene.h",
+      "type": "file",
+      "summary": "Declares Cutscene class with start/update/draw/skip/finished lifecycle methods"
+    },
+    "file:Cutscene.cpp": {
+      "name": "Cutscene.cpp",
+      "type": "file",
+      "summary": "18-second scripted intro cutscene with time-based panel animations and audio cues"
+    },
+    "file:Audio.h": {
+      "name": "Audio.h",
+      "type": "file",
+      "summary": "Declares Audio namespace: init/shutdown, music control, SFX playback, voice lines"
+    },
+    "file:Audio.cpp": {
+      "name": "Audio.cpp",
+      "type": "file",
+      "summary": "miniaudio wrapper: looping background music, fire-and-forget SFX, volume/mute controls"
+    },
+    "file:include/glad/gl.h": {
+      "name": "gl.h",
+      "type": "file",
+      "summary": "GLAD v2 OpenGL 3.3 Core function loader (vendor code)"
+    },
+    "file:External/include/GLFW/glfw3.h": {
+      "name": "glfw3.h",
+      "type": "file",
+      "summary": "Vendored GLFW 3.5.1: window creation, OpenGL context, keyboard/mouse input"
+    },
+    "file:External/include/GLFW/glfw3native.h": {
+      "name": "glfw3native.h",
+      "type": "file",
+      "summary": "GLFW native platform extension (OS window handles)"
+    },
+    "file:src/glad.c": {
+      "name": "glad.c",
+      "type": "file",
+      "summary": "Vendored GLAD v1 source (not in project build, superseded by GLAD v2)"
+    },
+    "file:include/glad/glad.h": {
+      "name": "glad.h",
+      "type": "file",
+      "summary": "Vendored GLAD v1 header (kept for glad.c compatibility only)"
+    },
+    "file:include/KHR/khrplatform.h": {
+      "name": "khrplatform.h",
+      "type": "file",
+      "summary": "Khronos platform type definitions (portable integer aliases)"
+    },
+    "document:README.md": {
+      "name": "README.md",
+      "type": "document",
+      "summary": "Main project documentation: features, architecture, tech stack, build instructions"
+    },
+    "document:AUDIT_REPORT.md": {
+      "name": "AUDIT_REPORT.md",
+      "type": "document",
+      "summary": "Code audit report and requirements checklist for the tower defense game"
+    },
+    "document:progress.md": {
+      "name": "progress.md",
+      "type": "document",
+      "summary": "Developer progress-tracking notes and TODO list"
+    },
+    "document:LINKEDIN_NOTES.md": {
+      "name": "LINKEDIN_NOTES.md",
+      "type": "document",
+      "summary": "Notes for LinkedIn post about DoomsGame"
+    },
+    "config:Template.vcxproj": {
+      "name": "Template.vcxproj",
+      "type": "config",
+      "summary": "Visual Studio C++ project file: C++17, x64, Debug/Release configs"
+    },
+    "config:Template.sln": {
+      "name": "Template.sln",
+      "type": "config",
+      "summary": "Visual Studio solution file"
+    },
+    "config:Template.vcxproj.filters": {
+      "name": "Template.vcxproj.filters",
+      "type": "config",
+      "summary": "VS file organization filters"
+    }
+  },
+  "totalNodes": 35,
+  "totalEdges": 16
+}

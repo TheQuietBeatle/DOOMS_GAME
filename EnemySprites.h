@@ -1,9 +1,9 @@
+// EnemySprites.h - Pixel-art bitmaps for Doom's enemy units (Easy, Medium, Hard).
+// All enemies share one palette (kEnemyPalette). Only included by Sprites.cpp.
 #pragma once
-// ---------------------------------------------------------------------------
 // Enemy pixel art. Drawn FACING RIGHT like the heroes - the renderer
 // mirrors them (flipX) so they face left on screen.
 // All enemies share ONE palette (kEnemyPalette). Only included by Sprites.cpp.
-// ---------------------------------------------------------------------------
 #include "Renderer.h"
 
 static const Palette kEnemyPalette = {

@@ -1,0 +1,335 @@
+{
+  "nodes": [
+    {
+      "id": "file:Cutscene.cpp",
+      "type": "file",
+      "name": "Cutscene.cpp",
+      "filePath": "Cutscene.cpp",
+      "summary": "Implements the scripted 18-second intro cutscene with time-based animation helpers (lerp, prog, mix3) and procedural drawing routines that composite Iron Man and Doctor Doom characters with dialogue panels over the Renderer.",
+      "tags": ["animation", "cutscene", "rendering", "event-handler"],
+      "complexity": "complex",
+      "languageNotes": "The monolithic draw() function (127-436) encodes the entire animation timeline as a series of time-windowed prog() calls, making it a fully self-contained scene description."
+    },
+    {
+      "id": "file:Cutscene.h",
+      "type": "file",
+      "name": "Cutscene.h",
+      "filePath": "Cutscene.h",
+      "summary": "Declares the Cutscene class with lifecycle methods (start, update, draw, skip, finished) and a fixed 18-second DURATION constant that controls the intro sequence.",
+      "tags": ["type-definition", "cutscene", "header"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:EnemySprites.h",
+      "type": "file",
+      "name": "EnemySprites.h",
+      "filePath": "EnemySprites.h",
+      "summary": "Contains ASCII art pixel arrays and color palettes defining the visual appearance of the three Doombot enemy variants: Easy (Doombot), Medium (Heavy Doombot), and Hard (Melee Doombot).",
+      "tags": ["data", "sprite-data", "enemy-sprites", "configuration"],
+      "complexity": "complex",
+      "languageNotes": "Data-only header with no functions; each sprite variant is encoded as a char grid alongside a Palette initializer list consumed by buildSprites."
+    },
+    {
+      "id": "file:HeroSprites.h",
+      "type": "file",
+      "name": "HeroSprites.h",
+      "filePath": "HeroSprites.h",
+      "summary": "Contains ASCII art pixel arrays and color palettes for the three Iron Man hero unit types (Melee, Ranged, Defense), consumed by buildSprites to populate the Renderer's sprite atlas.",
+      "tags": ["data", "sprite-data", "hero-sprites", "configuration"],
+      "complexity": "complex",
+      "languageNotes": "Data-only header mirroring EnemySprites.h in structure; each hero has multiple animation frames stored as separate char grids."
+    },
+    {
+      "id": "file:Renderer.h",
+      "type": "file",
+      "name": "Renderer.h",
+      "filePath": "Renderer.h",
+      "summary": "Declares the Renderer class providing an OpenGL 3.3 batched quad drawing system with support for colored rectangles, sprite rendering, and pixel-font text output, plus supporting structures for palettes, sprite frames, and draw effects.",
+      "tags": ["type-definition", "rendering", "opengl", "api-handler"],
+      "complexity": "moderate",
+      "languageNotes": "Renderer uses a client-side vertex buffer (verts) flushed per-frame; addSprite/upload separate sprite registration from rendering to allow lazy GPU upload."
+    },
+    {
+      "id": "file:Sprites.cpp",
+      "type": "file",
+      "name": "Sprites.cpp",
+      "filePath": "Sprites.cpp",
+      "summary": "Implements buildSprites, which registers all hero and enemy sprite frames into the Renderer sprite atlas using the ADD_SPRITE macro against the ASCII art data from HeroSprites.h and EnemySprites.h.",
+      "tags": ["utility", "sprite-loading", "initialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Sprites.h",
+      "type": "file",
+      "name": "Sprites.h",
+      "filePath": "Sprites.h",
+      "summary": "Declares the buildSprites function interface and the sprite-index constants used to reference hero and enemy sprites by ID throughout the game.",
+      "tags": ["type-definition", "sprite-loading", "header"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Cutscene.cpp:drawDisc",
+      "type": "function",
+      "name": "drawDisc",
+      "filePath": "Cutscene.cpp",
+      "lineRange": [31, 41],
+      "summary": "Draws a filled circle by stamping a square quad scaled by the circle radius; used for glowing arc-reactor and energy effects in the cutscene.",
+      "tags": ["rendering", "utility", "animation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Cutscene.cpp:drawLine",
+      "type": "function",
+      "name": "drawLine",
+      "filePath": "Cutscene.cpp",
+      "lineRange": [44, 54],
+      "summary": "Renders a thick line segment as a rotated quad between two screen-space endpoints; used for beam and connector effects in the cutscene scenes.",
+      "tags": ["rendering", "utility", "animation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Cutscene.cpp:drawUnit",
+      "type": "function",
+      "name": "drawUnit",
+      "filePath": "Cutscene.cpp",
+      "lineRange": [57, 66],
+      "summary": "Draws a game unit sprite at a given screen position with optional horizontal flip, delegating to Renderer::drawSprite.",
+      "tags": ["rendering", "utility", "sprite-loading"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Cutscene.cpp:unitBox",
+      "type": "function",
+      "name": "unitBox",
+      "filePath": "Cutscene.cpp",
+      "lineRange": [71, 80],
+      "summary": "Draws a unit portrait inside a styled card box with configurable border sides; used to display character cards in the story dialogue panels.",
+      "tags": ["rendering", "ui", "animation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Cutscene.cpp:draw",
+      "type": "function",
+      "name": "draw",
+      "filePath": "Cutscene.cpp",
+      "lineRange": [127, 436],
+      "summary": "Main cutscene rendering function encoding the full 18-second animated timeline as time-windowed drawing commands; composites backgrounds, characters, beams, dialogue boxes, and subtitle text in sequence.",
+      "tags": ["rendering", "animation", "cutscene", "event-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Cutscene.h:Cutscene",
+      "type": "class",
+      "name": "Cutscene",
+      "filePath": "Cutscene.h",
+      "lineRange": [17, 30],
+      "summary": "Controller class for the intro cutscene holding elapsed time t, a done flag, and the fixed DURATION constant; exposes start/update/draw/skip/finished lifecycle API.",
+      "tags": ["type-definition", "cutscene", "state-machine"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Renderer.h:Renderer",
+      "type": "class",
+      "name": "Renderer",
+      "filePath": "Renderer.h",
+      "lineRange": [38, 67],
+      "summary": "Core OpenGL rendering class managing a batched vertex buffer; provides drawRect, drawSprite, drawText, and drawTextStyled for all 2D drawing in the game, plus addSprite/upload for sprite atlas management.",
+      "tags": ["rendering", "opengl", "api-handler", "singleton"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sprites.cpp:buildSprites",
+      "type": "function",
+      "name": "buildSprites",
+      "filePath": "Sprites.cpp",
+      "lineRange": [11, 28],
+      "summary": "Registers all hero and enemy sprite frames into the Renderer's atlas by invoking ADD_SPRITE for each ASCII art grid defined in HeroSprites.h and EnemySprites.h.",
+      "tags": ["initialization", "sprite-loading", "utility"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Cutscene.cpp",
+      "target": "file:Cutscene.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Cutscene.cpp",
+      "target": "file:Renderer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Cutscene.cpp",
+      "target": "file:Audio.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Cutscene.h",
+      "target": "file:Renderer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:EnemySprites.h",
+      "target": "file:Sprites.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:HeroSprites.h",
+      "target": "file:Sprites.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Renderer.h",
+      "target": "file:include/glad/gl.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Sprites.cpp",
+      "target": "file:Sprites.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Sprites.cpp",
+      "target": "file:Renderer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Sprites.h",
+      "target": "file:Renderer.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Cutscene.cpp",
+      "target": "function:Cutscene.cpp:drawDisc",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Cutscene.cpp",
+      "target": "function:Cutscene.cpp:drawLine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Cutscene.cpp",
+      "target": "function:Cutscene.cpp:drawUnit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Cutscene.cpp",
+      "target": "function:Cutscene.cpp:unitBox",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Cutscene.cpp",
+      "target": "function:Cutscene.cpp:draw",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Cutscene.h",
+      "target": "class:Cutscene.h:Cutscene",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Cutscene.h",
+      "target": "class:Cutscene.h:Cutscene",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Renderer.h",
+      "target": "class:Renderer.h:Renderer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Renderer.h",
+      "target": "class:Renderer.h:Renderer",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sprites.cpp",
+      "target": "function:Sprites.cpp:buildSprites",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sprites.cpp",
+      "target": "function:Sprites.cpp:buildSprites",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Cutscene.cpp:draw",
+      "target": "class:Renderer.h:Renderer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Cutscene.cpp:drawDisc",
+      "target": "class:Renderer.h:Renderer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Cutscene.cpp:drawLine",
+      "target": "class:Renderer.h:Renderer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Cutscene.cpp:drawUnit",
+      "target": "class:Renderer.h:Renderer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Sprites.cpp:buildSprites",
+      "target": "class:Renderer.h:Renderer",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,231 @@
+{
+  "batchIndex": 1,
+  "totalBatches": 5,
+  "files": [
+    {
+      "path": "Audio.cpp",
+      "language": "cpp",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Audio.h",
+      "language": "c",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Background.cpp",
+      "language": "cpp",
+      "sizeLines": 272,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Background.h",
+      "language": "c",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": "WaveSystem.cpp",
+      "language": "cpp",
+      "sizeLines": 741,
+      "fileCategory": "code"
+    },
+    {
+      "path": "include/glad/gl.h",
+      "language": "c",
+      "sizeLines": 3718,
+      "fileCategory": "code"
+    },
+    {
+      "path": "main.cpp",
+      "language": "cpp",
+      "sizeLines": 149,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "Audio.cpp": [
+      "Audio.h"
+    ],
+    "Audio.h": [],
+    "Background.cpp": [
+      "Background.h",
+      "Config.h"
+    ],
+    "Background.h": [
+      "include/glad/gl.h"
+    ],
+    "WaveSystem.cpp": [
+      "include/glad/gl.h"
+    ],
+    "include/glad/gl.h": [],
+    "main.cpp": [
+      "Audio.h",
+      "Background.h",
+      "Config.h",
+      "Game.h",
+      "Renderer.h",
+      "Sprites.h",
+      "include/glad/gl.h"
+    ]
+  },
+  "neighborMap": {
+    "Audio.h": [
+      {
+        "path": "Game.cpp",
+        "batchIndex": 5,
+        "symbols": [
+          "resetWaves",
+          "hit",
+          "Button",
+          "drawButton",
+          "drawMenuButton",
+          "hash01",
+          "drawLine",
+          "drawMenuSprite",
+          "touching",
+          "Game",
+          "reset",
+          "returnToMainMenu",
+          "chooseBackground",
+          "spawnEnemy",
+          "placePlayer",
+          "isUnlocked",
+          "laneAt",
+          "update",
+          "updatePlayers",
+          "updateEnemies",
+          "updateProjectiles",
+          "updateExplosions",
+          "cleanup",
+          "onMouseMove",
+          "onMouseButton",
+          "onKey",
+          "drawUnit",
+          "render",
+          "applyVolume",
+          "changeVolume",
+          "toggleMute",
+          "drawMainMenu"
+        ]
+      }
+    ],
+    "Background.cpp": [
+      {
+        "path": "Config.h",
+        "batchIndex": 2,
+        "symbols": [
+          "laneBottom"
+        ]
+      }
+    ],
+    "Background.h": [
+      {
+        "path": "Game.h",
+        "batchIndex": 2,
+        "symbols": [
+          "Unit",
+          "Projectile",
+          "Collectible",
+          "RewardPopup",
+          "Explosion",
+          "reset",
+          "update",
+          "render",
+          "onMouseMove",
+          "onMouseButton",
+          "onKey",
+          "state",
+          "wantsExit",
+          "setBackground",
+          "hoveredThumb",
+          "Game"
+        ]
+      }
+    ],
+    "include/glad/gl.h": [
+      {
+        "path": "Renderer.h",
+        "batchIndex": 3,
+        "symbols": [
+          "PaletteEntry",
+          "Palette",
+          "Palette",
+          "SpriteFrame",
+          "DrawFx",
+          "init",
+          "shutdown",
+          "addSprite",
+          "upload",
+          "beginFrame",
+          "drawRect",
+          "drawSprite",
+          "drawText",
+          "textWidth",
+          "drawTextStyled",
+          "Renderer"
+        ]
+      }
+    ],
+    "main.cpp": [
+      {
+        "path": "Config.h",
+        "batchIndex": 2,
+        "symbols": [
+          "laneBottom"
+        ]
+      },
+      {
+        "path": "Game.h",
+        "batchIndex": 2,
+        "symbols": [
+          "Unit",
+          "Projectile",
+          "Collectible",
+          "RewardPopup",
+          "Explosion",
+          "reset",
+          "update",
+          "render",
+          "onMouseMove",
+          "onMouseButton",
+          "onKey",
+          "state",
+          "wantsExit",
+          "setBackground",
+          "hoveredThumb",
+          "Game"
+        ]
+      },
+      {
+        "path": "Renderer.h",
+        "batchIndex": 3,
+        "symbols": [
+          "PaletteEntry",
+          "Palette",
+          "Palette",
+          "SpriteFrame",
+          "DrawFx",
+          "init",
+          "shutdown",
+          "addSprite",
+          "upload",
+          "beginFrame",
+          "drawRect",
+          "drawSprite",
+          "drawText",
+          "textWidth",
+          "drawTextStyled",
+          "Renderer"
+        ]
+      },
+      {
+        "path": "Sprites.h",
+        "batchIndex": 3,
+        "symbols": []
+      }
+    ]
+  }
+}

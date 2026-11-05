@@ -1,0 +1,44 @@
+{
+  "batchIndex": 4,
+  "totalBatches": 5,
+  "files": [
+    {
+      "path": "AUDIT_REPORT.md",
+      "language": "markdown",
+      "sizeLines": 270,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "LINKEDIN_NOTES.md",
+      "language": "markdown",
+      "sizeLines": 55,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 170,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "Template.sln",
+      "language": "sln",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "progress.md",
+      "language": "markdown",
+      "sizeLines": 50,
+      "fileCategory": "docs"
+    }
+  ],
+  "batchImportData": {
+    "AUDIT_REPORT.md": [],
+    "LINKEDIN_NOTES.md": [],
+    "README.md": [],
+    "Template.sln": [],
+    "progress.md": []
+  },
+  "neighborMap": {}
+}

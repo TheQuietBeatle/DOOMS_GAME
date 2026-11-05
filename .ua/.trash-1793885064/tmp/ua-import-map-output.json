@@ -1,0 +1,107 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 35,
+    "filesWithImports": 20,
+    "totalEdges": 41
+  },
+  "failures": [],
+  "importMap": {
+    "AUDIT_REPORT.md": [],
+    "Audio.cpp": [
+      "Audio.h"
+    ],
+    "Audio.h": [],
+    "Background.cpp": [
+      "Background.h",
+      "Config.h"
+    ],
+    "Background.h": [
+      "include/glad/gl.h"
+    ],
+    "Characters.cpp": [
+      "Characters.h"
+    ],
+    "Characters.h": [
+      "Sprites.h"
+    ],
+    "Config.h": [],
+    "Cutscene.cpp": [
+      "Config.h",
+      "Cutscene.h",
+      "Sprites.h"
+    ],
+    "Cutscene.h": [
+      "Renderer.h"
+    ],
+    "EnemySprites.h": [
+      "Renderer.h"
+    ],
+    "External/include/GLFW/glfw3.h": [],
+    "External/include/GLFW/glfw3native.h": [],
+    "Game.cpp": [
+      "Audio.h",
+      "Game.h",
+      "WaveSystem.h"
+    ],
+    "Game.h": [
+      "Background.h",
+      "Characters.h",
+      "Config.h",
+      "Cutscene.h",
+      "Renderer.h",
+      "UI.h"
+    ],
+    "HeroSprites.h": [
+      "Renderer.h"
+    ],
+    "LINKEDIN_NOTES.md": [],
+    "README.md": [],
+    "Renderer.cpp": [
+      "Config.h",
+      "Renderer.h"
+    ],
+    "Renderer.h": [
+      "include/glad/gl.h"
+    ],
+    "Sprites.cpp": [
+      "EnemySprites.h",
+      "HeroSprites.h",
+      "Sprites.h"
+    ],
+    "Sprites.h": [
+      "Renderer.h"
+    ],
+    "Template.sln": [],
+    "Template.vcxproj": [],
+    "Template.vcxproj.filters": [],
+    "UI.cpp": [
+      "Characters.h",
+      "Config.h",
+      "UI.h"
+    ],
+    "UI.h": [
+      "Renderer.h"
+    ],
+    "WaveSystem.cpp": [
+      "include/glad/gl.h"
+    ],
+    "WaveSystem.h": [],
+    "include/KHR/khrplatform.h": [],
+    "include/glad/gl.h": [],
+    "include/glad/glad.h": [],
+    "main.cpp": [
+      "Audio.h",
+      "Background.h",
+      "Config.h",
+      "Game.h",
+      "Renderer.h",
+      "Sprites.h",
+      "include/glad/gl.h"
+    ],
+    "progress.md": [],
+    "src/glad.c": [
+      "include/glad/glad.h"
+    ]
+  }
+}

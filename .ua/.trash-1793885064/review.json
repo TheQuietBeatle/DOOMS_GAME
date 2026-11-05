@@ -1,0 +1,29 @@
+{
+  "issues": [],
+  "warnings": [
+    "Node 'document:LINKEDIN_NOTES.md' has no edges (orphan)",
+    "Node 'config:Template.vcxproj.filters' has no edges (orphan)"
+  ],
+  "stats": {
+    "totalNodes": 109,
+    "totalEdges": 214,
+    "totalLayers": 8,
+    "tourSteps": 10,
+    "nodeTypes": {
+      "file": 28,
+      "function": 62,
+      "class": 12,
+      "document": 4,
+      "config": 3
+    },
+    "edgeTypes": {
+      "imports": 61,
+      "contains": 74,
+      "exports": 48,
+      "calls": 23,
+      "documents": 3,
+      "configures": 4,
+      "depends_on": 1
+    }
+  }
+}

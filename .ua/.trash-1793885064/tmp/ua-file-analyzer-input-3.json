@@ -1,0 +1,21 @@
+{
+  "projectRoot": "C:/Users/DELL/Downloads/DMET502 - Lab 2 Template (Other)/Template",
+  "batchFiles": [
+    {"path": "Cutscene.cpp", "language": "cpp", "sizeLines": 200, "fileCategory": "code"},
+    {"path": "Cutscene.h", "language": "c", "sizeLines": 35, "fileCategory": "code"},
+    {"path": "EnemySprites.h", "language": "c", "sizeLines": 120, "fileCategory": "code"},
+    {"path": "HeroSprites.h", "language": "c", "sizeLines": 200, "fileCategory": "code"},
+    {"path": "Renderer.h", "language": "c", "sizeLines": 80, "fileCategory": "code"},
+    {"path": "Sprites.cpp", "language": "cpp", "sizeLines": 150, "fileCategory": "code"},
+    {"path": "Sprites.h", "language": "c", "sizeLines": 35, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "Cutscene.cpp": ["Cutscene.h", "Renderer.h", "Audio.h"],
+    "Cutscene.h": ["Renderer.h"],
+    "EnemySprites.h": ["Sprites.h"],
+    "HeroSprites.h": ["Sprites.h"],
+    "Renderer.h": ["include/glad/gl.h"],
+    "Sprites.cpp": ["Sprites.h", "Renderer.h"],
+    "Sprites.h": ["Renderer.h"]
+  }
+}

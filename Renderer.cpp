@@ -1,3 +1,8 @@
+// Renderer.cpp - OpenGL 3.3 Core sprite/rect/text renderer.
+// One VAO/VBO holds all geometry (sprites built at startup, plus a unit square
+// for rects and text). Each draw call transforms the shared buffer with a
+// model matrix and sets per-draw uniforms (tint, red damage, gray grayscale).
+// Orthographic projection maps world pixels (1280x720) to NDC.
 #include "Renderer.h"
 #include "Config.h"
 
@@ -62,9 +67,7 @@ void main()
         return s;
     }
 
-    // ---------------------------------------------------------------------------
     // 5x7 pixel font ('#' = lit). Lowercase is drawn as uppercase.
-    // ---------------------------------------------------------------------------
     struct Glyph { char c; const char* rows[7]; };
 
     const Glyph kFont[] = {
@@ -109,7 +112,7 @@ void main()
         { '!',{ "  #  ","  #  ","  #  ","  #  ","  #  ","     ","  #  " } },
         { '-',{ "     ","     ","     ","#####","     ","     ","     " } },
         { '.',{ "     ","     ","     ","     ","     "," ##  "," ##  " } },
-        { ',',{ "     ","     ","     ","     "," ##  ","  #  "," #   " } },   // [George] comma for cutscene subtitles
+        { ',',{ "     ","     ","     ","     "," ##  ","  #  "," #   " } },   // used in cutscene subtitles
         { '+',{ "     ","  #  ","  #  ","#####","  #  ","  #  ","     " } },
         { '%',{ "##   ","##  #","   # ","  #  "," #   ","#  ##","   ##" } },
         { '(',{ "   # ","  #  "," #   "," #   "," #   ","  #  ","   # " } },
@@ -133,7 +136,6 @@ const char* const* fontGlyphRows(char c)
     const Glyph* g = findGlyph(c);
     return g ? g->rows : nullptr;
 }
-// ---------------------------------------------------------------------------
 
 bool Renderer::init()
 {
@@ -161,8 +163,8 @@ bool Renderer::init()
     uRed = glGetUniformLocation(program, "u_Red");
     uGray = glGetUniformLocation(program, "u_Gray");
 
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
+    glGenVertexArrays(1, &vao);   // VAO records which VBO is bound + attrib layout (must be created first)
+    glGenBuffers(1, &vbo);        // VBO will hold ALL vertex data for this renderer (sprites + unit square)
 
     // first 6 vertices: white unit square (0,0)-(1,1) for rectangles + text
     const float q[6][2] = { { 0,0 },{ 1,0 },{ 1,1 },{ 1,1 },{ 0,1 },{ 0,0 } };
@@ -198,10 +200,10 @@ SpriteFrame Renderer::addSprite(const char* const* rows, int numRows, const Pale
             unsigned char ch = (col < len) ? (unsigned char)line[col] : (unsigned char)' ';
             if (!pal.used[ch]) continue;
             glm::vec3 c = pal.color[ch];
-            // pixel at (col, numRows - 1 - row) so origin bottom-left
+            // flip row so origin is bottom-left (row 0 of the text art = top of sprite = highest y)
             float x = (float)col;
             float y = (float)(numRows - 1 - row);
-            // two triangles forming a unit square
+            // two triangles (CCW) forming a 1x1 pixel square; Renderer::draw scales them via model matrix
             verts.insert(verts.end(), { x, y, c.r, c.g, c.b });
             verts.insert(verts.end(), { x + 1.0f, y, c.r, c.g, c.b });
             verts.insert(verts.end(), { x + 1.0f, y + 1.0f, c.r, c.g, c.b });
@@ -217,24 +219,27 @@ SpriteFrame Renderer::addSprite(const char* const* rows, int numRows, const Pale
 
 void Renderer::upload()
 {
-    glBindVertexArray(vao);
+    glBindVertexArray(vao);   // start recording attrib state into this VAO
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    // upload once at startup (GL_STATIC_DRAW = never modified at runtime)
     glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(float), verts.data(), GL_STATIC_DRAW);
 
-    // pos: vec2 at 0, color: vec3 at offset 2
+    // vertex layout: [x, y, r, g, b] = 5 floats = 20 bytes per vertex
+    // attrib 0 = position (x, y): 2 floats at byte offset 0
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(0));
+    // attrib 1 = color (r, g, b): 3 floats starting after the 2-float position
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
 
-    glBindVertexArray(0);
+    glBindVertexArray(0);   // unbind so later state changes don't corrupt the recorded layout
 }
 
 void Renderer::beginFrame(int fbWidth, int fbHeight, bool clear)
 {
     // clear the WHOLE window first (black bars)
     glViewport(0, 0, fbWidth, fbHeight);
-    if (clear) {   // [George] skipped when a background image was already drawn this frame
+    if (clear) {   // skipped when Background::draw() already cleared the framebuffer this frame
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
     }
@@ -245,27 +250,28 @@ void Renderer::beginFrame(int fbWidth, int fbHeight, bool clear)
     int vh = (int)(cfg::WORLD_H * scale);
     glViewport((fbWidth - vw) / 2, (fbHeight - vh) / 2, vw, vh);
 
+    // standard alpha blending: src*alpha + dst*(1-alpha) — sprites composite over what is already drawn
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glUseProgram(program);
-    // projection in WORLD pixels (1280x720), not window pixels,
-    // so the game scales with the window
+    // orthographic projection: maps world pixels (1280x720, y-up) to NDC (-1..1),
+    // so the game logic always works in pixel units regardless of the window size
     glm::mat4 proj = glm::ortho(0.0f, cfg::WORLD_W, 0.0f, cfg::WORLD_H);
-    glUniformMatrix4fv(uProj, 1, GL_FALSE, glm::value_ptr(proj));
-    glBindVertexArray(vao);
+    glUniformMatrix4fv(uProj, 1, GL_FALSE, glm::value_ptr(proj));   // GL_FALSE = don't transpose
+    glBindVertexArray(vao);   // restore the attrib layout for the frame's draw calls
 }
 
 void Renderer::draw(GLint first, GLint count, const glm::mat4& model, glm::vec4 tint, float red, float gray)
 {
     glUseProgram(program);
-    glUniformMatrix4fv(uModel, 1, GL_FALSE, glm::value_ptr(model));
-    glUniform4fv(uTint, 1, glm::value_ptr(tint));
-    glUniform1f(uRed, red);
-    glUniform1f(uGray, gray);
+    glUniformMatrix4fv(uModel, 1, GL_FALSE, glm::value_ptr(model));   // per-draw transform (translate + scale)
+    glUniform4fv(uTint, 1, glm::value_ptr(tint));   // rgba multiplier; (1,1,1,1) = use vertex colors as-is
+    glUniform1f(uRed, red);    // DMET502 spec requirement: red tint for damage feedback
+    glUniform1f(uGray, gray);  // DMET502 spec requirement: grayscale for locked cards
 
     glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, first, count);
+    glDrawArrays(GL_TRIANGLES, first, count);   // vertices are already in triangle list order (see addSprite)
     glBindVertexArray(0);
 }
 
@@ -316,7 +322,8 @@ void Renderer::drawText(const std::string& s, float x, float y, float px, glm::v
     }
 }
 
-// [George] styled text for the Main Menu title (same 5x7 font as drawText)
+// Styled text for the Main Menu title (same 5x7 font as drawText).
+// Three passes: drop shadow, then outline, then gradient-filled foreground.
 void Renderer::drawTextStyled(const std::string& s, float x, float y, float px,
     glm::vec3 top, glm::vec3 bottom, glm::vec3 outlineColor, float outline,
     float shadowDx, float shadowDy, float alpha)

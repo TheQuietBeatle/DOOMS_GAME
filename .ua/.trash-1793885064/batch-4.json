@@ -1,0 +1,79 @@
+{
+  "nodes": [
+    {
+      "id": "document:AUDIT_REPORT.md",
+      "type": "document",
+      "name": "AUDIT_REPORT.md",
+      "filePath": "AUDIT_REPORT.md",
+      "summary": "Comprehensive code audit report for the DoomsGame tower defense project, covering 13 requirement categories (technology, cutscene, lanes, units, waves, damage, win/lose, HUD, menus) with a full checklist, build result, codebase map, and manual test scripts.",
+      "tags": ["documentation", "code-review", "requirements", "quality-assurance"],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:LINKEDIN_NOTES.md",
+      "type": "document",
+      "name": "LINKEDIN_NOTES.md",
+      "filePath": "LINKEDIN_NOTES.md",
+      "summary": "Preparatory notes for a LinkedIn post about DoomsGame, organizing the project elevator pitch, strongest technical decisions, key challenges solved, defensible metrics, tech stack hashtags, recommended screenshots, and hook ideas.",
+      "tags": ["documentation", "social-media", "marketing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Main project documentation for DoomsGame describing the Iron Man vs Doctor Doom tower defense game, covering features, C++17/OpenGL tech stack, architecture overview, build and run instructions, controls, screenshots, and known limitations.",
+      "tags": ["documentation", "entry-point", "overview", "getting-started"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:Template.sln",
+      "type": "config",
+      "name": "Template.sln",
+      "filePath": "Template.sln",
+      "summary": "Visual Studio solution file that references Template.vcxproj and defines the Debug/Release x64 build configurations for the DoomsGame C++ project.",
+      "tags": ["configuration", "build-system", "visual-studio"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:progress.md",
+      "type": "document",
+      "name": "progress.md",
+      "filePath": "progress.md",
+      "summary": "Developer progress-tracking notes listing rule violations to fix, missing features to implement, optional sound bonus tasks, verification steps, and submission checklist for the DoomsGame lab assignment.",
+      "tags": ["documentation", "development", "tracking"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:README.md",
+      "target": "file:main.cpp",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AUDIT_REPORT.md",
+      "target": "file:main.cpp",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:progress.md",
+      "target": "file:main.cpp",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "config:Template.sln",
+      "target": "config:Template.vcxproj",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

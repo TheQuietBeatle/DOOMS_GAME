@@ -1,3 +1,6 @@
+// Sprites.h - Declares every animation frame id and the global sprite table.
+// HeroSprites.h and EnemySprites.h hold the pixel-art data; Sprites.cpp
+// builds them into renderer vertices via buildSprites().
 #pragma once
 #include "Renderer.h"
 

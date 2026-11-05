@@ -1,0 +1,25 @@
+{
+  "projectRoot": "C:/Users/DELL/Downloads/DMET502 - Lab 2 Template (Other)/Template",
+  "batchFiles": [
+    {"path": "External/include/GLFW/glfw3.h", "language": "c", "sizeLines": 1300, "fileCategory": "code"},
+    {"path": "External/include/GLFW/glfw3native.h", "language": "c", "sizeLines": 200, "fileCategory": "code"},
+    {"path": "Game.cpp", "language": "cpp", "sizeLines": 900, "fileCategory": "code"},
+    {"path": "Template.vcxproj", "language": "xml", "sizeLines": 100, "fileCategory": "config"},
+    {"path": "Template.vcxproj.filters", "language": "xml", "sizeLines": 60, "fileCategory": "config"},
+    {"path": "WaveSystem.h", "language": "c", "sizeLines": 60, "fileCategory": "code"},
+    {"path": "include/KHR/khrplatform.h", "language": "c", "sizeLines": 200, "fileCategory": "code"},
+    {"path": "include/glad/glad.h", "language": "c", "sizeLines": 200, "fileCategory": "code"},
+    {"path": "src/glad.c", "language": "c", "sizeLines": 500, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "External/include/GLFW/glfw3.h": [],
+    "External/include/GLFW/glfw3native.h": ["External/include/GLFW/glfw3.h"],
+    "Game.cpp": ["Game.h", "Characters.h", "Config.h", "Audio.h", "WaveSystem.h", "EnemySprites.h", "HeroSprites.h"],
+    "Template.vcxproj": [],
+    "Template.vcxproj.filters": [],
+    "WaveSystem.h": ["Game.h"],
+    "include/KHR/khrplatform.h": [],
+    "include/glad/glad.h": ["include/KHR/khrplatform.h"],
+    "src/glad.c": ["include/glad/glad.h"]
+  }
+}

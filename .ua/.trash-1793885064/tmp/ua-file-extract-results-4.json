@@ -1,0 +1,355 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [
+    "Template.sln"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 4
+    }
+  },
+  "results": [
+    {
+      "path": "AUDIT_REPORT.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 270,
+      "nonEmptyLines": 200,
+      "sections": [
+        {
+          "heading": "DMET 502 Project 1 — Audit Report",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Summary",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Top 5 Grade-Critical Problems",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "2. Build Result",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "3. Codebase Map",
+          "level": 2,
+          "line": 39
+        },
+        {
+          "heading": "4. Full Requirements Checklist",
+          "level": 2,
+          "line": 57
+        },
+        {
+          "heading": "A — Technology",
+          "level": 3,
+          "line": 59
+        },
+        {
+          "heading": "B — Cutscene",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "C — Playfield",
+          "level": 3,
+          "line": 83
+        },
+        {
+          "heading": "D — Lanes",
+          "level": 3,
+          "line": 95
+        },
+        {
+          "heading": "E — Player Unit Types",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "F — Enemy Unit Types",
+          "level": 3,
+          "line": 120
+        },
+        {
+          "heading": "G — Wave System",
+          "level": 3,
+          "line": 133
+        },
+        {
+          "heading": "H — Damage and Health",
+          "level": 3,
+          "line": 145
+        },
+        {
+          "heading": "I — Win and Lose Conditions",
+          "level": 3,
+          "line": 158
+        },
+        {
+          "heading": "J — HUD / In-Game UI",
+          "level": 3,
+          "line": 170
+        },
+        {
+          "heading": "K — Environment / Art",
+          "level": 3,
+          "line": 181
+        },
+        {
+          "heading": "L — Menus",
+          "level": 3,
+          "line": 192
+        },
+        {
+          "heading": "M — Sound (Bonus)",
+          "level": 3,
+          "line": 205
+        },
+        {
+          "heading": "5. Non-Spec Extras",
+          "level": 2,
+          "line": 216
+        },
+        {
+          "heading": "6. Manual Test Script (MANUAL items)",
+          "level": 2,
+          "line": 234
+        },
+        {
+          "heading": "MANUAL-1: Wave 3 difficulty increase (G3 qualitative)",
+          "level": 3,
+          "line": 238
+        },
+        {
+          "heading": "MANUAL-2: Lane 4 spawn (G4)",
+          "level": 3,
+          "line": 248
+        },
+        {
+          "heading": "MANUAL-3: Exit button absence (L1)",
+          "level": 3,
+          "line": 259
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 24
+      }
+    },
+    {
+      "path": "LINKEDIN_NOTES.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 55,
+      "nonEmptyLines": 37,
+      "sections": [
+        {
+          "heading": "LinkedIn Notes — DoomsGame",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "The project in one sentence",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Problem and audience",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Strongest features and technical decisions",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "Hardest challenge and the fix",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "Numbers I can defend",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "Tech stack hashtags",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "Best screenshots to post",
+          "level": 2,
+          "line": 40
+        },
+        {
+          "heading": "Three hook ideas",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "Capture notes",
+          "level": 2,
+          "line": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 170,
+      "nonEmptyLines": 129,
+      "sections": [
+        {
+          "heading": "DoomsGame: Iron Man vs Doctor Doom Tower Defense",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "About",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Features",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "Tech stack",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "Getting started",
+          "level": 2,
+          "line": 89
+        },
+        {
+          "heading": "Prerequisites",
+          "level": 3,
+          "line": 91
+        },
+        {
+          "heading": "Build",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "Run",
+          "level": 3,
+          "line": 109
+        },
+        {
+          "heading": "Controls",
+          "level": 3,
+          "line": 117
+        },
+        {
+          "heading": "Tests",
+          "level": 3,
+          "line": 132
+        },
+        {
+          "heading": "Screenshots",
+          "level": 2,
+          "line": 136
+        },
+        {
+          "heading": "Challenges and what I learned",
+          "level": 2,
+          "line": 152
+        },
+        {
+          "heading": "Known limitations",
+          "level": 2,
+          "line": 159
+        },
+        {
+          "heading": "Author",
+          "level": 2,
+          "line": 166
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "progress.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 51,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "Breaks a rule (fix first)",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Missing features",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Sound bonus (optional)",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "Verify",
+          "level": 2,
+          "line": 38
+        },
+        {
+          "heading": "Submission",
+          "level": 2,
+          "line": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    }
+  ]
+}

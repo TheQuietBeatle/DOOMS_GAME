@@ -1,0 +1,93 @@
+[
+  {
+    "id": "layer:entry",
+    "name": "Entry & Loop",
+    "description": "Application bootstrap that initializes GLFW, loads GLAD, constructs the Game object, and drives the per-frame update/render loop",
+    "nodeIds": [
+      "file:main.cpp"
+    ]
+  },
+  {
+    "id": "layer:game-logic",
+    "name": "Game Logic",
+    "description": "Core tower-defense state machine, unit placement, combat, economy, and enemy wave-spawning schedule for the Iron Man vs Doctor Doom game",
+    "nodeIds": [
+      "file:Game.cpp",
+      "file:Game.h",
+      "file:WaveSystem.cpp",
+      "file:WaveSystem.h"
+    ]
+  },
+  {
+    "id": "layer:ui-presentation",
+    "name": "UI & Presentation",
+    "description": "Player-facing visuals: hero card-bar HUD, all menu screens, animated battlefield grid, switchable backgrounds, and the scripted 18-second intro cutscene",
+    "nodeIds": [
+      "file:UI.cpp",
+      "file:UI.h",
+      "file:Cutscene.cpp",
+      "file:Cutscene.h",
+      "file:Background.cpp",
+      "file:Background.h"
+    ]
+  },
+  {
+    "id": "layer:rendering",
+    "name": "Rendering Engine",
+    "description": "OpenGL 3.3 batched sprite renderer, pixel-font drawing, VAO/VBO management, sprite-frame GPU upload, and embedded ASCII-art pixel palettes for all hero and enemy units",
+    "nodeIds": [
+      "file:Renderer.cpp",
+      "file:Renderer.h",
+      "file:Sprites.cpp",
+      "file:Sprites.h",
+      "file:HeroSprites.h",
+      "file:EnemySprites.h"
+    ]
+  },
+  {
+    "id": "layer:audio",
+    "name": "Audio",
+    "description": "miniaudio-based audio subsystem providing background music, sound effects, and hero/enemy voice-line playback",
+    "nodeIds": [
+      "file:Audio.cpp",
+      "file:Audio.h"
+    ]
+  },
+  {
+    "id": "layer:data-config",
+    "name": "Data & Config",
+    "description": "Shared game constants (lane count, board bounds, coin values, physics), unit-type enums, and geometry helper functions for all six character types",
+    "nodeIds": [
+      "file:Characters.cpp",
+      "file:Characters.h",
+      "file:Config.h"
+    ]
+  },
+  {
+    "id": "layer:external-libraries",
+    "name": "External Libraries",
+    "description": "Vendored third-party headers and sources: GLAD v2 OpenGL function loader, legacy GLAD v1 source kept for compatibility, GLFW 3.5.1 windowing/input API, and Khronos platform type aliases",
+    "nodeIds": [
+      "file:include/glad/gl.h",
+      "file:include/KHR/khrplatform.h",
+      "file:include/glad/glad.h",
+      "file:External/include/GLFW/glfw3.h",
+      "file:External/include/GLFW/glfw3native.h",
+      "file:src/glad.c"
+    ]
+  },
+  {
+    "id": "layer:build-docs",
+    "name": "Build & Documentation",
+    "description": "Visual Studio solution and project files that configure the C++17/x64 build, plus project documentation covering features, audit findings, progress tracking, and LinkedIn notes",
+    "nodeIds": [
+      "config:Template.sln",
+      "config:Template.vcxproj",
+      "config:Template.vcxproj.filters",
+      "document:README.md",
+      "document:AUDIT_REPORT.md",
+      "document:progress.md",
+      "document:LINKEDIN_NOTES.md"
+    ]
+  }
+]

@@ -1,3 +1,7 @@
+// WaveSystem.h - Interface to the wave-spawning system (teammate's code).
+// WaveSystem.cpp is byte-identical to Nourihabadel/Tower-Defense@b89d485 main.cpp
+// and must NOT be edited. This header bridges its globals into the game.
+// Game.cpp reads ::enemies and ::playerWon each frame to spawn units and check win.
 #pragma once
 #include <vector>
 

@@ -1,0 +1,484 @@
+{
+  "nodes": [
+    {
+      "id": "file:External/include/GLFW/glfw3.h",
+      "type": "file",
+      "name": "glfw3.h",
+      "filePath": "External/include/GLFW/glfw3.h",
+      "summary": "Vendored GLFW 3.5.1 public API header providing window creation, OpenGL context management, input handling, and event callbacks for the game's windowing layer.",
+      "tags": ["infrastructure", "windowing", "input", "vendor"],
+      "complexity": "complex",
+      "languageNotes": "Third-party header; defines all GLFW constants, structs, and function declarations. Not modified by the project."
+    },
+    {
+      "id": "file:External/include/GLFW/glfw3native.h",
+      "type": "file",
+      "name": "glfw3native.h",
+      "filePath": "External/include/GLFW/glfw3native.h",
+      "summary": "Vendored GLFW native platform extension header exposing OS-level handles (HWND, HDC, etc.) for platform-specific window interop beyond the core GLFW API.",
+      "tags": ["infrastructure", "windowing", "vendor", "platform"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:Game.cpp",
+      "type": "file",
+      "name": "Game.cpp",
+      "filePath": "Game.cpp",
+      "summary": "Core game logic implementation: manages the full Game class lifecycle including state machine (MainMenu, Playing, Won, Lost), unit placement, swept-segment projectile combat, coin economy, enemy wave integration, HUD rendering, and the animated main menu.",
+      "tags": ["service", "game-loop", "state-machine", "rendering"],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:Template.vcxproj",
+      "type": "config",
+      "name": "Template.vcxproj",
+      "filePath": "Template.vcxproj",
+      "summary": "Visual Studio C++ project file configuring Debug/Release builds for Win32 and x64 platforms with C++17 standard, GLFW and OpenGL link dependencies, and include paths for the GLAD and External headers.",
+      "tags": ["configuration", "build-system", "infrastructure"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:Template.vcxproj.filters",
+      "type": "config",
+      "name": "Template.vcxproj.filters",
+      "filePath": "Template.vcxproj.filters",
+      "summary": "Visual Studio filter file organizing project sources into Source Files, Header Files, and Assets groups for IDE navigation.",
+      "tags": ["configuration", "build-system"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:WaveSystem.h",
+      "type": "file",
+      "name": "WaveSystem.h",
+      "filePath": "WaveSystem.h",
+      "summary": "Declares the wave system interface: the Enemy struct, global state variables (enemies vector, currentWave, playerWon, etc.) and the updateWaveSystem / resetWaves / removeDefeatedEnemies functions that connect the teammate's WaveSystem.cpp to the main game loop.",
+      "tags": ["type-definition", "game-loop", "interface"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:include/KHR/khrplatform.h",
+      "type": "file",
+      "name": "khrplatform.h",
+      "filePath": "include/KHR/khrplatform.h",
+      "summary": "Khronos platform type definitions header providing portable integer type aliases and calling-convention macros required by GLAD and other OpenGL loader headers.",
+      "tags": ["infrastructure", "vendor", "type-definition"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:include/glad/glad.h",
+      "type": "file",
+      "name": "glad.h",
+      "filePath": "include/glad/glad.h",
+      "summary": "Vendored GLAD v1 OpenGL loader header declaring all OpenGL 1.0–4.6 function pointers and the gladLoadGL entry point; retained for src/glad.c compatibility but superseded by glad v2 (include/glad/gl.h) for the main project build.",
+      "tags": ["infrastructure", "vendor", "opengl"],
+      "complexity": "complex",
+      "languageNotes": "GLAD v1 inline loader: gladLoadGL resolves function pointers at runtime via a callback. The project uses GLAD v2 (include/glad/gl.h) instead; this file is only compiled by src/glad.c which is excluded from the build."
+    },
+    {
+      "id": "file:src/glad.c",
+      "type": "file",
+      "name": "glad.c",
+      "filePath": "src/glad.c",
+      "summary": "Vendored GLAD v1 C source file implementing OpenGL function pointer loading; kept for reference but excluded from the project build as the project uses the GLAD v2 header (include/glad/gl.h) instead.",
+      "tags": ["infrastructure", "vendor", "opengl"],
+      "complexity": "complex",
+      "languageNotes": "NOT included in Template.vcxproj ClCompile items. Uses include/glad/glad.h (v1); the active build uses include/glad/gl.h (v2)."
+    },
+    {
+      "id": "function:Game.cpp:resetWaves",
+      "type": "function",
+      "name": "resetWaves",
+      "filePath": "Game.cpp",
+      "lineRange": [14, 21],
+      "summary": "Implements the resetWaves function declared in WaveSystem.h; clears the enemy spawn queue, resets wave counters, and sets lastSpawnTime to the current GLFW time.",
+      "tags": ["game-loop", "wave-system", "initialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Game.cpp:drawMenuButton",
+      "type": "function",
+      "name": "drawMenuButton",
+      "filePath": "Game.cpp",
+      "lineRange": [78, 104],
+      "summary": "Renders a stylized menu button with hover glow, border highlight, label text, and optional sub-label using the Renderer primitives; handles both primary and secondary button styles.",
+      "tags": ["rendering", "ui", "component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Game.cpp:reset",
+      "type": "function",
+      "name": "reset",
+      "filePath": "Game.cpp",
+      "lineRange": [155, 175],
+      "summary": "Resets all game state to a fresh playing session: clears units, projectiles, coins, explosions, resets economy counters, re-initialises unlocked cards, and calls resetWaves.",
+      "tags": ["game-loop", "initialization", "state-machine"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Game.cpp:spawnEnemy",
+      "type": "function",
+      "name": "spawnEnemy",
+      "filePath": "Game.cpp",
+      "lineRange": [193, 202],
+      "summary": "Creates a new enemy Unit in the specified lane from an Enemy wave definition and pushes it into the enemies vector, positioning it at the right edge of the board.",
+      "tags": ["game-loop", "enemy", "spawning"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Game.cpp:placePlayer",
+      "type": "function",
+      "name": "placePlayer",
+      "filePath": "Game.cpp",
+      "lineRange": [204, 217],
+      "summary": "Places a hero unit in the chosen lane after spending coins, initialising its position, HP, and character definition and appending it to the players vector.",
+      "tags": ["game-loop", "placement", "economy"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Game.cpp:update",
+      "type": "function",
+      "name": "update",
+      "filePath": "Game.cpp",
+      "lineRange": [235, 278],
+      "summary": "Main per-frame update dispatcher: advances the cutscene or the playing state, drives the wave system, spawns pending enemies into the game, delegates to updatePlayers/Enemies/Projectiles/Explosions and cleanup, and transitions to Won/Lost state.",
+      "tags": ["game-loop", "state-machine", "dispatcher"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Game.cpp:updatePlayers",
+      "type": "function",
+      "name": "updatePlayers",
+      "filePath": "Game.cpp",
+      "lineRange": [297, 384],
+      "summary": "Advances all hero units each frame: moves them toward blocking enemies, fires projectiles when in range, and applies melee attacks, triggering audio cues for shots and melee hits.",
+      "tags": ["game-loop", "combat", "player"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Game.cpp:updateEnemies",
+      "type": "function",
+      "name": "updateEnemies",
+      "filePath": "Game.cpp",
+      "lineRange": [388, 434],
+      "summary": "Advances all enemy units each frame: moves them left toward blocking heroes, applies melee damage on contact, and triggers coin spawning on enemy death.",
+      "tags": ["game-loop", "combat", "enemy"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Game.cpp:updateProjectiles",
+      "type": "function",
+      "name": "updateProjectiles",
+      "filePath": "Game.cpp",
+      "lineRange": [436, 494],
+      "summary": "Moves all active projectiles and tests swept-segment collision against targets each frame, applying damage and spawning explosion effects on impact.",
+      "tags": ["game-loop", "combat", "projectile"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Game.cpp:cleanup",
+      "type": "function",
+      "name": "cleanup",
+      "filePath": "Game.cpp",
+      "lineRange": [501, 547],
+      "summary": "Removes dead units, spent projectiles, expired explosions, and collected coins from their respective vectors at the end of each frame, also calling removeDefeatedEnemies on the wave system.",
+      "tags": ["game-loop", "memory", "lifecycle"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Game.cpp:onMouseMove",
+      "type": "function",
+      "name": "onMouseMove",
+      "filePath": "Game.cpp",
+      "lineRange": [554, 581],
+      "summary": "Handles mouse movement to update hover states for card buttons and background thumbnails in the main menu and playing HUD.",
+      "tags": ["event-handler", "input", "ui"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Game.cpp:onMouseButton",
+      "type": "function",
+      "name": "onMouseButton",
+      "filePath": "Game.cpp",
+      "lineRange": [583, 659],
+      "summary": "Dispatches left-click events across all game states: background selection, volume controls, restart/menu buttons, card selection, and hero placement on board lanes.",
+      "tags": ["event-handler", "input", "state-machine"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Game.cpp:onKey",
+      "type": "function",
+      "name": "onKey",
+      "filePath": "Game.cpp",
+      "lineRange": [661, 717],
+      "summary": "Handles keyboard shortcuts: skip cutscene, cycle backgrounds, restart game, and volume controls mapped to function and arrow keys.",
+      "tags": ["event-handler", "input", "state-machine"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Game.cpp:drawUnit",
+      "type": "function",
+      "name": "drawUnit",
+      "filePath": "Game.cpp",
+      "lineRange": [724, 758],
+      "summary": "Renders a single hero or enemy unit scaled to its lane height with the correct sprite, optional horizontal flip, and a health bar overlay.",
+      "tags": ["rendering", "component", "sprite"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Game.cpp:render",
+      "type": "function",
+      "name": "render",
+      "filePath": "Game.cpp",
+      "lineRange": [760, 940],
+      "summary": "Full-frame renderer for the Playing, Won, and Lost states: draws the background, all units, projectiles, explosions, coin pickups, lane dividers, the card deck HUD, wave/score counters, and overlay screens for game-over and victory.",
+      "tags": ["rendering", "hud", "game-loop"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Game.cpp:drawMainMenu",
+      "type": "function",
+      "name": "drawMainMenu",
+      "filePath": "Game.cpp",
+      "lineRange": [966, 1115],
+      "summary": "Renders the full animated main menu including particle lightning bolts, animated Doom/Iron Man sprites, background thumbnail carousel, stylised title text, and the Play/Background/Volume control buttons.",
+      "tags": ["rendering", "ui", "animation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:include/glad/glad.h:gladLoadGLUserPtr",
+      "type": "function",
+      "name": "gladLoadGLUserPtr",
+      "filePath": "include/glad/glad.h",
+      "lineRange": [3676, 3702],
+      "summary": "GLAD v1 entry point that resolves all OpenGL function pointers using a user-supplied loader callback; called once after context creation to initialise the GL extension table.",
+      "tags": ["infrastructure", "opengl", "initialization"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:External/include/GLFW/glfw3native.h",
+      "target": "file:External/include/GLFW/glfw3.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "file:Game.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "file:Characters.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "file:Config.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "file:Audio.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "file:WaveSystem.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "file:EnemySprites.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "file:HeroSprites.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:WaveSystem.h",
+      "target": "file:Game.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:include/glad/glad.h",
+      "target": "file:include/KHR/khrplatform.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/glad.c",
+      "target": "file:include/glad/glad.h",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:resetWaves",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:drawMenuButton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:reset",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:spawnEnemy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:placePlayer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:update",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:updatePlayers",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:updateEnemies",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:updateProjectiles",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:cleanup",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:onMouseMove",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:onMouseButton",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:onKey",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:drawUnit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:render",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Game.cpp",
+      "target": "function:Game.cpp:drawMainMenu",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:include/glad/glad.h",
+      "target": "function:include/glad/glad.h:gladLoadGLUserPtr",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "config:Template.vcxproj",
+      "target": "file:Game.cpp",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:Template.vcxproj",
+      "target": "file:main.cpp",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:Template.vcxproj",
+      "target": "file:WaveSystem.h",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "function:Game.cpp:update",
+      "target": "file:WaveSystem.h",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

@@ -1,3 +1,7 @@
+// Game.cpp - Core game logic: state machine, unit update, projectiles, input.
+// State flow: MainMenu -> BgSelect -> Cutscene -> Playing -> Paused/Won/Lost.
+// updateWaveSystem() (WaveSystem.cpp) drives enemy spawning each frame.
+// Render helpers live in UI.cpp (drawBattlefield, drawCoinPanel, etc.).
 #include "Game.h"
 #include "WaveSystem.h"
 #include "Audio.h"
@@ -28,7 +32,7 @@ namespace {
     constexpr float COIN_FLY = 0.5f;   // seconds to fly to the counter
     constexpr float POPUP_TIME = 1.0f; // seconds a "+coins" reward popup stays on screen
 
-    // [George] sound effects (relative to the working directory, like assets/theme.mp3)
+    // sound effects (relative to the working directory, like assets/theme.mp3)
     const char* SFX_COIN = "assets/coin.mp3";     // coin picked up
     const char* SFX_DEATH = "assets/death.mp3";    // any character dies
     const char* VOICE_IRON = "assets/ironman.mp3";  // a Doom enemy dies / you win
@@ -44,14 +48,13 @@ namespace {
     const Button BTN_VOL_UP{ 750.0f, 248.0f,  60.0f, 40.0f };
     const Button BTN_MUTE{ 530.0f, 190.0f, 220.0f, 40.0f };
 
-    // Main-menu
-    // [George] re-laid out to match the menu reference (1600x900 scaled x0.8 to 1280x720, y flipped).
+    // Main-menu buttons (1600x900 reference scaled x0.8 to 1280x720, y flipped).
     // These rects are used for BOTH drawing and hit testing.
     const Button BTN_PLAY{ 450.0f, 316.0f, 380.0f, 64.0f };
-    const Button BTN_SOUND{ 470.0f, 246.0f, 340.0f, 48.0f };   // [George] opens Sound Settings
+    const Button BTN_SOUND{ 470.0f, 246.0f, 340.0f, 48.0f };   // opens Sound Settings
     const Button BTN_EXIT{ 470.0f, 176.0f, 340.0f, 48.0f };
 
-    // [George] Sound Settings screen (also uses BTN_VOL_DOWN / BTN_VOL_UP / BTN_MUTE)
+    // Sound Settings screen (also uses BTN_VOL_DOWN / BTN_VOL_UP / BTN_MUTE)
     const Button BTN_BACK{ 440.0f, 100.0f, 400.0f, 50.0f };
 
     // Pause-menu action buttons (sit above the volume section)
@@ -73,7 +76,7 @@ namespace {
         r.drawText(label, tx, ty, 4.0f, { 0.85f, 0.92f, 1.00f });
     }
 
-    // [George] Main Menu button: PLAY is the bright-blue primary, the others dark navy.
+    // Main Menu button: PLAY is the bright-blue primary, the others dark navy.
     // Hovered = brighter fill + cyan glow border.
     void drawMenuButton(Renderer& r, const Button& b, const std::string& label, bool hovered,
                         bool primary, float px)
@@ -103,10 +106,10 @@ namespace {
         r.drawText(label, tx, ty, px, hovered ? glm::vec3{ 1.0f, 1.0f, 1.0f } : glm::vec3{ 0.90f, 0.95f, 1.00f });
     }
 
-    // [George] cheap deterministic 0..1 noise for menu particles / lightning
+    // Cheap deterministic 0..1 noise for menu particles / lightning (hash of a float seed)
     float hash01(float n) { float s = std::sin(n * 12.9898f) * 43758.5453f; return s - std::floor(s); }
 
-    // [George] thick line drawn as a run of small squares (Renderer only has axis-aligned rects)
+    // Thick line drawn as a run of small squares (Renderer only has axis-aligned rects)
     void drawLine(Renderer& r, float x0, float y0, float x1, float y1, float thick, glm::vec3 c, float a)
     {
         float dx = x1 - x0, dy = y1 - y0;
@@ -118,7 +121,7 @@ namespace {
         }
     }
 
-    // [George] draw a unit sprite standing at (cx, bottom) with an on-screen height of hPx.
+    // Draw a unit sprite standing at (cx, bottom) with an on-screen height of hPx.
     // Same centring maths as Game::drawUnit (drawSprite scales pixel-unit vertices twice).
     void drawMenuSprite(Renderer& r, SpriteId id, float cx, float bottom, float hPx, bool flip)
     {
@@ -137,14 +140,12 @@ namespace {
         if (a.lane != b.lane) return false;
         float gap = b.x - a.x;   // positive when enemy is to the right (normal case)
         float contact = unitHalfWidth(a.def) + unitHalfWidth(b.def);
-        return std::abs(gap) <= contact; // [George] was: gap <= contact && gap > -contact (asymmetric — missed enemy-left-of-player case)
+        return std::abs(gap) <= contact; // NOTE: was: gap <= contact && gap > -contact (asymmetric — missed enemy-left-of-player case)
     }
 
 } // namespace
 
-// ---------------------------------------------------------------------------
 // Setup
-// ---------------------------------------------------------------------------
 Game::Game() : rng(std::random_device{}())
 {
     srand(static_cast<unsigned int>(time(nullptr)));
@@ -168,7 +169,7 @@ void Game::reset()
 
     baseHp = BASE_MAX_HP;
     resetWaves();
-    introFade = 0.0f;   // [George]
+    introFade = 0.0f;
 
     clock = 0.0f;
     st = GameState::Playing;
@@ -180,7 +181,7 @@ void Game::returnToMainMenu()
     st = GameState::MainMenu;
 }
 
-// [George] PLAY opens the background chooser; picking one starts the cutscene.
+// PLAY opens the background chooser; picking one starts the cutscene.
 // With no background images loaded, PLAY goes straight to the cutscene.
 void Game::chooseBackground(int i)
 {
@@ -229,26 +230,24 @@ int Game::laneAt(float wx, float wy) const
 }
 
 
-// ---------------------------------------------------------------------------
 // Update
-// ---------------------------------------------------------------------------
 void Game::update(float dt)
 {
-    // [George] intro cutscene plays first; gameplay starts when it ends (or is skipped).
+    // Intro cutscene plays first; gameplay starts when it ends (or is skipped).
     // reset() runs HERE, not when PLAY is clicked, so the wave timer (glfwGetTime)
     // starts counting after the cutscene instead of during it.
     if (st == GameState::Cutscene) {
         cutscene.update(dt);
         if (cutscene.finished()) {
             reset();             // reset() also sets st = Playing
-            introFade = 1.0f;    // [George] start fully dark, then the lights come up
+            introFade = 1.0f;    // start fully dark; fades out in update() (lights-up effect)
         }
         return;
     }
 
     if (st != GameState::Playing) return;   // paused / won / lost: everything freezes
     clock += dt;
-    if (introFade > 0.0f) introFade = std::max(0.0f, introFade - dt / 1.2f);   // [George] ~1.2 s fade-in
+    if (introFade > 0.0f) introFade = std::max(0.0f, introFade - dt / 1.2f);   // ~1.2 s fade-in
 
     // a card re-locks when coins drop below its unlockCost, or becomes unaffordable
     if (armedCard >= 0 && (!isUnlocked(armedCard) || coins < g_chars[armedCard].cost))
@@ -273,8 +272,8 @@ void Game::update(float dt)
     updateExplosions(dt);
     cleanup();
 
-    if (baseHp <= 0) { st = GameState::Lost; Audio::playVoice(VOICE_DOOM, true); return; }   // [George]
-    if (::playerWon) { st = GameState::Won;  Audio::playVoice(VOICE_IRON, true); }           // [George]
+    if (baseHp <= 0) { st = GameState::Lost; Audio::playVoice(VOICE_DOOM, true); return; }   // DMET502 spec requirement: lose when base HP reaches 0
+    if (::playerWon) { st = GameState::Won;  Audio::switchMusic(VOICE_IRON); }               // DMET502 spec requirement: win when WaveSystem sets playerWon
 }
 
 
@@ -321,7 +320,7 @@ void Game::updatePlayers(float dt)
         for (Unit& e : enemies) {
             if (e.lane == p.lane && e.hp > 0) {
                 float contact = unitHalfWidth(p.def) + unitHalfWidth(e.def);
-                if (e.x > p.x && e.x - p.x < contact) p.x = e.x - contact; // [George] guard: only push player left when enemy is to the right
+                if (e.x > p.x && e.x - p.x < contact) p.x = e.x - contact; // guard: only push player left when enemy is to the right
             }
         }
 
@@ -339,7 +338,7 @@ void Game::updatePlayers(float dt)
             popups.push_back(pop);
 
             p.hp = 0;   // removed in cleanup(); players never drop collectibles
-            p.exited = true;   // [George] left the field, not killed -> no death sound
+            p.exited = true;   // left the field, not killed -> no death sound
             continue;
         }
 
@@ -360,7 +359,7 @@ void Game::updatePlayers(float dt)
                 pr.vx = PLAYER_BOLT_SPEED;
                 pr.damage = d.damage;
                 projectiles.push_back(pr);
-                Audio::playSfx(SFX_REPULSOR);   // [George] ranged shot sound
+                Audio::playSfx(SFX_REPULSOR);   // ranged shot sound
             }
         }
 
@@ -370,7 +369,7 @@ void Game::updatePlayers(float dt)
                 if (c.alive && c.lane == p.lane && std::fabs(c.x - p.x) < unitHalfWidth(p.def)) {
                     c.alive = false;
                     coins += COIN_DROP;
-                    Audio::playSfx(SFX_COIN);   // [George]
+                    Audio::playSfx(SFX_COIN);
                 }
             }
         }
@@ -526,7 +525,7 @@ void Game::cleanup()
     }
     removeDefeatedEnemies();
 
-    // [George] death sounds: Iron Man line when a Doom enemy is defeated,
+    // death sounds: Iron Man line when a Doom enemy is defeated,
     // Doom line when one of your heroes is killed (voice lines never stack)
     for (const Unit& e : enemies)
         if (e.hp <= 0 && !e.reachedBase) { Audio::playSfx(SFX_DEATH); Audio::playVoice(VOICE_IRON); }
@@ -548,9 +547,7 @@ void Game::cleanup()
 
 
 
-// ---------------------------------------------------------------------------
 // Input
-// ---------------------------------------------------------------------------
 void Game::onMouseMove(float wx, float wy)
 {
     hoveredLane = laneAt(wx, wy);
@@ -560,13 +557,13 @@ void Game::onMouseMove(float wx, float wy)
     hoveredMenuBtn = -1;
     if (st == GameState::MainMenu) {
         if (BTN_PLAY.hit(wx, wy))       hoveredMenuBtn = 0;
-        else if (BTN_SOUND.hit(wx, wy)) hoveredMenuBtn = 1;   // [George]
+        else if (BTN_SOUND.hit(wx, wy)) hoveredMenuBtn = 1;
         else if (BTN_EXIT.hit(wx, wy))  hoveredMenuBtn = 2;
     }
-    else if (st == GameState::BgSelect) {                    // [George] hovered thumbnail
+    else if (st == GameState::BgSelect) {                    // hovered thumbnail in chooser
         if (bg) hoveredMenuBtn = bg->thumbAt(wx, wy);
     }
-    else if (st == GameState::Settings) {                    // [George]
+    else if (st == GameState::Settings) {
         if (BTN_BACK.hit(wx, wy)) hoveredMenuBtn = 0;
     }
     else if (st == GameState::Paused) {
@@ -589,22 +586,22 @@ void Game::onMouseButton(int button, float wx, float wy)
         return;
     }
 
-    // [George] clicks are ignored during the cutscene (no accidental card / lane picks)
+    // clicks are ignored during the cutscene (no accidental card / lane picks)
     if (st == GameState::Cutscene) return;
 
     // --- Main menu ---
     if (st == GameState::MainMenu) {
-        if (BTN_PLAY.hit(wx, wy)) {   // [George] was: st = GameState::Playing
+        if (BTN_PLAY.hit(wx, wy)) {   // PLAY opens BgSelect if images are loaded, else skips to cutscene
             if (bg && bg->count() > 0) { st = GameState::BgSelect; hoveredMenuBtn = -1; }
             else chooseBackground(-1);
             return;
         }
-        if (BTN_SOUND.hit(wx, wy)) { st = GameState::Settings; hoveredMenuBtn = -1; return; }   // [George]
+        if (BTN_SOUND.hit(wx, wy)) { st = GameState::Settings; hoveredMenuBtn = -1; return; }
         if (BTN_EXIT.hit(wx, wy)) { exitRequested = true; return; }
         return;
     }
 
-    // --- [George] Background chooser (after the Main Menu) ---
+    // --- Background chooser (after the Main Menu) ---
     if (st == GameState::BgSelect) {
         if (bg) {
             int i = bg->thumbAt(wx, wy);
@@ -613,7 +610,7 @@ void Game::onMouseButton(int button, float wx, float wy)
         return;
     }
 
-    // --- [George] Sound Settings (from the Main Menu) ---
+    // --- Sound Settings (from the Main Menu) ---
     if (st == GameState::Settings) {
         if (BTN_VOL_DOWN.hit(wx, wy)) { changeVolume(-10); return; }
         if (BTN_VOL_UP.hit(wx, wy)) { changeVolume(+10); return; }
@@ -660,14 +657,14 @@ void Game::onMouseButton(int button, float wx, float wy)
 
 void Game::onKey(int key)
 {
-    // [George] Space / Enter skips the cutscene; other keys (incl. ESC) do nothing during it
+    // Space / Enter skips the cutscene; other keys (incl. ESC) do nothing during it
     if (st == GameState::Cutscene) {
         if (key == GLFW_KEY_SPACE || key == GLFW_KEY_ENTER) cutscene.skip();
         return;
     }
 
     if (key == GLFW_KEY_ESCAPE) {
-        if (st == GameState::Settings || st == GameState::BgSelect) { st = GameState::MainMenu; hoveredMenuBtn = -1; }   // [George]
+        if (st == GameState::Settings || st == GameState::BgSelect) { st = GameState::MainMenu; hoveredMenuBtn = -1; }
         else if (st == GameState::Playing) st = GameState::Paused;
         else if (st == GameState::Paused) st = GameState::Playing;
         return;
@@ -675,12 +672,12 @@ void Game::onKey(int key)
     // Enter/Space starts the game from the main menu
     if (st == GameState::MainMenu &&
         (key == GLFW_KEY_ENTER || key == GLFW_KEY_SPACE)) {
-        // [George] was: st = GameState::Playing;  now opens the background chooser
+        // PLAY opens BgSelect if images are loaded, then cutscene; falls back to cutscene directly
         if (bg && bg->count() > 0) { st = GameState::BgSelect; hoveredMenuBtn = -1; }
         else chooseBackground(-1);
         return;
     }
-    // [George] background chooser: 1-5 picks one, Enter/Space keeps the highlighted one
+    // background chooser: 1-5 picks one, Enter/Space keeps the highlighted one
     if (st == GameState::BgSelect) {
         if (key >= GLFW_KEY_1 && key <= GLFW_KEY_9 && bg && key - GLFW_KEY_1 < bg->count())
             chooseBackground(key - GLFW_KEY_1);
@@ -697,7 +694,7 @@ void Game::onKey(int key)
         return;
     }
     // Pause-menu / Sound Settings audio controls
-    if (st == GameState::Paused || st == GameState::Settings) {   // [George] + Settings
+    if (st == GameState::Paused || st == GameState::Settings) {   // also handles Settings audio controls
         if (key == GLFW_KEY_LEFT)  changeVolume(-10);
         else if (key == GLFW_KEY_RIGHT) changeVolume(+10);
         else if (key == GLFW_KEY_M)     toggleMute();
@@ -718,9 +715,7 @@ void Game::onKey(int key)
 
 
 
-// ---------------------------------------------------------------------------
 // Render
-// ---------------------------------------------------------------------------
 void Game::drawUnit(Renderer& r, const Unit& u, bool enemy, float alpha) const
 {
     const CharacterDef& d = g_chars[u.def];
@@ -743,7 +738,7 @@ void Game::drawUnit(Renderer& r, const Unit& u, bool enemy, float alpha) const
     DrawFx fx;
     fx.red = (1.0f - std::max(0, u.hp) / (float)d.maxHp) * 0.75f;   // redder as health drops
     fx.alpha = alpha;
-    // [George] centre the sprite on u.x (the unit's hitbox centre). Renderer::drawSprite
+    // centre the sprite on u.x (the unit's hitbox centre). Renderer::drawSprite
     // puts the sprite's left edge (or right edge when flipped) near x, so players drew
     // to the right of their position and enemies to the left: when they met they ended
     // up crossed, fighting back-to-back.
@@ -759,9 +754,9 @@ void Game::drawUnit(Renderer& r, const Unit& u, bool enemy, float alpha) const
 
 void Game::render(Renderer& r) const
 {
-    if (st == GameState::Cutscene) { cutscene.draw(r); return; }   // [George] intro cutscene
+    if (st == GameState::Cutscene) { cutscene.draw(r); return; }   // intro cutscene fills the whole screen
 
-    // [George] background chooser: the thumbnails are drawn by Background (main.cpp);
+    // background chooser: the thumbnails are drawn by Background (main.cpp);
     // here we only add the title, the names and the hints on top.
     if (st == GameState::BgSelect) {
         drawCenteredText(r, "CHOOSE YOUR BATTLEGROUND", 560, 6.0f, { 0.85f, 0.35f, 0.15f });
@@ -785,7 +780,7 @@ void Game::render(Renderer& r) const
         return;
     }
 
-    if (st == GameState::MainMenu) { drawMainMenu(r); return; }   // [George] full-scene main menu
+    if (st == GameState::MainMenu) { drawMainMenu(r); return; }   // full-scene main menu (split background drawn in main.cpp)
 
     drawBattlefield(r, st == GameState::Playing ? hoveredLane : -1, selectedLanes, clock);
 
@@ -882,7 +877,7 @@ void Game::render(Renderer& r) const
     }
 
     // HUD (hidden on main menu and sound settings)
-    if (st != GameState::MainMenu && st != GameState::Settings) {   // [George]
+    if (st != GameState::MainMenu && st != GameState::Settings) {   // HUD hidden on main menu and sound settings
         drawCoinPanel(r, coins);
         cards.draw(r, coins, armedCard, hoveredCard);
 
@@ -898,8 +893,8 @@ void Game::render(Renderer& r) const
     if (st != GameState::Playing) {
         r.drawRect(0, 0, WORLD_W, WORLD_H, { 0.0f, 0.0f, 0.0f }, 0.6f);
 
-        // [George] MainMenu is drawn by drawMainMenu() (early return above)
-        if (st == GameState::Settings) {   // [George]
+        // MainMenu is drawn by drawMainMenu() (early return above)
+        if (st == GameState::Settings) {
             drawCenteredText(r, "SOUND SETTINGS", 440, 7.0f, { 0.85f, 0.35f, 0.15f });
             drawButton(r, BTN_VOL_DOWN, "-");
             drawButton(r, BTN_VOL_UP, "+");
@@ -934,7 +929,7 @@ void Game::render(Renderer& r) const
         }
     }
 
-    // [George] lights come up after the cutscene (black overlay fading out)
+    // lights come up after the cutscene (black overlay fading out)
     if (introFade > 0.0f)
         r.drawRect(0, 0, WORLD_W, WORLD_H, { 0.0f, 0.0f, 0.0f }, introFade);
 }
@@ -958,11 +953,9 @@ void Game::toggleMute()
     applyVolume();
 }
 
-// ---------------------------------------------------------------------------
-// [George] Main Menu scene (matches the menu reference image).
+// Main Menu scene (matches the menu reference image).
 // The split Stark/Doom background image is drawn first by Background::drawMenuSplit (main.cpp).
 // Only drawing lives here; buttons/hover/clicks are unchanged (BTN_*, hoveredMenuBtn).
-// ---------------------------------------------------------------------------
 void Game::drawMainMenu(Renderer& r) const
 {
     const float t = (float)glfwGetTime();   // update() is frozen outside Playing, so use wall time

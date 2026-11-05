@@ -1,3 +1,8 @@
+// UI.cpp - HUD, card bar, battlefield drawing, and in-game overlays.
+// CardBar handles the card selection HUD (DMET502 spec requirement: locked/armed
+// card states, coin cost display, grayscale for locked cards).
+// drawBattlefield draws the grid + home base + environment decorations.
+// drawCoinPanel, drawHealthBar, drawCenteredText are shared HUD helpers.
 #include "UI.h"
 #include "Characters.h"
 #include "Config.h"
@@ -8,9 +13,7 @@
 
 using namespace cfg;
 
-// ---------------------------------------------------------------------------
 // Card bar
-// ---------------------------------------------------------------------------
 void CardBar::cardRect(int i, float& x, float& y) const
 {
     x = x0 + i * (w + gap);
@@ -27,11 +30,14 @@ int CardBar::hitTest(float wx, float wy) const
     return -1;
 }
 
-// [George] Renderer::drawSprite scales the model by (f.w * scaleX, f.h * scaleY),
+// Renderer::drawSprite scales the model by (f.w * scaleX, f.h * scaleY),
 // but sprite vertices are already 0..f.w / 0..f.h, so the real on-screen size is
 // f.w * f.w * scaleX by f.h * f.h * scaleY. In-game units are tuned around that
 // (tiny drawHeight values), so instead of changing the renderer, HUD code goes
 // through this helper: px = on-screen size of ONE sprite pixel.
+// drawSpritePx: draw sprite f with one sprite-pixel = px screen pixels, centred at cx, feet at bottomY.
+// Renderer::drawSprite takes (scaleX, scaleY) where scale = f.w * scaleX screen-px wide,
+// so we pass (px/f.w, px/f.h) to get exactly px screen-pixels per sprite pixel.
 static void drawSpritePx(Renderer& r, const SpriteFrame& f,
     float cx, float bottomY, float px, const DrawFx& fx = DrawFx())
 {
@@ -39,6 +45,7 @@ static void drawSpritePx(Renderer& r, const SpriteFrame& f,
 }
 
 // Fits sprite f inside box (bx,by,bw,bh), centred, aspect-ratio preserved.
+// s = uniform scale so the sprite fits in both bw and bh without cropping.
 static void drawSpriteFit(Renderer& r, const SpriteFrame& f,
     float bx, float by, float bw, float bh, const DrawFx& fx = DrawFx())
 {
@@ -48,9 +55,9 @@ static void drawSpriteFit(Renderer& r, const SpriteFrame& f,
     drawSpritePx(r, f, cx, cy, s, fx);
 }
 
-// [George] per-card portrait tweaks, in card order: Melee, Ranged, Defense
-// zoom: 1.0 = fit the box, 1.2 = 20% bigger, 0.8 = 20% smaller
-// dx/dy: nudge in pixels (+x = right, +y = up)
+// Per-card portrait tweaks, in card order: Melee, Ranged, Defense.
+// zoom: 1.0 = fit the box, 1.2 = 20% bigger, 0.8 = 20% smaller.
+// dx/dy: nudge in pixels (+x = right, +y = up).
 static const float kPortraitZoom[NUM_HERO_TYPES] = { 1.10f, 1.10f, 1.10f };
 static const float kPortraitDX[NUM_HERO_TYPES] = { -17.0f,  -17.0f,  -17.0f };
 static const float kPortraitDY[NUM_HERO_TYPES] = { 0.0f,  0.0f,  0.0f };
@@ -63,14 +70,16 @@ void CardBar::draw(Renderer& r, int coins, int armedCard, int hoveredCard) const
         const CharacterDef& d = g_chars[i];
         bool unlocked = coins >= d.unlockCost;
 
-        // border + background
+        // border colour: white = hovered, gold = armed (selected and waiting for a lane click),
+        // grey = locked (not enough coins), default dark-blue otherwise.
         glm::vec3 border = { 0.30f, 0.34f, 0.40f };
         if (unlocked && hoveredCard == i) border = { 0.90f, 0.95f, 1.00f };
-        if (unlocked && armedCard == i)   border = { 1.00f, 0.80f, 0.20f };
-        r.drawRect(x - 3, y - 3, w + 6, h + 6, border);
+        if (unlocked && armedCard == i)   border = { 1.00f, 0.80f, 0.20f };   // gold = DMET502 armed state
+        r.drawRect(x - 3, y - 3, w + 6, h + 6, border);   // 3-px border around the card
         r.drawRect(x, y, w, h, unlocked ? glm::vec3(0.10f, 0.22f, 0.36f) : glm::vec3(0.16f, 0.16f, 0.16f));
 
         // portrait: top 70% of card, 6 px padding on all sides
+        // DMET502 spec requirement: locked cards shown in grayscale (fx.gray = 1.0)
         DrawFx fx; fx.gray = unlocked ? 0.0f : 1.0f;
         const SpriteFrame& pf = g_sprites[d.frameA];
         float boxX = x + 4.0f, boxY = y + h * 0.30f + 4.0f;
@@ -80,13 +89,13 @@ void CardBar::draw(Renderer& r, int coins, int armedCard, int hoveredCard) const
         float pby = boxY + (boxH - pf.h * ps) * 0.5f + kPortraitDY[i];
         drawSpritePx(r, pf, pcx, pby, ps, fx);
 
-        // cost row: bottom 30% — 16 px coin + number, centred together
+        // cost row: bottom 30% — coin icon + number, laid out as a unit and centred in the card
         const SpriteFrame& cf = g_sprites[SPR_COIN];
         const float COIN_PX = 16.0f;
         std::string cost = std::to_string(d.cost);
         float tw = r.textWidth(cost, 3.0f);
-        float totalW = COIN_PX + 3.0f + tw;
-        float rowX = x + (w - totalW) * 0.5f;
+        float totalW = COIN_PX + 3.0f + tw;   // combined width of icon + gap + number
+        float rowX = x + (w - totalW) * 0.5f; // left edge so the pair is centred in the card
         float rowCY = y + h * 0.15f;
         DrawFx cfx; cfx.gray = unlocked ? 0.0f : 1.0f;
         drawSpritePx(r, cf, rowX + COIN_PX * 0.5f, rowCY - COIN_PX * 0.5f, COIN_PX / cf.w, cfx);
@@ -95,9 +104,7 @@ void CardBar::draw(Renderer& r, int coins, int armedCard, int hoveredCard) const
     }
 }
 
-// ---------------------------------------------------------------------------
 // Environment helpers  (called from drawBattlefield)
-// ---------------------------------------------------------------------------
 
 // Elements drawn on top of tiles, BELOW lane-highlights:
 //   4 - Rubble + Doombot Parts   5 - Green Energy Cracks
@@ -123,6 +130,7 @@ static void drawEnvironmentFloor(Renderer& r, float time)
             r.drawRect(bx,     dy -  3,   6,  3, { 0.75f, 0.58f, 0.04f }); // yellow stripe 1
             r.drawRect(bx,     dy -  6,   6,  2, { 0.10f, 0.10f, 0.10f }); // black stripe
             r.drawRect(bx,     dy -  9,   6,  2, { 0.75f, 0.58f, 0.04f }); // yellow stripe 2
+            // offset by lane+bollard index so adjacent tips don't blink in sync
             float tp = 0.5f + 0.5f * std::sin(time * 3.0f + (float)(L * 2 + bi) * 0.9f);
             r.drawRect(bx + 1, dy - 15,   4,  3,
                 { 0.10f * tp, 0.65f * tp, 0.85f * tp });                   // cyan tip
@@ -143,7 +151,8 @@ static void drawEnvironmentFloor(Renderer& r, float time)
             r.drawRect(nx - 3, ly,      6,  5,
                 { 0.08f * cp, 0.44f * cp, 0.72f * cp }, 0.85f);
         }
-        // Travelling cyan pulse 12x3
+        // Travelling cyan pulse 12x3: fmod wraps back to left when it reaches the right end;
+        // per-lane offset (90 px) staggers the pulse phase so lanes animate independently.
         float pulseX = conduitX +
             std::fmod(time * 120.0f + (float)lane * 90.0f, conduitW - 12.0f);
         r.drawRect(pulseX, ly + 1, 12, 3, { 0.40f, 0.90f, 1.00f }, 0.80f);
@@ -232,13 +241,15 @@ static void drawEnvironmentFloor(Renderer& r, float time)
                 r.drawRect(midX + 5, py + 2, 14, 1, { 0.22f, 0.26f, 0.30f }); // top edge
             }
         }
+        // Cyan energy beams: only between pairs of consecutive intact posts.
+        // y0 = top of lower post's tip; y1 = bottom of upper post; bh = beam height.
         for (int i = 0; i < 8; ++i) {
             if (broken[i] || broken[i + 1]) continue;
             float y0 = gridBottom + (float)i       * (fieldH / 8.0f) + 22.0f;
             float y1 = gridBottom + (float)(i + 1) * (fieldH / 8.0f);
             float bh = y1 - y0;
             if (bh < 1.0f) bh = 1.0f;
-            float ba = 0.25f + 0.20f * std::sin(time * 6.0f + (float)i);
+            float ba = 0.25f + 0.20f * std::sin(time * 6.0f + (float)i);  // flicker alpha
             r.drawRect(midX - 1, y0, 2, bh, { 0.20f, 0.80f, 0.90f }, ba);
         }
         static const float scorchFrac[4] = { 0.15f, 0.38f, 0.62f, 0.85f };
@@ -336,7 +347,8 @@ static void drawEnvironmentEdges(Renderer& r, float time)
             // Dark arch opening
             r.drawRect(openX, archY, openW, archH, { 0.04f, 0.05f, 0.03f });
 
-            // Portcullis: 5 vertical bars
+            // Portcullis: 5 vertical bars each 2 px wide, evenly spaced across openW.
+            // 6 gaps between the 5 bars and the two walls; each gap = (openW - 5*barW) / 6.
             float barGap = (openW - 5.0f * 2.0f) / 6.0f;
             for (int vb = 0; vb < 5; ++vb) {
                 float bxb = openX + barGap * (float)(vb + 1) + 2.0f * (float)vb;
@@ -508,22 +520,22 @@ static void drawEnvironmentEdges(Renderer& r, float time)
         static const float wallH3[6] = {  22.0f,  16.0f,  28.0f,  12.0f,   24.0f,   18.0f };
         static const float wallW3[6] = {  70.0f,  72.0f,  78.0f,  68.0f,   74.0f,   70.0f };
         for (int wi = 0; wi < 6; ++wi) {
-            float wx = wallX[wi];
-            float wh = wallH3[wi];
-            float ww = wallW3[wi];
-            float wy = fgTop - wh;
-            r.drawRect(wx,     wy,     ww, wh, { 0.16f, 0.18f, 0.13f });
-            r.drawRect(wx + 1, wy + 1, ww - 2, wh - 2, { 0.20f, 0.22f, 0.16f }); // face
+            float wallSegX = wallX[wi];
+            float wallSegH = wallH3[wi];
+            float wallSegW = wallW3[wi];
+            float wallSegY = fgTop - wallSegH;
+            r.drawRect(wallSegX,     wallSegY,            wallSegW,            wallSegH, { 0.16f, 0.18f, 0.13f });
+            r.drawRect(wallSegX + 1, wallSegY + 1,        wallSegW - 2,        wallSegH - 2, { 0.20f, 0.22f, 0.16f }); // face
             // Mortar lines (2 horizontal)
-            r.drawRect(wx, wy + wh * 0.40f, ww, 1, { 0.10f, 0.11f, 0.08f });
-            r.drawRect(wx, wy + wh * 0.70f, ww, 1, { 0.10f, 0.11f, 0.08f });
+            r.drawRect(wallSegX, wallSegY + wallSegH * 0.40f, wallSegW, 1, { 0.10f, 0.11f, 0.08f });
+            r.drawRect(wallSegX, wallSegY + wallSegH * 0.70f, wallSegW, 1, { 0.10f, 0.11f, 0.08f });
             // Block seams (2 vertical)
-            r.drawRect(wx + ww * 0.33f, wy, 1, wh, { 0.10f, 0.11f, 0.08f });
-            r.drawRect(wx + ww * 0.66f, wy, 1, wh, { 0.10f, 0.11f, 0.08f });
+            r.drawRect(wallSegX + wallSegW * 0.33f, wallSegY, 1, wallSegH, { 0.10f, 0.11f, 0.08f });
+            r.drawRect(wallSegX + wallSegW * 0.66f, wallSegY, 1, wallSegH, { 0.10f, 0.11f, 0.08f });
             // Green moss tufts on top (3 small rects)
-            r.drawRect(wx +  4, wy -  3,  8, 3, { 0.08f, 0.28f, 0.08f });
-            r.drawRect(wx + 18, wy -  4,  6, 4, { 0.07f, 0.24f, 0.07f });
-            r.drawRect(wx + 38, wy -  3,  7, 3, { 0.09f, 0.26f, 0.09f });
+            r.drawRect(wallSegX +  4, wallSegY -  3,  8, 3, { 0.08f, 0.28f, 0.08f });
+            r.drawRect(wallSegX + 18, wallSegY -  4,  6, 4, { 0.07f, 0.24f, 0.07f });
+            r.drawRect(wallSegX + 38, wallSegY -  3,  7, 3, { 0.09f, 0.26f, 0.09f });
         }
         // 2 fallen blocks on the ground
         r.drawRect(880.0f,  fgTop - 8,  28, 8, { 0.17f, 0.19f, 0.14f });
@@ -534,48 +546,47 @@ static void drawEnvironmentEdges(Renderer& r, float time)
     }
 }
 
-// ---------------------------------------------------------------------------
 // Battlefield: background, lanes, home base, enemy gate
-// ---------------------------------------------------------------------------
 void drawBattlefield(Renderer& r, int hoveredLane, const bool* selectedLanes, float time)
 {
     const float gridBottom = laneBottom(NUM_LANES - 1);
     const float gridW = GRID_RIGHT - GRID_LEFT;
     const float cellW = gridW / GRID_COLS;
-    const float pulse = 0.65f + 0.35f * std::sin(time * 3.0f);
+    const float pulse = 0.65f + 0.35f * std::sin(time * 3.0f);   // pulsing glow, 0.3..1.0
 
-    // [George] see-through board: the background image (drawn in main.cpp) shows through.
+    // BOARD_ALPHA controls how opaque the lane tiles are over the background image.
     // 0 = invisible board, 1 = fully solid. Raise it if the lanes get hard to read.
     const float BOARD_ALPHA = 0.45f;
 
     // background + top bar
-    // [George] full-screen dark fill removed so the background image is visible:
+    // full-screen dark fill removed so the background image is visible:
     // r.drawRect(0, 0, WORLD_W, WORLD_H, { 0.05f, 0.07f, 0.11f });
     r.drawRect(0, 606, WORLD_W, WORLD_H - 606, { 0.07f, 0.11f, 0.19f });
     r.drawRect(0, 604, WORLD_W, 3, { 0.20f, 0.55f, 0.75f });
 
     // grid frame
-    r.drawRect(GRID_LEFT - 4, gridBottom - 4, gridW + 8, GRID_TOP - gridBottom + 8, { 0.02f, 0.03f, 0.05f }, BOARD_ALPHA * 0.5f);   // [George] + alpha
+    r.drawRect(GRID_LEFT - 4, gridBottom - 4, gridW + 8, GRID_TOP - gridBottom + 8, { 0.02f, 0.03f, 0.05f }, BOARD_ALPHA * 0.5f);
 
-    // tiles: tech floor on the hero side, mossy stone on the enemy side
+    // tiles: left half of the grid = Stark tech floor (blue), right = Doom stone (green).
+    // Alternating tile shade gives a checkerboard that breaks up the flat colour.
     for (int lane = 0; lane < NUM_LANES; ++lane) {
         float y = laneBottom(lane);
         for (int c = 0; c < GRID_COLS; ++c) {
             float x = GRID_LEFT + c * cellW;
-            bool tech = c < GRID_COLS / 2;
-            bool alt = (lane + c) % 2 == 1;
+            bool tech = c < GRID_COLS / 2;      // columns 0..4 = tech, 5..9 = stone
+            bool alt = (lane + c) % 2 == 1;     // checkerboard pattern
             glm::vec3 col = tech
                 ? (alt ? glm::vec3(0.10f, 0.30f, 0.45f) : glm::vec3(0.12f, 0.35f, 0.52f))
                 : (alt ? glm::vec3(0.18f, 0.24f, 0.15f) : glm::vec3(0.21f, 0.28f, 0.17f));
-            r.drawRect(x + 1, y + 1, cellW - 2, LANE_H - 2, col, BOARD_ALPHA);   // [George] + alpha
+            r.drawRect(x + 1, y + 1, cellW - 2, LANE_H - 2, col, BOARD_ALPHA);
             // small detail per tile: rivets on tech tiles, cracks on stone
             glm::vec3 detail = col * 0.7f;
             if (tech) {
-                r.drawRect(x + 6, y + 6, 4, 4, detail, BOARD_ALPHA);                       // [George] + alpha
+                r.drawRect(x + 6, y + 6, 4, 4, detail, BOARD_ALPHA);
                 r.drawRect(x + cellW - 10, y + LANE_H - 10, 4, 4, detail, BOARD_ALPHA);
             }
             else {
-                r.drawRect(x + 20, y + 30, 18, 3, detail, BOARD_ALPHA);                    // [George] + alpha
+                r.drawRect(x + 20, y + 30, 18, 3, detail, BOARD_ALPHA);
                 r.drawRect(x + 36, y + 26, 3, 8, detail, BOARD_ALPHA);
             }
         }
@@ -583,15 +594,16 @@ void drawBattlefield(Renderer& r, int hoveredLane, const bool* selectedLanes, fl
 
     drawEnvironmentFloor(r, time);
 
-    // lane highlights
+    // lane highlights: selected lanes get a tinted fill + solid left edge bar;
+    // the hovered lane gets a subtle white overlay so the cursor position is visible.
     for (int lane = 0; lane < NUM_LANES; ++lane) {
         float y = laneBottom(lane);
         if (selectedLanes[lane]) {
-            r.drawRect(GRID_LEFT, y, gridW, LANE_H, { 0.30f, 0.90f, 1.00f }, 0.22f);
-            r.drawRect(GRID_LEFT, y, 6, LANE_H, { 0.30f, 0.90f, 1.00f });
+            r.drawRect(GRID_LEFT, y, gridW, LANE_H, { 0.30f, 0.90f, 1.00f }, 0.22f);  // tinted fill
+            r.drawRect(GRID_LEFT, y, 6, LANE_H, { 0.30f, 0.90f, 1.00f });              // solid edge bar
         }
         if (lane == hoveredLane)
-            r.drawRect(GRID_LEFT, y, gridW, LANE_H, { 1.0f, 1.0f, 1.0f }, 0.12f);
+            r.drawRect(GRID_LEFT, y, gridW, LANE_H, { 1.0f, 1.0f, 1.0f }, 0.12f);     // hover shimmer
     }
 
     // =========================================================================
@@ -665,13 +677,13 @@ void drawBattlefield(Renderer& r, int hoveredLane, const bool* selectedLanes, fl
 
         // ── 5. WINDOW PANELS (4 rows × 2 panes, glow with slowPulse) ────────
         for (int row = 0; row < 4; ++row) {
-            float wy = TBY + TBH * (0.06f + row * 0.22f);
+            float winY = TBY + TBH * (0.06f + row * 0.22f);   // y of this window row
             for (int col = 0; col < 2; ++col) {
-                float wx = TCX + (col == 0 ? -14.0f : 6.0f);
-                r.drawRect(wx, wy, 8, 12, { 0.10f, 0.15f, 0.22f });           // frame
-                r.drawRect(wx + 1, wy + 1, 6, 10,
+                float winX = TCX + (col == 0 ? -14.0f : 6.0f);   // x of this window pane
+                r.drawRect(winX, winY, 8, 12, { 0.10f, 0.15f, 0.22f });           // frame
+                r.drawRect(winX + 1, winY + 1, 6, 10,
                     { 0.16f * slowPulse, 0.52f * slowPulse, 0.78f * slowPulse });            // glass glow
-                r.drawRect(wx + 2, wy + 2, 4, 6,
+                r.drawRect(winX + 2, winY + 2, 4, 6,
                     { 0.25f * slowPulse, 0.72f * slowPulse, 0.95f * slowPulse });            // bright centre
             }
         }
@@ -759,9 +771,7 @@ void drawBattlefield(Renderer& r, int hoveredLane, const bool* selectedLanes, fl
     drawEnvironmentEdges(r, time);
 }
 
-// ---------------------------------------------------------------------------
 // HUD pieces
-// ---------------------------------------------------------------------------
 void drawCoinPanel(Renderer& r, int coins)
 {
     // inner box: x=20..145, y=615..710  (125×95 px)
@@ -776,10 +786,12 @@ void drawCoinPanel(Renderer& r, int coins)
     drawSpritePx(r, cf, coinCX, coinCY, COIN_PX / cf.w);
 
     // number: centred in right zone (x=62..145)
+    // right zone left edge = coinCX + COIN_PX/2 + 6 px gap; right edge = 145.
+    // textCX = midpoint of that zone, then subtract tw/2 to left-justify from centre.
     std::string s = std::to_string(coins);
     float tw = r.textWidth(s, 4.0f);
     float textCX = (coinCX + COIN_PX * 0.5f + 6.0f + 145.0f) * 0.5f; // = 103.5
-    float textY = 615.0f + (95.0f - 28.0f) * 0.5f;                  // = 648.5
+    float textY = 615.0f + (95.0f - 28.0f) * 0.5f;                  // = 648.5 (28 = text height at px=4)
     r.drawText(s, textCX - tw * 0.5f, textY, 4.0f, { 1.0f, 0.88f, 0.45f });
 }
 void drawHealthBar(Renderer& r, float cx, float y, float width, int hp, int maxHp, bool isEnemy)

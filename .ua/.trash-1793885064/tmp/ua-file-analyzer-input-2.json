@@ -1,0 +1,21 @@
+{
+  "projectRoot": "C:/Users/DELL/Downloads/DMET502 - Lab 2 Template (Other)/Template",
+  "batchFiles": [
+    {"path": "Characters.cpp", "language": "cpp", "sizeLines": 58, "fileCategory": "code"},
+    {"path": "Characters.h", "language": "c", "sizeLines": 50, "fileCategory": "code"},
+    {"path": "Config.h", "language": "c", "sizeLines": 58, "fileCategory": "code"},
+    {"path": "Game.h", "language": "c", "sizeLines": 160, "fileCategory": "code"},
+    {"path": "Renderer.cpp", "language": "cpp", "sizeLines": 350, "fileCategory": "code"},
+    {"path": "UI.cpp", "language": "cpp", "sizeLines": 430, "fileCategory": "code"},
+    {"path": "UI.h", "language": "c", "sizeLines": 45, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "Characters.cpp": ["Characters.h"],
+    "Characters.h": ["Config.h"],
+    "Config.h": [],
+    "Game.h": ["Background.h", "Characters.h", "Config.h", "Cutscene.h", "Renderer.h", "UI.h"],
+    "Renderer.cpp": ["Renderer.h", "include/glad/gl.h"],
+    "UI.cpp": ["UI.h", "Game.h", "Characters.h"],
+    "UI.h": ["Renderer.h", "Characters.h", "Config.h"]
+  }
+}

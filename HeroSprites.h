@@ -1,10 +1,10 @@
+// HeroSprites.h - Pixel-art bitmaps for player characters (Melee, Ranged, Defense)
+// and the coin collectible. Only included by Sprites.cpp.
 #pragma once
-// ---------------------------------------------------------------------------
 // Player (hero) pixel art. All heroes are drawn FACING RIGHT.
 // Each frame of one character must have the SAME width (the renderer centres
 // a frame on its own width, so different widths make the body jump).
 // Only included by Sprites.cpp.
-// ---------------------------------------------------------------------------
 #include "Renderer.h"
 
 // Used by DEFENSE and the COIN

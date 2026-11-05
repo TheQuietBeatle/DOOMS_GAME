@@ -1,0 +1,275 @@
+{
+  "batchIndex": 2,
+  "totalBatches": 5,
+  "files": [
+    {
+      "path": "Characters.cpp",
+      "language": "cpp",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Characters.h",
+      "language": "c",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Config.h",
+      "language": "c",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Game.h",
+      "language": "c",
+      "sizeLines": 135,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Renderer.cpp",
+      "language": "cpp",
+      "sizeLines": 356,
+      "fileCategory": "code"
+    },
+    {
+      "path": "UI.cpp",
+      "language": "cpp",
+      "sizeLines": 799,
+      "fileCategory": "code"
+    },
+    {
+      "path": "UI.h",
+      "language": "c",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "Characters.cpp": [
+      "Characters.h"
+    ],
+    "Characters.h": [
+      "Sprites.h"
+    ],
+    "Config.h": [],
+    "Game.h": [
+      "Background.h",
+      "Characters.h",
+      "Config.h",
+      "Cutscene.h",
+      "Renderer.h",
+      "UI.h"
+    ],
+    "Renderer.cpp": [
+      "Config.h",
+      "Renderer.h"
+    ],
+    "UI.cpp": [
+      "Characters.h",
+      "Config.h",
+      "UI.h"
+    ],
+    "UI.h": [
+      "Renderer.h"
+    ]
+  },
+  "neighborMap": {
+    "Characters.h": [
+      {
+        "path": "Sprites.h",
+        "batchIndex": 3,
+        "symbols": []
+      }
+    ],
+    "Config.h": [
+      {
+        "path": "Background.cpp",
+        "batchIndex": 1,
+        "symbols": [
+          "compileShader",
+          "init",
+          "shutdown",
+          "draw",
+          "quad",
+          "thumbRect",
+          "thumbAt",
+          "drawPicker",
+          "drawMenuSplit"
+        ]
+      },
+      {
+        "path": "Cutscene.cpp",
+        "batchIndex": 3,
+        "symbols": [
+          "clamp01",
+          "lerpf",
+          "prog",
+          "mix3",
+          "drawDisc",
+          "drawLine",
+          "drawUnit",
+          "unitBox",
+          "Line",
+          "start",
+          "update",
+          "skip",
+          "draw"
+        ]
+      },
+      {
+        "path": "main.cpp",
+        "batchIndex": 1,
+        "symbols": [
+          "main"
+        ]
+      }
+    ],
+    "Game.h": [
+      {
+        "path": "Background.h",
+        "batchIndex": 1,
+        "symbols": [
+          "init",
+          "shutdown",
+          "draw",
+          "next",
+          "drawPicker",
+          "thumbAt",
+          "thumbRect",
+          "count",
+          "setNames",
+          "drawMenuSplit",
+          "Background"
+        ]
+      },
+      {
+        "path": "Cutscene.h",
+        "batchIndex": 3,
+        "symbols": [
+          "start",
+          "update",
+          "draw",
+          "skip",
+          "finished",
+          "Cutscene"
+        ]
+      },
+      {
+        "path": "Renderer.h",
+        "batchIndex": 3,
+        "symbols": [
+          "PaletteEntry",
+          "Palette",
+          "Palette",
+          "SpriteFrame",
+          "DrawFx",
+          "init",
+          "shutdown",
+          "addSprite",
+          "upload",
+          "beginFrame",
+          "drawRect",
+          "drawSprite",
+          "drawText",
+          "textWidth",
+          "drawTextStyled",
+          "Renderer"
+        ]
+      },
+      {
+        "path": "Game.cpp",
+        "batchIndex": 5,
+        "symbols": [
+          "resetWaves",
+          "hit",
+          "Button",
+          "drawButton",
+          "drawMenuButton",
+          "hash01",
+          "drawLine",
+          "drawMenuSprite",
+          "touching",
+          "Game",
+          "reset",
+          "returnToMainMenu",
+          "chooseBackground",
+          "spawnEnemy",
+          "placePlayer",
+          "isUnlocked",
+          "laneAt",
+          "update",
+          "updatePlayers",
+          "updateEnemies",
+          "updateProjectiles",
+          "updateExplosions",
+          "cleanup",
+          "onMouseMove",
+          "onMouseButton",
+          "onKey",
+          "drawUnit",
+          "render",
+          "applyVolume",
+          "changeVolume",
+          "toggleMute",
+          "drawMainMenu"
+        ]
+      },
+      {
+        "path": "main.cpp",
+        "batchIndex": 1,
+        "symbols": [
+          "main"
+        ]
+      }
+    ],
+    "Renderer.cpp": [
+      {
+        "path": "Renderer.h",
+        "batchIndex": 3,
+        "symbols": [
+          "PaletteEntry",
+          "Palette",
+          "Palette",
+          "SpriteFrame",
+          "DrawFx",
+          "init",
+          "shutdown",
+          "addSprite",
+          "upload",
+          "beginFrame",
+          "drawRect",
+          "drawSprite",
+          "drawText",
+          "textWidth",
+          "drawTextStyled",
+          "Renderer"
+        ]
+      }
+    ],
+    "UI.h": [
+      {
+        "path": "Renderer.h",
+        "batchIndex": 3,
+        "symbols": [
+          "PaletteEntry",
+          "Palette",
+          "Palette",
+          "SpriteFrame",
+          "DrawFx",
+          "init",
+          "shutdown",
+          "addSprite",
+          "upload",
+          "beginFrame",
+          "drawRect",
+          "drawSprite",
+          "drawText",
+          "textWidth",
+          "drawTextStyled",
+          "Renderer"
+        ]
+      }
+    ]
+  }
+}

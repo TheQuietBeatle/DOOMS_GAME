@@ -1,3 +1,7 @@
+// Cutscene.cpp - Pre-game intro cutscene (Iron Man vs. Doctor Doom, ~18 s).
+// Self-contained: owns all geometry, timeline math, and subtitle data.
+// Called by Game::render() when st == GameState::Cutscene; driven by
+// Cutscene::update(dt) each frame and skipped via Cutscene::skip().
 #include "Cutscene.h"
 #include "Config.h"
 #include "Sprites.h"
@@ -65,7 +69,7 @@ namespace {
         r.drawSprite(f, x, y, s * (2.0f - squashY), s * squashY, flipX, fx);
     }
 
-    // [George] Where a sprite drawn with drawUnit() actually lands on screen.
+    // Where a sprite drawn with drawUnit() actually lands on screen.
     // Mirrors Renderer::drawSprite's math, so beam start points follow the
     // characters automatically when you change their size or position.
     void unitBox(SpriteId id, float x, float y, float height, bool flipX,
@@ -79,7 +83,7 @@ namespace {
         top = y + f.h * s * f.h;
     }
 
-    // [George] where each character's hand is, as a fraction of its sprite box
+    // where each character's hand is, as a fraction of its sprite box
     // (x: 0 = left edge, 1 = right edge;  y: 0 = feet, 1 = top of head)
     const float IM_HAND_FX   = 0.93f, IM_HAND_FY   = 0.40f;   // Iron Man's palm (facing right)
     const float DOOM_HAND_FX = 0.11f,  DOOM_HAND_FY = 0.68f;   // Doom's glowing hand (facing left)
@@ -191,10 +195,10 @@ void Cutscene::draw(Renderer& r) const
         r.drawRect(bx + sx, horizon + h + sy, w, 4.0f, glm::vec3(0.55f, 0.70f, 0.90f)); // roof trim
         if (i == 3) // antenna on the tallest
             r.drawRect(bx + w * 0.5f - 2.0f + sx, horizon + h + sy, 4.0f, 40.0f, glm::vec3(0.6f, 0.7f, 0.85f));
-        for (float wy = horizon + 12.0f; wy < horizon + h - 14.0f; wy += 22.0f)
-            for (float wx = bx + 7.0f; wx < bx + w - 10.0f; wx += 14.0f) {
-                bool lit = ((int)(wx * 7 + wy * 3) % 5) != 0;
-                r.drawRect(wx + sx, wy + sy, 7.0f, 10.0f,
+        for (float windowY = horizon + 12.0f; windowY < horizon + h - 14.0f; windowY += 22.0f)
+            for (float windowX = bx + 7.0f; windowX < bx + w - 10.0f; windowX += 14.0f) {
+                bool lit = ((int)(windowX * 7 + windowY * 3) % 5) != 0;
+                r.drawRect(windowX + sx, windowY + sy, 7.0f, 10.0f,
                     lit ? glm::vec3(0.95f, 0.92f, 0.60f) : glm::vec3(0.20f, 0.28f, 0.40f));
             }
         bx += w + 8.0f;
@@ -370,7 +374,7 @@ void Cutscene::draw(Renderer& r) const
     if (t > 12.0f && t < 15.0f) {
         float a = 1.0f - kBeamOff;
         float clashX = W * 0.52f;
-        // [George] beams start at the characters' hands (see IM_HAND_* / DOOM_HAND_*)
+        // beams start at the characters' hands (see IM_HAND_* / DOOM_HAND_*)
         float bl, br, bt;
         unitBox(SPR_MELEE_B, imX, imY, imH, false, bl, br, bt);
         float handIM = lerpf(bl, br, IM_HAND_FX), yIM = lerpf(imY, bt, IM_HAND_FY);

@@ -1,0 +1,196 @@
+{
+  "batchIndex": 3,
+  "totalBatches": 5,
+  "files": [
+    {
+      "path": "Cutscene.cpp",
+      "language": "cpp",
+      "sizeLines": 435,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Cutscene.h",
+      "language": "c",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "EnemySprites.h",
+      "language": "c",
+      "sizeLines": 469,
+      "fileCategory": "code"
+    },
+    {
+      "path": "HeroSprites.h",
+      "language": "c",
+      "sizeLines": 326,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Renderer.h",
+      "language": "c",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Sprites.cpp",
+      "language": "cpp",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Sprites.h",
+      "language": "c",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "Cutscene.cpp": [
+      "Config.h",
+      "Cutscene.h",
+      "Sprites.h"
+    ],
+    "Cutscene.h": [
+      "Renderer.h"
+    ],
+    "EnemySprites.h": [
+      "Renderer.h"
+    ],
+    "HeroSprites.h": [
+      "Renderer.h"
+    ],
+    "Renderer.h": [
+      "include/glad/gl.h"
+    ],
+    "Sprites.cpp": [
+      "EnemySprites.h",
+      "HeroSprites.h",
+      "Sprites.h"
+    ],
+    "Sprites.h": [
+      "Renderer.h"
+    ]
+  },
+  "neighborMap": {
+    "Cutscene.cpp": [
+      {
+        "path": "Config.h",
+        "batchIndex": 2,
+        "symbols": [
+          "laneBottom"
+        ]
+      }
+    ],
+    "Cutscene.h": [
+      {
+        "path": "Game.h",
+        "batchIndex": 2,
+        "symbols": [
+          "Unit",
+          "Projectile",
+          "Collectible",
+          "RewardPopup",
+          "Explosion",
+          "reset",
+          "update",
+          "render",
+          "onMouseMove",
+          "onMouseButton",
+          "onKey",
+          "state",
+          "wantsExit",
+          "setBackground",
+          "hoveredThumb",
+          "Game"
+        ]
+      }
+    ],
+    "Renderer.h": [
+      {
+        "path": "include/glad/gl.h",
+        "batchIndex": 1,
+        "symbols": [
+          "_cl_context",
+          "_cl_event",
+          "gladLoadGLUserPtr",
+          "gladLoadGL"
+        ]
+      },
+      {
+        "path": "Game.h",
+        "batchIndex": 2,
+        "symbols": [
+          "Unit",
+          "Projectile",
+          "Collectible",
+          "RewardPopup",
+          "Explosion",
+          "reset",
+          "update",
+          "render",
+          "onMouseMove",
+          "onMouseButton",
+          "onKey",
+          "state",
+          "wantsExit",
+          "setBackground",
+          "hoveredThumb",
+          "Game"
+        ]
+      },
+      {
+        "path": "Renderer.cpp",
+        "batchIndex": 2,
+        "symbols": [
+          "compileShader",
+          "Glyph",
+          "init",
+          "shutdown",
+          "addSprite",
+          "upload",
+          "beginFrame",
+          "draw",
+          "drawRect",
+          "drawSprite",
+          "drawText",
+          "drawTextStyled",
+          "textWidth"
+        ]
+      },
+      {
+        "path": "UI.h",
+        "batchIndex": 2,
+        "symbols": [
+          "cardRect",
+          "hitTest",
+          "draw",
+          "CardBar"
+        ]
+      },
+      {
+        "path": "main.cpp",
+        "batchIndex": 1,
+        "symbols": [
+          "main"
+        ]
+      }
+    ],
+    "Sprites.h": [
+      {
+        "path": "Characters.h",
+        "batchIndex": 2,
+        "symbols": [
+          "CharacterDef"
+        ]
+      },
+      {
+        "path": "main.cpp",
+        "batchIndex": 1,
+        "symbols": [
+          "main"
+        ]
+      }
+    ]
+  }
+}

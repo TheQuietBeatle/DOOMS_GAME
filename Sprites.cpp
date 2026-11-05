@@ -1,3 +1,6 @@
+// Sprites.cpp - Registers every sprite frame into the Renderer's vertex list.
+// Called once at startup (before Renderer::upload()) by main.cpp.
+// Pixel-art data lives in HeroSprites.h and EnemySprites.h.
 #include "Sprites.h"
 #include "HeroSprites.h"
 #include "EnemySprites.h"

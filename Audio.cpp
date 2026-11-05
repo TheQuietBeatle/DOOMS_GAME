@@ -1,3 +1,6 @@
+// Audio.cpp - miniaudio engine: streaming music, fire-and-forget SFX,
+// and single-at-a-time voice lines (Iron Man / Dr Doom quips).
+// MINIAUDIO_IMPLEMENTATION must be defined in exactly one translation unit.
 #define MINIAUDIO_IMPLEMENTATION     // ONLY here, nowhere else
 #include "miniaudio.h"
 #include "Audio.h"
@@ -6,10 +9,10 @@ static ma_engine engine;
 static ma_sound  music;
 static bool      ready = false;       // engine started
 static bool      musicReady = false;  // theme file loaded
-static ma_sound  voice;               // [George] current voice line
+static ma_sound  voice;               // current voice line (Iron Man or Doom quote)
 static bool      voiceReady = false;
 static float     masterVol = 1.0f;
-static float     musicVol = 0.3f;     // [George] theme starts at 30% (matches Game::musicVolPct = 30)
+static float     musicVol = 0.3f;     // theme starts at 30% (matches Game::musicVolPct = 30)
 
 static float clamp01(float v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
 
@@ -54,6 +57,17 @@ float Audio::getMusicVolume() { return musicVol; }
 
 void Audio::playSfx(const char* path) {
     if (ready) ma_engine_play_sound(&engine, path, NULL);
+}
+
+void Audio::switchMusic(const char* path) {
+    if (!ready) return;
+    if (musicReady) { ma_sound_stop(&music); ma_sound_uninit(&music); musicReady = false; }
+    if (ma_sound_init_from_file(&engine, path, MA_SOUND_FLAG_STREAM, NULL, NULL, &music) == MA_SUCCESS) {
+        musicReady = true;
+        ma_sound_set_looping(&music, MA_TRUE);
+        ma_sound_set_volume(&music, musicVol);
+        ma_sound_start(&music);
+    }
 }
 
 void Audio::playVoice(const char* path, bool force) {

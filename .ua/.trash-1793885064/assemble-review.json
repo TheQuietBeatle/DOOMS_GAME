@@ -1,0 +1,18 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 0,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "All 109 nodes have valid IDs — no recovery needed.",
+    "All node types are known: file (28), function (62), class (12), config (3), document (4).",
+    "All complexity values are valid: simple (51), moderate (30), complex (28).",
+    "No dangling edges found in the assembled graph (214 edges, all source/target IDs resolve).",
+    "All 61 import edges in the graph fully cover the import map — 0 missing cross-batch edges.",
+    "The merge script already added 12 import edges from the importMap; verified present.",
+    "Batch files contained no malformed nodes (no missing IDs, no unknown types, no bad complexity values).",
+    "Data quality is high: the LLM produced well-formed output across all 5 batches with no normalization failures requiring manual repair."
+  ]
+}

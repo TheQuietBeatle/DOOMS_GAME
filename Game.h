@@ -1,10 +1,13 @@
+// Game.h - Central game state: units, projectiles, collectibles, menus, waves.
+// Game owns the update/render/input loop; main.cpp calls update+render every frame.
+// State machine: MainMenu -> BgSelect -> Cutscene -> Playing -> Paused/Won/Lost.
 #pragma once
 #include "Renderer.h"
 #include "Characters.h"
 #include "Config.h"
 #include "UI.h"
-#include "Cutscene.h"   // [George] intro cutscene
-#include "Background.h" // [George] background chooser
+#include "Cutscene.h"   // intro cutscene (shot sequence before gameplay begins)
+#include "Background.h" // background chooser (shown between Main Menu and Cutscene)
 
 #include <random>
 #include <vector>
@@ -22,7 +25,7 @@ struct Unit {
     float duckTimer = 0.0f;
     bool  fighting = false;   // touching an opponent -> stops moving
     bool  reachedBase = false; // enemy only: walked into the home base (no coin drop)
-    bool  exited = false;      // [George] player only: reached the lane end (not a death)
+    bool  exited = false;      // player only: reached the lane end (not a death; no death sound)
 };
 
 struct Projectile {
@@ -52,7 +55,9 @@ struct RewardPopup {
     float age = 0.0f;
 };
 
-enum class GameState { MainMenu, Settings, BgSelect, Cutscene, Playing, Paused, Won, Lost };   // [George] + Settings, BgSelect, Cutscene
+// DMET502 spec requirement: distinct win/lose/pause/menu states.
+// Settings, BgSelect, and Cutscene were added beyond the base spec.
+enum class GameState { MainMenu, Settings, BgSelect, Cutscene, Playing, Paused, Won, Lost };
 
 struct Explosion {
     int   lane = 0;
@@ -78,7 +83,8 @@ public:
     GameState state() const { return st; }
     bool wantsExit() const { return exitRequested; }
 
-    // [George] background chooser (Main Menu -> PLAY -> choose background -> cutscene -> game)
+    // Background chooser flow: Main Menu -> PLAY -> BgSelect -> Cutscene -> Playing.
+    // main.cpp owns the Background object and passes a pointer here.
     void setBackground(Background* b) { bg = b; }
     int  hoveredThumb() const { return st == GameState::BgSelect ? hoveredMenuBtn : -1; }
 
@@ -86,7 +92,7 @@ private:
     void spawnEnemy(int def, int lane);
     void placePlayer(int def, int lane);
     void returnToMainMenu();
-    void chooseBackground(int i);   // [George] pick a background, then play the cutscene
+    void chooseBackground(int i);   // picks background i, starts the cutscene
 
     void updatePlayers(float dt);
     void updateEnemies(float dt);
@@ -99,7 +105,7 @@ private:
     bool  isUnlocked(int card) const;
     int   laneAt(float wx, float wy) const;
     void  drawUnit(Renderer& r, const Unit& u, bool enemy, float alpha = 1.0f) const;
-    void  drawMainMenu(Renderer& r) const;   // [George] Main Menu scene (drawing only)
+    void  drawMainMenu(Renderer& r) const;   // Main Menu scene (animated, drawing only)
 
     std::vector<Unit>        players;
     std::vector<Unit>        enemies;
@@ -117,16 +123,16 @@ private:
 
     int   baseHp = 0;
 
-    int   musicVolPct = 30;   // [George] 0-100 in steps of 10 (must match Audio's default 0.3)
+    int   musicVolPct = 30;   // 0-100 in steps of 10; must match Audio's default volume (0.3)
     bool  musicMuted = false;
 
     float     clock = 0.0f;
     GameState st = GameState::Playing;
     std::mt19937 rng;
     CardBar   cards;
-    Cutscene  cutscene;       // [George] intro cutscene
-    Background* bg = nullptr; // [George] owned by main.cpp
-    float     introFade = 0.0f; // [George] 1 = black, fades to 0 after the cutscene (lights come up)
+    Cutscene  cutscene;         // intro cutscene (drives Game.cpp update/render while Cutscene state)
+    Background* bg = nullptr;  // owned by main.cpp; null if no images loaded
+    float     introFade = 0.0f; // 1 = black overlay; fades to 0 after cutscene (lights-up effect)
     bool      exitRequested = false;
 
     void applyVolume();

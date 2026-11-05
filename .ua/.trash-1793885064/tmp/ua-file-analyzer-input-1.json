@@ -1,0 +1,21 @@
+{
+  "projectRoot": "C:/Users/DELL/Downloads/DMET502 - Lab 2 Template (Other)/Template",
+  "batchFiles": [
+    {"path": "Audio.cpp", "language": "cpp", "sizeLines": 70, "fileCategory": "code"},
+    {"path": "Audio.h", "language": "c", "sizeLines": 18, "fileCategory": "code"},
+    {"path": "Background.cpp", "language": "cpp", "sizeLines": 272, "fileCategory": "code"},
+    {"path": "Background.h", "language": "c", "sizeLines": 45, "fileCategory": "code"},
+    {"path": "WaveSystem.cpp", "language": "cpp", "sizeLines": 741, "fileCategory": "code"},
+    {"path": "include/glad/gl.h", "language": "c", "sizeLines": 3718, "fileCategory": "code"},
+    {"path": "main.cpp", "language": "cpp", "sizeLines": 149, "fileCategory": "code"}
+  ],
+  "batchImportData": {
+    "Audio.cpp": ["Audio.h"],
+    "Audio.h": [],
+    "Background.cpp": ["Background.h", "Config.h"],
+    "Background.h": ["include/glad/gl.h"],
+    "WaveSystem.cpp": ["WaveSystem.h", "Game.h"],
+    "include/glad/gl.h": [],
+    "main.cpp": ["Game.h", "Audio.h", "Background.h", "Cutscene.h", "Config.h", "include/glad/gl.h"]
+  }
+}
